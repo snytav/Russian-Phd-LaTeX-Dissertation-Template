@@ -62,6 +62,283 @@ v_{pre} = v_{PIC} k + (1-k) v_{B,E}
 	\end{center}
 \end{table}
 
+\section{Механизм реализации переносимой программы}
+\subsection{Актуальность создания методики}
+Технология переноса программ численного моделирования с GPU на Intel Xeon Phi
+будет показана на примере программы для моделирования динамики плазмы методом частиц в ячейках.
+
+Вначале необходимо ответить на вопрос, для чего нужна такая методика?
+
+Во-первых, необходимо иметь возможность использовать наиболее мощные гибридные суперЭВМ, а такие сейчас строятся (в том числе) на базе Intel Xeon Phi. Кроме того, в
+докладе А.О.Лациса “Что же делать с этим многообразием суперкомпьютерных миров?” на конференции “Научный сервис в сети Интернет-2014” \cite{Lacis2014} была предложена методика создания единого переносимого программного обеспечения для решения вычислительных задач, которое могло бы использоваться на многих суперкомпьтерных архитектурах. Эта методика основана на использовании библиотеки BLAS, которая так или иначе существует на всех машинах.
+
+Большое количество различных суперкомпьютерных архитектур приводит к необходимости разрабатывать отдельный вариант программы под каждую из них.
+В то же время наиболее распространенные в настоящее время суперкомпьютерные архитектуры строятся на основе одних и тех же принципов, т.е. кластеры с использованием ускорителей вычислений или просто кластеры.
+Это означает, что задача создания инструмента для облегченного (упрощенного), хотя и не автоматического перехода между двумя разными  суперкомпьютерными архитектурами
+представляется осуществимой.
+
+Вопросы портирования программ на Intel Xeon Phi, в частности, рассматриваются в \cite{Rosales2Phi}. Кроме того, в работе \cite{Nakashima2015} изучается проблема достижения максимальной заявленной производительности в 1 Teraflops с помощью ускорителя Intel Xeon Phi. Сравнение производительности ускорителей Intel Xeon Phi и графических ускорителей на различных задачах проведено в \cite{Lyakh201584,Liu2015230,Bernaschi20142495}.
+
+Новизна методики переноса, созданной в диссертации заключается в разработке полуавтоматического средства переноса программ,
+которое с одной стороны, было бы эффективным,
+с другой стороны, обеспечивало бы полный контроль над процессом переноса для прикладного программиста.
+
+\subsection{Постановка задачи}
+
+Необходимо решить вопрос о переносе между наиболее распространенными типами суперкомпьютерных архитектур
+\begin{enumerate}
+	\item Кластера на основе Nvidia Kepler 
+	\item Кластера на основе Intel Xeon Phi
+	\item Кластера на основе Intel Xeon или Sun UltraSPARC
+\end{enumerate}
+Рассматривается перенос программы с GPU на Intel Xeon Phi (не наоборот!!!) и не рассматривается на данный момент вопрос оптимизации под ту или иную архитектуру.
+
+Основные проблемы переноса с архитектуры CUDA\cite{CUDAweb,Boreskov,Sanders} на архитектуру MIC\cite{MorganPhi,FangPhi2014}
+\begin{enumerate}
+	\item Компиляция ядер CUDA 
+	и в особенности вызовов ядер CUDA без компилятора Nvidia
+	\item Пропуск операций копирования между различными видами памяти в CUDA
+	\item Определение типов данных и ключевых слов, входящих в расширение языка C, используемое в CUDA.
+\end{enumerate}
+
+
+\begin{itemize}
+	\item Архитектурно-зависимые участки кода 
+	\begin{itemize}
+		\item Сводятся к минимуму
+		\item Оформляются в виде процедур 
+		\item Выносятся во внешнюю подключаемую библиотеку
+	\end{itemize}
+	\item Таким образом в тексте программы присутствует некий обобщенный вызов процедуры, который приобретает конкретную форму при компиляции в зависимости
+	\begin{itemize}
+		\item От компилятора
+		\item От архитектуры
+	\end{itemize}
+\end{itemize}
+
+Сведение к минимуму архитектурно-зависимых участков кода выполняется следующим образом 
+В коде имеется 15-20 вызовов небольших вычислительных процедур, 
+выполняющих обработку:
+\begin{itemize}
+	\item узлов сетки
+	\item модельных частиц
+	\item границ расчетной области
+\end{itemize}
+Эти процедуры оформлены в виде ядер CUDA. Таким образом, эти процедуры не могут быть скомпилированы с помощью компилятора Intel и пр.
+Основной принцип предлагаемой методики переноса программ: \textbf{сделать такой участок кода по крайней мере единственным}.
+
+\subsection{Описание методики переноса программ}
+\subsubsection{Универсальная процедура запуска}
+
+В качестве реализации сформулированного выше принципа (вынести все непереносимые элементы кода в одну процедуру) предлагается универсальная процедура запуска, которая показана на рисунке \ref{universal-launcher}. На вход этой процедуре в качестве параметра подаются процедуры, которые запускаются из-под ядер CUDA. Далее в том случае, если этот код компилируется компилятором CUDA C/C++ и исполняется на машине с GPU, то процедурный параметр передается универсальному ядру (GPU\_Universal\_Kernel на рисунке) и запускается на GPU внутри ядра. Если же этот код компилируется компилятором Intel (например) и исполняется
+на ускорителе Intel Xeon Phi (в режиме native) или просто на многоядерном процессоре под OpenMP, то переданная в качестве параметра процедура будет просто вызываться в цикле. Цикл в данном случае имеет шестикратную степень вложенности (соответствующую шести размерностям сетки потоковых блоков, используемой в CUDA - три размерности сетки и три размерности потокового блока).
+\begin{figure}[h]
+	\begin{lstlisting}[language=c]
+	int Kernel_Launcher(
+	Cell<Particle>  **cells,KernelParams *params,
+	unsigned int grid_size_x,unsigned int grid_size_y,unsigned int grid_size_z,
+	unsigned int block_size_x,unsigned int block_size_y,unsigned int block_size_z,
+	int shmem_size,
+	SingleNodeFunctionType h_snf,char *name)
+	{
+	struct timeval tv1,tv2;
+	#ifdef __CUDACC__
+	dim3 blocks(grid_size_x,grid_size_y,grid_size_z),threads(block_size_x,block_size_y,block_size_z);
+	
+	gettimeofday(&tv1,NULL);
+	GPU_Universal_Kernel<<<blocks,threads,shmem_size>>>(cells,params,h_snf);
+	DeviceSynchronize();
+	gettimeofday(&tv2,NULL);
+	#else
+	char hostname[1000];
+	gethostname(hostname,1000);
+	
+	#ifdef OMP_OUTPUT
+	printf("function %s executed on %s \n",name,hostname);
+	#endif
+	
+	gettimeofday(&tv1,NULL);
+	
+	omp_set_num_threads(OMP_NUM_THREADS);
+	
+	#pragma omp parallel for
+	for(int i = 0;i < grid_size_x;i++)
+	{
+	//      ....              
+	h_snf(cells,params,i,j,k,i1,j1,k1);
+	// ....
+	
+	\end{lstlisting}
+	\caption{Универсальная процедура запуска}
+	\label{universal-launcher}
+\end{figure}
+
+\subsubsection{Унифицированная сигнатура расчетных процедур}
+Все расчетные процедуры, которые ранее запускались как ядра CUDA, должны быть оформлены в виде процедур с единой сигнатурой (одинаковый тип возвращаемого значения и одинаковый набор параметров), показанной на рисунке \ref{listing-signature}.
+
+Далее необходимо отработать расширения языка C, используемые в CUDA С/С++, как-то специальные типы данных
+(int3, double3, dim3, и пр.). Их можно либо доопределить, либо при возможности скопировать файл cuda.h. Специальные ключевые слова: \_\_global\_\_ ,         \_\_device\_\_, и др. можно 
+замаскировать с помощью директив условной компиляции.
+
+Остаются функции CUDA API: копирование из одного типа памяти в другой, обработка ошибок и пр. Эти функции должны вызываться не напрямую, как CUDA API, а через функции-обертки, вынесенные в отдельный заголовочный файл.
+
+\begin{figure}[h]
+	\begin{lstlisting}[language=c]
+	typedef void (*SingleNodeFunctionType)(GPUCell<Particle>  **cells,KernelParams *params,
+	unsigned int bk_nx,unsigned int bk_ny,unsigned int bk_nz,
+	unsigned int nx,unsigned int ny,unsigned int nz
+	);
+	
+	\end{lstlisting}
+	\caption{Тип универсальной счетной процедуры}
+	\label{listing-signature}
+\end{figure}
+
+Этот процесс будет показан на примере процедуры расчета электрического поля из класса GPU-пространство моделирования \ref{listing-GPU-plasma-class}. На листинге \ref{Original-function} показано первоначально имеющееся ядро CUDA, предназначенное для вычисления электрического поля в одном узле сетки. При этом реальные вычисления проводятся процедурой emeElement. Само ядро только лишь определяет узел сетки с помощью внутренних индексов CUDA, передает параметры (шаги сетки, временной шаг, магнитное поле, соответсвующую компоненту тока, как описано в разделе \ref{beam-plasma-methods}) и вызывает процедуру emeElement.
+
+\begin{figure}[h]
+	\begin{lstlisting}[language=c]
+	template <template <class Particle> class Cell >
+	__global__ void GPU_eme(
+	
+	Cell<Particle>  **cells,
+	int i_s,int l_s,int k_s,
+	double *E,double *H1, double *H2,
+	double *J,double c1,double c2, double tau,
+	int dx1,int dy1,int dz1,int dx2,int dy2,int dz2
+	)
+	{
+	unsigned int nx = blockIdx.x*blockDim.x + threadIdx.x;
+	unsigned int ny = blockIdx.y*blockDim.y + threadIdx.y;
+	unsigned int nz = blockIdx.z*blockDim.z + threadIdx.z;
+	Cell<Particle>  *c0 = cells[0];
+	
+	
+	
+	
+	emeElement(c0,i_s+nx,l_s+ny,k_s+nz,E,H1,H2,
+	J,c1,c2,tau,
+	dx1,dy1,dz1,dx2,dy2,dz2);
+	}
+	
+	\end{lstlisting}
+	\caption{Первоначально имеющееся ядро CUDA, предназначенное для вычисления электрического поля.}
+	\label{Original-function}
+\end{figure}
+
+
+\begin{figure}[h]
+	\begin{lstlisting}[language=c]
+	__host__ __device__                                                                                                    
+	void emeElement(Cell<Particle> *c,int i,int l,int k,double *E,double *H1, double *H2,                          
+	double *J,double c1,double c2, double tau,                                                     
+	int dx1,int dy1,int dz1,int dx2,int dy2,int dz2                                                
+	)                                                                                              
+	{                                                                                                              
+	int n  = c->getGlobalCellNumber(i,l,k);                                                                     
+	int n1 = c->getGlobalCellNumber(i+dx1,l+dy1,k+dz1);                                                          
+	int n2 = c->getGlobalCellNumber(i+dx2,l+dy2,k+dz2);                                                          
+	
+	E[n] += c1*(H1[n] - H1[n1]) - c2*(H2[n] - H2[n2]) - tau*J[n];                                                
+	}   
+	\end{lstlisting}
+	\caption{Процедура, реально выполняющая вычисление электрического поля в узле сетки, реализует формулу \ref{FDTD},2 из раздела \ref{beam-plasma-methods}}
+	\label{listing-real-computer}
+\end{figure}
+
+\begin{figure}[h]
+	\begin{lstlisting}[language=c++]
+	template <template <class Particle> class Cell >
+	__device__ void GPU_eme_SingleNode(
+	
+	Cell<Particle>  **cells,
+	KernelParams *params,
+	unsigned int bk_nx,unsigned int bk_ny,unsigned int bk_nz,
+	unsigned int tnx,unsigned int tny,unsigned int tnz
+	)
+	{
+	unsigned int nx = bk_nx*params->blockDim_x + tnx;
+	unsigned int ny = bk_ny*params->blockDim_y + tny;
+	unsigned int nz = bk_nz*params->blockDim_z + tnz;
+	Cell<Particle>  *c0 = cells[0];
+	
+	emeElement(c0,params->i_s+nx,params->l_s+ny,params->k_s+nz,params->E,params->H1,params->H2,
+	params->J,params->c1,params->c2,params->tau,
+	params->dx1,params->dy1,params->dz1,
+	params->dx2,params->dy2,params->dz2);
+	}\end{lstlisting}
+	\caption{Ядро CUDA, предназначенное для вычисления электрического поля, адаптированное под универсальный формат вызова}
+	\label{listing-computer-universal-format} 
+\end{figure}
+
+\subsubsection{Механизм передачи параметров расчетных процедур}
+
+
+Из рисунка \ref{listing-real-computer} видно, что процедура emeElement имеет некий набор параметров, более того, ясно, что у всех расчетных процедур набор параметров будет различным. Для
+того, чтобы привести все такие процедуры к единому формату, так чтобы можно было передавать эти процедуры через параметр типа SingleNodeFunctionType (рисунок \ref{listing-signature}), была введена структура KernelParams, включающая в себя все возможные наборы параметров для всех расчетных процедур \ref{parameter-struct}. Задача упрощается за счет того, что наборы параметров различных процедур имеют много общего. 
+
+Образец приведения расчетной процедуры к универсальному формату показан на рисунке \ref{listing-computer-universal-format}. Здесь наиболее важное отличие от \ref{Original-function} состоит в том что, что координаты обрабатываемого узла \textit{nx,ny,nz} вычисляются на основе параметров процедуры, а не на основе внутренних переменных CUDA (\textit{blockId,blockDim.x,threadIdx}).
+
+Таким образом, перед каждым запуском расчетной процедуры (того, что прежде было запуском ядра CUDA), заполняются те поля структуры \textit{KernelParams}, которые нужны именно для данной процедуры.
+Далее вызывается процедура \textit{Kernel\_Launcher}, рисунок \ref{universal-launcher}, которой передаются массив всех ячеек сетки \textit{cells}, указатель на структуру, содержащую набор параметров \textit{params}, размерности сетки и блока  и вызываемая расчетная процедура \textit{h\_snf}.
+
+\begin{ListingEnv}[!h]
+\captiondelim{ } % разделитель идентификатора с номером от наименования
+\caption{Структура, включающая в себя все возможные наборы параметров для всех расчетных процедур}
+% далее метка для ссылки:
+\label{parameter-struct}	
+ \begin{lstlisting}[language={[ISO]C++}]
+	typedef struct {
+	double d_ee; //electric energy
+	double *d_Ex,*d_Ey,*d_Ez; // electric field
+	double *d_Hx,*d_Hy,*d_Hz; // magnetic field
+	double *d_Jx,*d_Jy,*d_Jz; // currents
+	double *d_Rho;
+	int nt;                                 // timestep
+	int *d_stage;                           // checking system (e.g. for flow-out particles)
+	int *numbers;                            // number of particles in each cell
+	double mass,q_mass;
+	double *d_ctrlParticles;
+	int jmp;
+	//	                                        for periodical FIELDS
+	int i_s,k_s;                        //
+	double *E;                              //the field
+	int dir;                                // the direction being processed
+	int to,from;                            // the range along the direction
+	
+	//	                                        for periodical CURRENTS
+	int dirE;                           // directions
+	int N;                           // variables
+	
+	//                                          electric field solver
+	int l_s;                        // variables
+	double *H1,*H2;                          // magnetic fields (orthogonal)
+	double *J;                              // current
+	double c1,c2,tau;                       //grid steps squared
+	int dx1,dy1,dz1,dx2,dy2,dz2;            //shifts
+	
+	//	                                        magnetic field solver
+	double *Q;                              // magnetic field at half-step
+	double *H;                              // magnetic field
+	double *E1,*E2;                         // electric fields (orthogonal)
+	int particles_processed_by_a_single_thread;
+	unsigned int blockDim_x,blockDim_y,blockDim_z; // block for field solver
+	} KernelParams;
+	 \end{lstlisting}
+	\end{ListingEnv}
+%	\caption{Структура, включающая в себя все возможные наборы параметров для всех расчетных процедур}
+%	\label{parameter-struct}
+%\end{figure}
+\clearpage
+
+%В заключение необходимо ответить на вопрос, насколько серьезно отличается архитектура CUDA от  MIC и, соответственно, насколько отличаются стратегии оптимизации? 
+%Основным вопросом в обоих случаях является локальность данных. 
+%Векторизация циклов для MIC во всяком случае, не ухудшит производительность CUDA.
+%Далее, какие элементы технологии переноса могут ухудшить производительность?
+%Имитация вызова ядер CUDA c помощью директив OpenMP для MIC требует дополнительных индивидуальных настроек для достижения высокой производительности.
+
+
+
 \section{Анализ производительности узлов с многоядерными процессорами и ускорителями вычислений} 
 В этом представлены результаты анализа производительности узлов с многоядерными процессорами разных типов и ускорителями вычислений, построенными по технологии, совместимой с x86 (Intel Xeon Phi различных поколений)
 
