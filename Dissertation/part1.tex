@@ -9,23 +9,23 @@
 в абстрактной операторной форме:
 \begin{equation}
 \label{Abs1}
-\frac{\partial {\bf q}}{\partial t} + A{\bf q} = 0.
+\frac{\partial \textbf{q}}{\partial t} + A\textbf{q} = 0.
 \end{equation}
 
 Решение задачи (\ref{Abs1}) представляется в виде следующей интерполяционной 
 формулы:
 \begin{equation}
 \label{AbsInt}
-\bf{q} = \sum\limits^{N}_{j=1}\bf{Q}_j R(\bf{u},\bf{u}_j(t)).
+\textbf{q} = \sum\limits^{N}_{j=1}\textbf{Q}_j R(\textbf{u},\textbf{u}_j(t)).
 \end{equation}
 Этот переход называют разбиением среды на модельные частицы. Функция 
-$R(\bf{u},\vec{v})$ называется ядром модельной частицы. Представление
+$R(\textbf{u},\textbf{v})$ называется ядром модельной частицы. Представление
 (\ref{AbsInt}) позволяет свести решение задачи 
 (\ref{Abs1}) к интегрированию динамической системы частиц.
 
 
 \quad Система уравнений движения модельных частиц получается
-\cite{Grig} из уравнения Власова подстановкой функции
+\cite{VshivkovPICbook} из уравнения Власова подстановкой функции
 распределения в виде
 \begin{equation}\label{fr}
 f(t,x,u)=\sum_{j=1}^m R(x-x_j(t))\delta(u-u_j(t))
@@ -55,24 +55,24 @@ j=1,\ldots, m
 следующий вид:
 
 \begin{equation}\label{eq:Vlas}
-\frac{\partial f_{i,e}}{\partial t}+{\vec{v}} \frac{\partial f_{i,e}}{\partial \vec{r}}+q_{i,e}({\vec{E}}+[{\vec{v}},{\vec{B}}])\frac{\partial f_{i,e}}{\partial \vec{v}}=0, 
+\frac{\partial f_{i,e}}{\partial t}+{\textbf{v}} \frac{\partial f_{i,e}}{\partial \textbf{r}}+q_{i,e}({\textbf{E}}+[{\textbf{v}},{\textbf{B}}])\frac{\partial f_{i,e}}{\partial \textbf{v}}=0, 
 \end{equation}
 
 \begin{eqnarray}
-& \frac{\partial \vec{E}}{\partial t}=rot \vec{B} - \vec{j}, & \label{eq:dE}
+& \frac{\partial \textbf{E}}{\partial t}=rot \textbf{B} - \textbf{j}, & \label{eq:dE}
 \\
-& \frac{\partial \vec{B}}{\partial t}=-rot \vec{E}, & \label{eq:dB}
+& \frac{\partial \textbf{B}}{\partial t}=-rot \textbf{E}, & \label{eq:dB}
 \\
-& div \vec{E} = \rho, & \label{eq:divE}
+& div \textbf{E} = \rho, & \label{eq:divE}
 \\
-& div \vec{B} = 0. & \label{eq:divB}
+& div \textbf{B} = 0. & \label{eq:divB}
 \end{eqnarray}
 
 Здесь индексами $i$ и $e$ помечены величины, относящиеся к ионам и
-электронам, со\-от\-ветст\-вен\-но; $q_e=-1, \quad q_i=m_e/m_i$; $f_{i,e}(t,\vec{r},\vec{p})$ --
-функция распределения частиц; $m_{i,e}, \vec{p}_{i,e},
-\vec{r}_{i,e}$ -- масса, импульс, положение иона или электрона;
-$\vec{E}$, $\vec{B}$ -- напряженности электрического и магнитного
+электронам, со\-от\-ветст\-вен\-но; $q_e=-1, \quad q_i=m_e/m_i$; $f_{i,e}(t,\textbf{r},\textbf{p})$ --
+функция распределения частиц; $m_{i,e}, \textbf{p}_{i,e},
+\textbf{r}_{i,e}$ -- масса, импульс, положение иона или электрона;
+$\textbf{E}$, $\textbf{B}$ -- напряженности электрического и магнитного
 полей. Для перехода к безразмерному виду в качестве единиц
 используются следующие базовые величины:(скорость света $c$, масса электрона,
 \begin{itemize}
@@ -113,40 +113,40 @@ $$
 частиц-в-ячейках \cite{VshivkovPICbook}. Плазма представляется набором модельных частиц, траекториями движения которых являются характеристики урав\-не\-ния Власова
 
 \begin{eqnarray}\label{eq:char}
-\frac{d \vec{p} _{i,e}}{d t}=q_{i,e}(\vec{E}+[\vec{v},\vec{B}]),
+\frac{d \textbf{p} _{i,e}}{d t}=q_{i,e}(\textbf{E}+[\textbf{v},\textbf{B}]),
 \\
-\frac{d \vec{r} _{i,e}}{d t}=\vec{v}_{i,e}, \quad \vec{p}_{i,e}=\frac{\vec{v}_{i,e}}{\sqrt{1-\vec{v}_{i,e}^2}}.\nonumber
+\frac{d \textbf{r} _{i,e}}{d t}=\textbf{v}_{i,e}, \quad \textbf{p}_{i,e}=\frac{\textbf{v}_{i,e}}{\sqrt{1-\textbf{v}_{i,e}^2}}.\nonumber
 \end{eqnarray}
 Для решения системы уравнений (\ref{eq:char}) используется схема с перешагиванием 
 $$
-\frac{\vec{p}^{m+1/2}_\alpha-\vec{p}^{m-1/2}_\alpha}{\tau}=q_{i,e}\left({\vec{E}}^m+\left[\frac{{\vec{v}}^{m+1/2}_\alpha+{\vec{v}}^{m-1/2}_\alpha}{2},{\vec{B}}^m \right] \right),
+\frac{\textbf{p}^{m+1/2}_\alpha-\textbf{p}^{m-1/2}_\alpha}{\tau}=q_{i,e}\left({\textbf{E}}^m+\left[\frac{{\textbf{v}}^{m+1/2}_\alpha+{\textbf{v}}^{m-1/2}_\alpha}{2},{\textbf{B}}^m \right] \right),
 $$
 $$
-\frac{{\vec{r}}_\alpha^{m+1}-{\vec{r}}_\alpha^{m}}{\tau}={\vec{v}}^{m+1/2}_\alpha.
+\frac{{\textbf{r}}_\alpha^{m+1}-{\textbf{r}}_\alpha^{m}}{\tau}={\textbf{v}}^{m+1/2}_\alpha.
 $$
 Здесь $\alpha$ - номер частицы.
 
-Плотность заряда вычисляется по положениям частиц ${\vec{r}}_\alpha=(x_\alpha,y_\alpha,z_\alpha)$ с использованием PIC-ядра.
+Плотность заряда вычисляется по положениям частиц ${\textbf{r}}_\alpha=(x_\alpha,y_\alpha,z_\alpha)$ с использованием PIC-ядра.
 Для решения системы уравнений Максвелла используется схема Лэнгдона-Лазински \cite{lasin}, также называемая метод FDTD, или метод Yee\cite{Yee}. В этом методе поля определяются из разностных аналогов законов Фарадея и Ампера. В данной диссертационной работе была выполнена параллельная реализация схемы Лэнгдона-Лазински в нескольких различных вариантах  на основе программы, созданной В.А.Вшивковым \cite{laser}.
 
 \begin{equation}
 \label{FDTD}
 \begin{array}{c}
-\frac{{\vec{B}}^{m+1/2}-{\vec{B}}^{m-1/2}}{\tau}=-rot_h {\vec{E}}^m,
+\frac{{\textbf{B}}^{m+1/2}-{\textbf{B}}^{m-1/2}}{\tau}=-rot_h {\textbf{E}}^m,
 \\
-\frac{{\vec{E}}^{m+1}-{\vec{E}}^m}{\tau}=rot_h {\vec{B}}^{m+1/2} - {\vec{j}}^{m+1/2}.
+\frac{{\textbf{E}}^{m+1}-{\textbf{E}}^m}{\tau}=rot_h {\textbf{B}}^{m+1/2} - {\textbf{j}}^{m+1/2}.
 \end{array}
 \end{equation}
 
 
 
-Эта схема имеет порядок аппроксимации $O(\tau^2+h^2)$. Если в начальный момент времени $div_h{\vec{B}}^0=0$, а токи вычисляются таким образом, что выполнено уравнение неразрывности 
+Эта схема имеет порядок аппроксимации $O(\tau^2+h^2)$. Если в начальный момент времени $div_h{\textbf{B}}^0=0$, а токи вычисляются таким образом, что выполнено уравнение неразрывности 
 
 \begin{equation}
-\frac{\rho^{m+1}-\rho^m}{\tau}+div_h {\vec{j}}^{m+1/2}=0,
+\frac{\rho^{m+1}-\rho^m}{\tau}+div_h {\textbf{j}}^{m+1/2}=0,
 \end{equation}
 то разностные аналоги уравнений (\ref{eq:divE}) и (\ref{eq:divB}) выполняются автоматически.
-Для того, чтобы удовлетворить этим условиям, токи вычисляются по схеме, приведенной в работах \cite{VshivkovPICbook, laser}, ${\vec{B}}^0=0$. 
+Для того, чтобы удовлетворить этим условиям, токи вычисляются по схеме, приведенной в работах \cite{VshivkovPICbook, laser}, ${\textbf{B}}^0=0$. 
 
 \section{ Параллельная реализация} 
 
