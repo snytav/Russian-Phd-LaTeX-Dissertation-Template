@@ -102,51 +102,122 @@ $$
 
 
 
-В зависимости от разброса электронов пучка по скоростям различают несколько режимов неустойчивости, как показано в таблице \ref{tab_regimes}. Здесь $\gamma$ --  инкремент развивающейся неустойчивости, $\Delta v $ -- разброс электронов пучка по скоростям. Требуется найти распределение ионов и электронов по энергиям и инкременты плазменной неустойчивости для физических параметров, соответствующих этим трем режимам.
+%В зависимости от разброса электронов пучка по скоростям различают несколько режимов неустойчивости, как показано в таблице \ref{tab_regimes}. Здесь $\gamma$ --  инкремент развивающейся неустойчивости, $\Delta v $ -- разброс электронов пучка по скоростям. Требуется найти распределение ионов и электронов по энергиям и инкременты плазменной неустойчивости для физических параметров, соответствующих этим трем режимам.
 
 
 
-\section{Численные методы}
-
+\section{Решение уравнений Максвелла и Власова}
 
 Решение уравнения Власова проводится методом
-частиц-в-ячейках \cite{VshivkovPICbook}. Плазма представляется набором модельных частиц, траекториями движения которых являются характеристики урав\-не\-ния Власова
+частиц-в-ячейках \cite{hockney, birdsall2004plasma}. Плазма представляется набором модельных частиц, траекториями движения которых являются характеристики урав\-не\-ния Власова
 
-\begin{eqnarray}\label{eq:char}
-\frac{d \textbf{p} _{i,e}}{d t}=q_{i,e}(\textbf{E}+[\textbf{v},\textbf{B}]),
-\\
-\frac{d \textbf{r} _{i,e}}{d t}=\textbf{v}_{i,e}, \quad \textbf{p}_{i,e}=\frac{\textbf{v}_{i,e}}{\sqrt{1-\textbf{v}_{i,e}^2}}.\nonumber
-\end{eqnarray}
-Для решения системы уравнений (\ref{eq:char}) используется схема с перешагиванием 
-$$
-\frac{\textbf{p}^{m+1/2}_\alpha-\textbf{p}^{m-1/2}_\alpha}{\tau}=q_{i,e}\left({\textbf{E}}^m+\left[\frac{{\textbf{v}}^{m+1/2}_\alpha+{\textbf{v}}^{m-1/2}_\alpha}{2},{\textbf{B}}^m \right] \right),
-$$
-$$
-\frac{{\textbf{r}}_\alpha^{m+1}-{\textbf{r}}_\alpha^{m}}{\tau}={\textbf{v}}^{m+1/2}_\alpha.
-$$
-Здесь $\alpha$ - номер частицы.
-
-Плотность заряда вычисляется по положениям частиц ${\textbf{r}}_\alpha=(x_\alpha,y_\alpha,z_\alpha)$ с использованием PIC-ядра.
-Для решения системы уравнений Максвелла используется схема Лэнгдона-Лазински \cite{lasin}, также называемая метод FDTD, или метод Yee\cite{Yee}. В этом методе поля определяются из разностных аналогов законов Фарадея и Ампера. В данной диссертационной работе была выполнена параллельная реализация схемы Лэнгдона-Лазински в нескольких различных вариантах  на основе программы, созданной В.А.Вшивковым \cite{laser}.
-
-\begin{equation}
-\label{FDTD}
+\begin{equation}\label{eq:char}
 \begin{array}{c}
-\frac{{\textbf{B}}^{m+1/2}-{\textbf{B}}^{m-1/2}}{\tau}=-rot_h {\textbf{E}}^m,
-\\
-\frac{{\textbf{E}}^{m+1}-{\textbf{E}}^m}{\tau}=rot_h {\textbf{B}}^{m+1/2} - {\textbf{j}}^{m+1/2}.
+\frac{d {\textbf{p}} _{e}}{d t}=-(\textbf{E}+[\textbf{v},\textbf{B}]), \\
+\frac{d {\textbf{p}} _{i}}{d t}=k(\textbf{E}+[\textbf{v},\textbf{B}]), \\
+\frac{d {\textbf{r}} _{i}}{d t}={\textbf{v}}_{i}.
 \end{array}
 \end{equation}
 
 
+Для решения системы уравнений (\ref{eq:char}) используется схема
+$$
+\frac{{\textbf{p}}^{m+1/2}_{i}-{\textbf{p}}^{m-1/2}_{i}}{\tau}=q_{i}\left({\textbf{E}}^m+\left[\frac{{\textbf{v}}^{m+1/2}_{i}+{\textbf{v}}^{m-1/2}_{i}}{2},{\textbf{B}}^m \right] \right),
+$$
+$$
+\frac{{\textbf{r}}_{i}^{m+1}-{\textbf{r}}_{i}^{m}}{\tau}={\textbf{v}}^{m+1/2}_{i}.
+$$
 
-Эта схема имеет порядок аппроксимации $O(\tau^2+h^2)$. Если в начальный момент времени $div_h{\textbf{B}}^0=0$, а токи вычисляются таким образом, что выполнено уравнение неразрывности 
+
+Плотность заряда вычисляется по положениям частиц ${\textbf{r}}_\alpha=(x_\alpha,y_\alpha,z_\alpha)$ с использованием PIC-ядра 
+$$
+\rho({\textbf{r}}, t)=\sum_{j=1}^J q_{j} R({\textbf{r}}, {\textbf{r}}_{j}(t)),
+$$
 
 \begin{equation}
-\frac{\rho^{m+1}-\rho^m}{\tau}+div_h {\textbf{j}}^{m+1/2}=0,
+R(x)=\left\{
+\begin{array}{ll}
+\displaystyle \frac{1}{h}\left(1-\frac{|x|}{h}\right), & |x|\leq h, \\ 0, & |x|>h.
+\end{array} \right.
+\end{equation}
+
+Для решения системы уравнений Максвелла используется метод Лэнгдона-Лазинского, описанный в работе \cite{lasin}, в котором поля определяются из разностных аналогов законов Фарадея и Ампера:
+
+\begin{eqnarray}%\label{eq:BE}
+\frac{{\textbf{B}}^{m+1/2}-{\textbf{B}}^{m-1/2}}{\tau}=-\rot_h {\textbf{E}}^m,
+\\
+\frac{{\textbf{E}}^{m+1}-{\textbf{E}}^m}{\tau}=\rot_h {\textbf{B}}^{m+1/2}} - {\textbf{j}}^{m+1/2}.\nonumber
+\end{eqnarray}
+Значения компонент напряженностей электрического и магнитного полей вычисляются в узлах сеток, смещенных относительно друг друга по времени и пространству:
+\begin{eqnarray}\label{eq:BE}
+
+& & {\textbf{B}}^{m+1/2}=(B^1_{i+1/2,j,l}, B^2_{i,j+1/2,l}, B^3_{i,j,l+1/2})^{m+1/2},\nonumber
+\\
+& & {\textbf{E}}^{m}=(E^1_{i,j+1/2,l+1/2}, E^2_{i+1/2,j,l+1/2}, E^3_{i+1/2,j+1/2,l})^m,\nonumber
+\\
+& & {\textbf{j}}^{m+1/2}=(j^1_{i,j+1/2,l+1/2},j^2_{i+1/2,j,l+1/2},j^3_{i+1/2,j+1/2,l})^{m+1},\nonumber
+\\
+& & \rho^m=\rho^m_{i+1/2,j+1/2,l+1/2}. \nonumber
+\end{eqnarray}
+
+Разностные операторы $\rot_h$ и $\diver_h$ на такой сетке имеют следующий вид (в индексах опустим $1/2$)
+\begin{eqnarray}\label{eq:rotdiv}
+\rot_h { \textbf{H}} =  \BIGG( \frac{H^3_{i,j,l}-H^3_{i,j-1,l}}{h_y}-\frac{H^2_{i,j,l}-H^2_{i,j,l-1}}{h_z}, &  & \nonumber
+\\
+\frac{H^1_{i,j,l}-H^1_{i,j,l-1}}{h_z}-\frac{H^3_{i,j,l}-H^3_{i-1,j,l}}{h_x},  &  & \nonumber
+\\
+\frac{H^2_{i,j,l}-H^2_{i-1,j,l}}{h_x}-\frac{H^1_{i,j,l}-H^1_{i,j-1,l}}{h_y} \BIGG), &  & \nonumber
+\\
+\diver_h { \textbf{H}} =  \frac{H^1_{i+1,j,l}-H^1_{i,j-1,l}}{h_x}+\frac{H^2_{i,j+1,l}-H^2_{i,j,l}}{h_y}+\frac{H^3_{i,j,l+1}-H^3_{i,j,l}}{h_z}. &  & \nonumber
+\end{eqnarray}
+
+Эта схема имеет порядок аппроксимации $O(\tau^2+h^2)$. Если в начальный момент времени $\diver_h{\textbf{B}}^0=0$, а токи вычисляются таким образом, что выполнено уравнение неразрывности 
+
+\begin{equation}
+\frac{\rho^{m+1}-\rho^m}{\tau}+\diver_h {\textbf{j}}^{m+1/2}=0,
 \end{equation}
 то разностные аналоги уравнений (\ref{eq:divE}) и (\ref{eq:divB}) выполняются автоматически.
 Для того, чтобы удовлетворить этим условиям, токи вычисляются по схеме, приведенной в работах \cite{VshivkovPICbook, laser}, ${\textbf{B}}^0=0$. 
+
+Компоненты плотности тока \textbf{j}
+\begin{eqnarray} \nonumber
+\begin{center}
+j_{x,i,l-1/2,k-1/2}^{m+1/2}=q\frac{\Delta x}{\tau}\left[(1-\delta_{y})(1-\delta_{z})+\dfrac{\Delta y \Delta z}{12 h_{y}h_{z}}
+\right], \\
+j_{x,i,l-1/2,k+1/2}^{m+1/2}=q\frac{\Delta x}{\tau}\left[(1-\delta_{y})\delta_{z}-\dfrac{\Delta y \Delta z}{12 h_{y}h_{z}}
+\right], \\
+j_{x,i,l+1/2,k-1/2}^{m+1/2}=q\frac{\Delta x}{\tau}\left[\delta_{y}(1-\delta_{z})-\dfrac{\Delta y \Delta z}{12 h_{y}h_{z}}
+\right], \\
+j_{x,i,l+1/2,k+1/2}^{m+1/2}=q\frac{\Delta x}{\tau}\left[\delta_{y}\delta_{z}+\dfrac{\Delta y \Delta z}{12 h_{y}h_{z}}
+\right], \\
+j_{y,i-1/2,l,k-1/2}^{m+1/2}=q\frac{\Delta y}{\tau}\left[(1-\delta_{x})(1-\delta_{z})+\dfrac{\Delta x \Delta z}{12 h_{x}h_{z}}
+\right], \\
+j_{y,i-1/2,l,k+1/2}^{m+1/2}=q\frac{\Delta y}{\tau}\left[(1-\delta_{x})\delta_{z}-\dfrac{\Delta x \Delta z}{12 h_{x}h_{z}}
+\right], \\
+j_{y,i+1/2,l,k-1/2}^{m+1/2}=q\frac{\Delta y}{\tau}\left[\delta_{x}(1-\delta_{z})-\dfrac{\Delta x \Delta z}{12 h_{x}h_{z}}
+\right], \\
+j_{y,i+1/2,l,k+1/2}^{m+1/2}=q\frac{\Delta y}{\tau}\left[\delta_{x}\delta_{z}+\dfrac{\Delta x \Delta z}{12 h_{x}h_{z}}
+\right] \\
+j_{z,i-1/2,l-1/2,k}^{m+1/2}=q\frac{\Delta z}{\tau}\left[(1-\delta_{x})(1-\delta_{y})+\dfrac{\Delta x \Delta y}{12 h_{x}h_{y}}
+\right], \\
+j_{z,i-1/2,l+1/2,k}^{m+1/2}=q\frac{\Delta z}{\tau}\left[(1-\delta_{x})\delta_{y}-\dfrac{\Delta x \Delta y}{12 h_{x}h_{y}}
+\right], \\
+j_{z,i+1/2,l-1/2,k}^{m+1/2}=q\frac{\Delta z}{\tau}\left[\delta_{x}(1-\delta_{y})-\dfrac{\Delta x \Delta y}{12 h_{x}h_{y}}
+\right], \\
+j_{z,i+1/2,l+1/2,k}^{m+1/2}=q\frac{\Delta z}{\tau}\left[\delta_{x}\delta_{y}+\dfrac{\Delta x \Delta y}{12 h_{x}h_{y}}
+\right], \\
+\end{center}
+\end{eqnarray}
+где $\Delta x=х_{кон}-х_{нач};$ $\Delta y=y_{кон}-y_{нач};$ $\Delta z=z_{кон}-z_{нач};$ -- приращение координат; 
+\begin{eqnarray}
+\begin{center}
+\delta_{x}=\dfrac{1}{h_{x}}\left(\dfrac{х_{нач}+х_{кон}}{2}-x_{i}\right); \\
+\delta_{y}=\dfrac{1}{h_{y}}\left(\dfrac{y_{нач}+y_{кон}}{2}-y_{l}\right);\\
+\delta_{z}=\dfrac{1}{h_{z}}\left(\dfrac{z_{нач}+z_{кон}}{2}-z_{k}\right).
+\end{center}
+\end{eqnarray}
+
+
 
 \section{ Параллельная реализация} 
 
