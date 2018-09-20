@@ -1,0 +1,46 @@
+\documentclass{book}
+\usepackage{amsmath}
+
+\usepackage{graphicx}
+\usepackage{listings}
+
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+
+\begin{document}
+	\begin{equation}
+	\label{weak_eff}
+	\eta^{weak}_N = \frac{T^1(1)}{T^N(N)}
+	\end{equation}
+	здесь $T^K(N)$ обозначает время счета задачи с характерной размерностью $K$ при использовании $N$ процессоров.
+	это время состоит из двух основных частей:
+	\begin{itemize}
+		\item собственно времени счета $T^K_{P}(N)$;
+		\item времени коммуникаций $T^K_C(N)$;
+	\end{itemize}
+	Таким образом,
+	\begin{equation}
+	\label{weak_eff_detailed}
+	\eta^{weak}_N = \frac{T^1(1)}{T^N_{P}(N)+T^N_C(N)}
+	\end{equation}
+	при выполнении вычислений одновременно на однотипных процессорах
+	можно считать, что $T^1(1) = T^N_C(N)$, таким образом формула
+	\ref{weak_eff_detailed} приводится к виду:
+	\begin{equation}
+	\label{weak_eff_detailed-time}
+	\eta^{weak}_N = \frac{1}{1+ \frac{T^N_{C}(N)}{T^1(1)}}.
+	\end{equation}
+	Это означает, что при известном времени расчета задачи на одном процессоре можно восстановить время коммуникаций по эффективности в слабом смысле:
+	\begin{equation}
+	\label{comm_time_from_efficiency}
+	T^N_{C}(N) = T^1(1) \left(\frac{1}{\eta^{weak}_N} - 1\right)
+	\end{equation}
+	далее время коммуникаций может быть источником для вычисления производительности коммуникационной сети при известном объеме пересылок.
+	
+	Что касается масштабируемости как интегральной характеристики ВС,то хорошая масштабируемость на коллективных, очевидно нелинейных коммуникациях является важным показателем связности (сохранения произв. сети при увеличении ее размера) ВС и пригодности ее к решению одной большой задачи (\textbf{придумать здесь градуировку}).
+	
+	
+\end{document}
