@@ -1,0 +1,8 @@
+f = 
+
+     General model Gauss1:
+     f(x) =  a1*exp(-((x-b1)/c1)^2)
+     Coefficients (with 95% confidence bounds):
+       a1 =   0.0006393  (-0.001897, 0.003176)
+       b1 =         100  (-1.498e+04, 1.518e+04)
+       c1 =       126.1  (-1.886e+04, 1.911e+04)
