@@ -1,0 +1,60 @@
+@Article{Warne201495,
+  Title                    = {Comparison of High Level \{FPGA\} Hardware Design for Solving Tri-diagonal Linear Systems },
+  Author                   = {David J. Warne and Neil A. Kelson and Ross F. Hayward},
+  Journal                  = {Procedia Computer Science },
+  Year                     = {2014},
+  Note                     = {2014 International Conference on Computational Science },
+  Pages                    = {95 -- 101},
+  Volume                   = {29},
+}
+
+@Article{Rajovic2014,
+  Title                    = {Tibidabo1: Making the case for an ARM-based HPC system },
+  Author                   = {Rajovic, Nikola and Alejandro Rico and Nikola Puzovic and Chris Adeniyi-Jones and Alex Ramirez},
+  Journal                  = {Future Generation Computer Systems },
+  Year                     = {2014},
+  Note                     = {Special Section: Intelligent Big Data ProcessingSpecial Section: Behavior Data Security Issues in Network Information PropagationSpecial Section: Energy-efficiency in Large Distributed Computing ArchitecturesSpecial Section: eScience Infrastructure and Applications },
+  Pages                    = {322 - 334},
+  Volume                   = {36},
+}
+
+@Article{Atanassov20152719,
+  Title                    = {Energy aware performance study for a class of computationally intensive Monte Carlo algorithms },
+  Author                   = {Atanassov, E. and T. Gurov and A. Karaivanova},
+  Journal                  = {Computers \& Mathematics with Applications },
+  Year                     = {2015},
+  Note                     = {Numerical Methods for Scientific Computations and Advanced Applications },
+  Number                   = {11},
+  Pages                    = {2719 -- 2725},
+  Volume                   = {70},
+}
+
+@InCollection{Goel20127,
+  Title                    = {Chapter two - Techniques to Measure, Model, and Manage Power },
+  Author                   = { Goel, Bhavishya and McKee, Sally A.  and  Själander, Magnus},
+  Publisher                = {Elsevier},
+  Year                     = {2012},
+  Editor                   = {Ali Hurson and Atif Memon},
+  Pages                    = {7 -- 54},
+  Series                   = {Advances in Computers },
+  Volume                   = {87},
+}
+
+@Article{Trefethen2013,
+  Title                    = {Energy-aware software: Challenges, opportunities and strategies },
+  Author                   = { Trefethen, Anne E. and  Thiyagalingam, Jeyarajan},
+  Journal                  = {Journal of Computational Science },
+  Year                     = {2013},
+  Note                     = {Scalable Algorithms for Large-Scale Systems Workshop (ScalA2011), Supercomputing 2011 },
+  Number                   = {6},
+  Pages                    = {444 -- 449},
+  Volume                   = {4},
+}
+
+@Article{Emad2016,
+  Title                    = {Unite and Conquer Approach for High Scale Numerical Computing },
+  Author                   = {Emad, Nahid and  Petiton, Serge},
+  Journal                  = {Journal of Computational Science },
+  Year                     = {2016},
+  Pages                    = { - },
+}
