@@ -70,7 +70,7 @@
                  & в режиме многоядерных скалярных вычислений \\ \hline
 Алгоритм Мандельброта  &  1.54 	\\ \hline
 Скалярное произведение &  5.44   \\ \hline
-LU-разложение          &  64 KB   \\ \hline
+LU-разложение          &  2.38   \\ \hline
 Проверка простоты      & 0.568  \\ \hline 
 
 
@@ -96,10 +96,206 @@ LU-разложение          &  64 KB   \\ \hline
 
 %http://browser.geekbench.com/geekbench2/413456
 \subsubsection{Intel Xeon 5150}
-\subsubsection{Intel Xeon E5472}
-\subsubsection{Intel Xeon 5355}
+
+Данные этого подраздела в основном взяты с сайта \cite{geek_5150}
+
+
+\begin{table}[ht]
+	\begin{center}
+		\caption{Основные характеристики процессора Intel Xeon  5150}
+		\begin{tabular}{|c|c|}
+			\hline	
+			Тактовая частота & 2.72GHz   \\ \hline
+			Количество ядер & 2 	     \\ \hline
+			кэш команд, L1 &  0 KB      \\ \hline
+			кэш данных, L1 &  0 KB       \\ \hline
+			кэш L2         &  0 KB      \\ \hline
+			кэш L3         &  0 KB        \\ \hline
+		\end{tabular}
+	\end{center} 	
+\end{table} 	
+
+\begin{table}[ht]
+	\begin{center}
+		\caption{Производительность процессора Intel Xeon  5150 на операциях с плавающей точкой}
+		\begin{tabular}{|c|c|}
+			\hline	
+			Вычислительный алгоритм &  Производительность, GFLOPS \\ 
+			& в режиме многоядерных скалярных вычислений \\ \hline
+			Алгоритм Мандельброта  &  1.34 	\\ \hline
+			Скалярное произведение &  2.12   \\ \hline
+			LU-разложение          &  2.05   \\ \hline
+			Проверка простоты      &  464  \\ \hline 
+			
+			
+		\end{tabular}
+	\end{center} 	
+\end{table} 	
+
+\begin{table}[ht]
+	\begin{center}
+		\caption{Производительность памяти процессора Intel Xeon 5150}
+		\begin{tabular}{|c|c|}
+			\hline	
+			Операция  &  Производительность, GB/sec \\ \hline
+			Последовательное чтение &  2.93 	\\  \hline
+			Последовательная запись &  1.9   \\  \hline
+			Выделение памяти средствами stdlib &  6.78 операций malloc в секунду  \\  \hline
+			Запись средствами stdlib  & 2.03  \\ \hline
+			Чтение средствами stdlib  & 1.96  \\ \hline 
+		\end{tabular}
+	\end{center} 	
+\end{table} 	
+
+
+\subsubsection{Процессор Intel Xeon E5472}
+\begin{table}[ht]
+	\begin{center}
+		\caption{Основные характеристики процессора Intel Xeon  E5472}
+		\begin{tabular}{|c|c|}
+			\hline	
+			Тактовая частота & 3.00GHz   \\ \hline
+			Количество ядер & 4 	     \\ \hline
+			кэш команд, L1 &  0 KB      \\ \hline
+			кэш данных, L1 &  0 KB       \\ \hline
+			кэш L2         &  6144 KB      \\ \hline
+			кэш L3         &  0 KB        \\ \hline
+		\end{tabular}
+	\end{center} 	
+\end{table} 	
+
+\begin{table}[ht]
+	\begin{center}
+		\caption{Производительность процессора Intel Xeon  E5472 на операциях с плавающей точкой}
+		\begin{tabular}{|c|c|}
+			\hline	
+			Вычислительный алгоритм &  Производительность, GFLOPS \\ 
+			& в режиме многоядерных скалярных вычислений \\ \hline
+			Алгоритм Мандельброта  &  6.203 	\\ \hline
+			Скалярное произведение &  3.05   \\ \hline
+			LU-разложение          &  2.7   \\ \hline
+			Проверка простоты      &  13.9  \\ \hline 
+			
+			
+		\end{tabular}
+	\end{center} 	
+\end{table} 	
+
+\begin{table}[ht]
+	\begin{center}
+		\caption{Производительность памяти процессора Intel Xeon E5472}
+		\begin{tabular}{|c|c|}
+			\hline	
+			Операция  &  Производительность, GB/sec \\ \hline
+			Последовательное чтение &  2.7 	\\  \hline
+			Последовательная запись &  3.4   \\  \hline
+			Выделение памяти средствами stdlib &  6.78 операций malloc в секунду  \\  \hline
+			Запись средствами stdlib  & 1.6  \\ \hline
+			Чтение средствами stdlib  & 1.7  \\ \hline 
+		\end{tabular}
+	\end{center} 	
+\end{table} 	
+
+
+
+\subsubsection{Процессор Intel Xeon 5355}
+
+\begin{table}[ht]
+	\begin{center}
+		\caption{Основные характеристики процессора Intel Xeon  5355}
+		\begin{tabular}{|c|c|}
+			\hline	
+			Тактовая частота & 3.00GHz   \\ \hline
+			Количество ядер & 4 	     \\ \hline
+			кэш команд, L1 &  0 KB      \\ \hline
+			кэш данных, L1 &  0 KB       \\ \hline
+			кэш L2         &  4096 KB      \\ \hline
+			кэш L3         &  0 KB        \\ \hline
+		\end{tabular}
+	\end{center} 	
+\end{table} 	
+
+\begin{table}[ht]
+	\begin{center}
+		\caption{Производительность процессора Intel Xeon  5355 на операциях с плавающей точкой}
+		\begin{tabular}{|c|c|}
+			\hline	
+			Вычислительный алгоритм &  Производительность, GFLOPS \\ 
+			& в режиме многоядерных скалярных вычислений \\ \hline
+			Алгоритм Мандельброта  &  5.2 	\\ \hline
+			Скалярное произведение &  2.6   \\ \hline
+			LU-разложение          &  2.08   \\ \hline
+			Проверка простоты      &  6.4  \\ \hline 
+			
+			
+		\end{tabular}
+	\end{center} 	
+\end{table} 	
+
+\begin{table}[ht]
+	\begin{center}
+		\caption{Производительность памяти процессора Intel Xeon 5355}
+		\begin{tabular}{|c|c|}
+			\hline	
+			Операция  &  Производительность, GB/sec \\ \hline
+			Последовательное чтение &  2.1 	\\  \hline
+			Последовательная запись &  2.5   \\  \hline
+			Выделение памяти средствами stdlib &  6.78 операций malloc в секунду  \\  \hline
+			Запись средствами stdlib  & 1.36  \\ \hline
+			Чтение средствами stdlib  & 1.4 \\ \hline 
+		\end{tabular}
+	\end{center} 	
+\end{table} 	
+
+
 \subsubsection{Intel Xeon 5570}
-\subsubsection{Intel Xeon E5472}
+
+\begin{table}[ht]
+	\begin{center}
+		\caption{Основные характеристики процессора Intel Xeon  5570}
+		\begin{tabular}{|c|c|}
+			\hline	
+			Тактовая частота & 2.93GHz   \\ \hline
+			Количество ядер & 4 	     \\ \hline
+			кэш команд, L1 &  0 KB      \\ \hline
+			кэш данных, L1 &  0 KB       \\ \hline
+			кэш L2         &  256 KB      \\ \hline
+			кэш L3         &  0 KB        \\ \hline
+		\end{tabular}
+	\end{center} 	
+\end{table} 	
+
+\begin{table}[ht]
+	\begin{center}
+		\caption{Производительность процессора Intel Xeon  5570 на операциях с плавающей точкой}
+		\begin{tabular}{|c|c|}
+			\hline	
+			Вычислительный алгоритм &  Производительность, GFLOPS \\ 
+			& в режиме многоядерных скалярных вычислений \\ \hline
+			Алгоритм Мандельброта  &  17.9 	\\ \hline
+			Скалярное произведение &  29.2   \\ \hline
+			LU-разложение          &  3.8  \\ \hline
+			Проверка простоты      &  23.9  \\ \hline 
+			
+			
+		\end{tabular}
+	\end{center} 	
+\end{table} 	
+
+\begin{table}[ht]
+	\begin{center}
+		\caption{Производительность памяти процессора Intel Xeon 5570}
+		\begin{tabular}{|c|c|}
+			\hline	
+			Операция  &  Производительность, GB/sec \\ \hline
+			Последовательное чтение &  5.5 	\\  \hline
+			Последовательная запись &  5.2   \\  \hline
+			Выделение памяти средствами stdlib &  -  \\  \hline
+			Запись средствами stdlib  & 3.9  \\ \hline
+			Чтение средствами stdlib  & 8.1  \\ \hline 
+		\end{tabular}
+	\end{center} 	
+\end{table} 	
 
 
 \subsection{Современные процессоры семейства Intel Xeon}
@@ -109,7 +305,7 @@ LU-разложение          &  64 KB   \\ \hline
 
 \section{Процессор Phenom II X6 1055T}
 https://www.techpowerup.com/forums/threads/processor-gflops-compilation.94721/
-
+\clearpage
 \section{Графические ускорители (GPU)}
 
 
