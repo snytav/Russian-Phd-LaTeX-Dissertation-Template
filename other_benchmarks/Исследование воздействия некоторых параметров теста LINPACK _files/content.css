@@ -1,0 +1,76 @@
+@charset "utf-8";html,body{margin:0;padding:0;height:100%;}
+body{font:12px arial,sans-serif;background-color:#fff;color:#000;}
+pre{font-family:Arial, Verdana, Helvetica, sans-serif;font-size:12px;}
+.arthead{font-size:30px;color:#000000;}
+.arthead2{font-size:20px;color:#000000;}
+.paragraph{font-size:18px;font-weight:bold;color:#000000;}
+.paragraph2{font-size:16px;font-weight:bold;color:#000000;}
+.paragraph3{font-size:14px;font-weight:bold;color:#000000;}
+.tab_head{font-weight:bold;font-size:11px;color:#000000;text-align:left;}
+.tab{font-size:11px;color:#000000;text-align:left;}
+.console{font-family:"Courier New";font-weight:bold;font-size:11px;color:#000000;text-align:left;}
+.console_inv{font-family:"Courier New";font-weight:bold;font-size:11px;color:#FFFFFF;background-color:#000000;text-align:left;}
+.literature{font-size:11px;color:#000000;text-align: left;}
+.shadow{text-shadow:0px 1px 3px #000;}
+thead{background-color:#FFBBBB;}
+tfoot{background-color:#BBBBFF;}
+th{font-family:Arial, Verdana, Helvetica, sans-serif;font-size:13px;}
+.bold{font-weight:bold;}
+.italic{font-style:italic;}
+.underline{text-decoration:underline;}
+.left{text-align:inherit;}
+.center{text-align:center;}
+.right{text-align:right;}
+.full{text-align:justify}
+img.left, table.left{float:left;text-align:inherit;}
+img.center, table.center{margin-left:auto;margin-right:auto;text-align:inherit;}
+img.center{display:block;}
+img.right, table.right{float:right;text-align:inherit;}
+img{border:none;}
+a{color:#000;}
+a:hover{text-decoration:none;color:#16A316;}
+p, td, li, span{font-family:Arial, Verdana, Helvetica, sans-serif;font-size:12px;color:#000;text-align:justify;}
+.srcBlockText{font-family:Arial, Helvetica, sans-serif;font-size:12px;font-weight:bold;color:#000;text-decoration:none;}
+a:hover.srcBlockText{text-decoration:underline;}
+.srcBlockLink{font-family:Arial, Helvetica, sans-serif;font-size:12px;font-weight:bold;color:#000;}
+a:hover.srcBlockLink{text-decoration:none;}
+.srcField{border:solid 1px #C1C2C2;}
+.cluetip-rounded{border:none;}
+.Copyright{font-family:Arial, Helvetica, sans-serif;font-size:12px;color:#2F2F2F;}
+.mainMenuLink{font-family:Arial, Helvetica, sans-serif;font-size:12px;color:#2F2F2F;text-transform:uppercase;text-decoration:none;font-weight:bold;}
+a:hover.mainMenuLink{text-decoration:underline;}
+.mailLink{color:#595959;}
+.titlePar{border-top:solid 2px #16A316;margin:0px;}
+.pTitle{background-color:#E5F6FD;font-family:Arial, Helvetica, sans-serif;font-size:17px;color:#2F2F2F;text-transform:uppercase;margin-top:5px;padding:3px;vertical-align:middle;}
+.free{color:#16A316;font-size:11px;}
+.occupy{color:#FF8080;font-size:11px;}
+.tstLink{font-family:Arial, Helvetica, sans-serif;font-size:11px;color:#000;font-weight:bold;}
+.blockTitle{color:#16A316;font-family:Arial, Helvetica, sans-serif;font-size:12px;font-weight:bold;}
+.catthegory{font-family:Arial, Helvetica, sans-serif;font-size:12px;color:#7c7c7c;}
+a:hover.catthegory{text-decoration:none;}
+.blockArt{font-family:Arial, Helvetica, sans-serif;font-size:12px;color:#2f2f2f;font-weight:bold;}
+a:hover.blockArt{text-decoration:none;}
+.more{font-family:Arial, Helvetica, sans-serif;font-size:12px;color:#2f2f2f;text-decoration:none;}
+a:hover.more{text-decoration:underline;}
+.pagination{text-align:center;}
+.pagination a{color:#16a316;}
+.archMenu{font-family:Arial, Helvetica, sans-serif;font-size:11px;color:#2f2f2f;text-decoration:none;padding-bottom:2px;}
+.artTitle{font-family:Arial, Helvetica, sans-serif;font-size:12px;color:#2f2f2f;font-weight:bold;}
+.artText{font-family:Arial, Helvetica, sans-serif;font-size:12px;color:#2f2f2f;}
+.lineYear{font-family:Arial, Helvetica, sans-serif;font-size:13px;color:#5b879a;text-decoration:none;font-weight:bold;}
+a:hover.lineYear{text-decoration:underline;}
+.lineYearAct{font-family:Arial, Helvetica, sans-serif;font-size:13px;color:#16a316;text-decoration:none;font-weight:bold;}
+.tabText{color:#2f2f2f;font-size:10px;text-decoration:none;cursor:pointer;}
+.tCont{}
+#tCont2{display:none;}
+#tCont3{display:none;}
+#tCont4{display:none;}
+.remark{border:dashed 1px #f00;padding:10px;margin:0 0 10px 0;color:#f00;}
+.remtitle{color:#f00;font-weight:bold;margin-top:20px;font-size:0.95em;}
+.messblock{margin-bottom:10px;}
+ul.map{list-style:none;padding:0px;}
+.item{float:left;margin:40px;#border:1px solid green;display:block;}
+.pitem{float:left;margin:40px;#border:1px solid gray;display:block;}
+.goods{clear:both;}
+.pr_image{float:left;margin:8px;margin-top:18px;}
+ul.map li{padding-left:15px;margin-top:4px;;}

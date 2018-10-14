@@ -1,0 +1,7 @@
+ source /opt/intel/bin/compilervars.sh intel64
+2
+    host$ source /opt/intel/impi/2018.1.148/intel64/bin/mpivars.sh
+3
+    host$ cd /opt/intel/imb/2018.1.148/src
+4
+    host$ make -f make_ict

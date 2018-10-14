@@ -1,0 +1,1 @@
+a:link,a:visited{text-decoration:underline!important}#content a:link:after,#content a:visited:after{content:" (" attr(href) ") ";font-size:.8em;font-weight:400}#search-block-form{display:none}

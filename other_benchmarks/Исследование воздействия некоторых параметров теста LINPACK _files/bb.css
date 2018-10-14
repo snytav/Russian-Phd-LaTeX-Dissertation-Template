@@ -1,0 +1,202 @@
+@charset "utf-8";
+/* CSS Document */
+
+div.bb_quote_author{
+    margin: 10px 5px 0px 25px;
+    padding: 4px;
+    color: #333333;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+div.bb_quote_author:after{
+    content: " писал(а):";
+}
+
+div.bb_quote {
+    margin: 0px 5px 10px 25px;
+    padding: 5px;
+    border: dashed 1px #7c7c7c;
+    color: #7c7c7c;
+	background-color:#EBEBEB;
+}
+
+div.php {
+	margin:0 5px 10px 5px;
+    padding: 5px;
+    border-color: #a9b8c2;
+    border-width: 1px;
+    border-style: solid;
+    color: #006600;
+    font-family: Monaco,'Courier New',monospace;
+    background-color: #fafafa;
+}
+
+div.php_rem{
+	margin: 10px 5px 0px 5px;
+    padding: 4px;
+    color: #333333;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+.btn {
+	background: transparent url('/img/forum/buttons.gif') no-repeat scroll 0 0;
+	width:20px;
+	height:20px;
+	margin-right:5px;
+	display:inline-block;
+	float:left;
+}
+
+.smile{
+	display:inline-block;
+	width:20px;height:20px;
+	background-image:url(/img/forum/smilies/2.gif);
+	background-repeat:repeat;
+	position:relative;
+}
+
+.smile:hover{
+	background-color:#d5e3f7;
+}
+
+.smile_buttons{
+	position:absolute;
+	width:280px;
+	height:280px;
+	border:solid 1px #808080;
+	top:20px;
+	left:20px;
+	background-color:#d5e3f7;
+	display:none;
+}
+
+.sm_image{
+	margin:3px;
+	border:outset 1px #999;
+}
+
+.sm_image:hover{
+	border:inset 1px #999;
+}
+
+.bold {
+	background-position:0 0;
+}
+
+.bold:hover {
+	background-position:0 -25px;
+}
+
+.italic {
+	background-position:-25px 0;
+}
+
+.italic:hover {
+	background-position:-25px -25px;
+}
+
+.underline {
+	background-position:-50px 0;
+}
+
+.underline:hover {
+	background-position:-50px -25px;
+}
+
+.link {
+	background-position:-75px 0;
+}
+
+.link:hover {
+	background-position:-75px -25px;
+}
+
+.quote {
+	background-position:-100px 0;
+}
+
+.quote:hover {
+	background-position:-100px -25px;
+}
+
+.code {
+	background-position:-125px 0;
+}
+
+.code:hover {
+	background-position:-125px -25px;
+}
+
+.image {
+	background-position:-150px 0;
+}
+
+.image:hover {
+	background-position:-150px -25px;
+}
+
+.nlist {
+	background-position:-175px 0;
+}
+
+.nlist:hover {
+	background-position:-175px -25px;
+}
+
+.blist {
+	background-position:-200px 0;
+}
+
+.blist:hover {
+	background-position:-200px -25px;
+}
+
+.litem {
+	background-position:-225px 0;
+}
+
+.litem:hover {
+	background-position:-225px -25px;
+}
+
+.back {
+	background-position:-250px 0;
+}
+
+.back:hover {
+	background-position:-250px -25px;
+}
+
+.back_disable {
+	background-position:-250px -50px;
+}
+
+.forward {
+	background-position:-275px 0;
+}
+
+.forward:hover {
+	background-position:-275px -25px;
+}
+
+.forward_disable {
+	background-position:-275px -50px;
+}
+
+.usize {
+	background-position:-300px 0;
+}
+
+.usize:hover {
+	background-position:-300px -25px;
+}
+
+.dsize {
+	background-position:-325px 0;
+}
+
+.dsize:hover {
+	background-position:-325px -25px;
+}

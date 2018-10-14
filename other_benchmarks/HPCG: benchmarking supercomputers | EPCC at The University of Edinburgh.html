@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html dir="ltr" class="js wf-futurapt-n4-active wf-futurapt-n5-active wf-futurapt-n7-active wf-active" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+<link rel="shortcut icon" href="https://www.epcc.ed.ac.uk/sites/all/themes/epcc/favicon.ico" type="image/vnd.microsoft.icon">
+<meta name="description" content="The LINPACK library (often known as HPL) has been used to benchmark large-scale computers for over 20 years, with the results being published in the Top500 list. But does it accurately reflect the performance of real applications?">
+<link rel="canonical" href="https://www.epcc.ed.ac.uk/blog/2015/07/30/hpcg">
+  <title>HPCG: benchmarking supercomputers | EPCC at The University of Edinburgh</title>
+  <link type="text/css" rel="stylesheet" href="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/css_xE-rWrJf-fncB6ztZfd2huxqgxu4WO-qwma6Xer30m4.css" media="all">
+<link type="text/css" rel="stylesheet" href="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/css_3nAc-GWnLbSDdiT0RWHGxl8RCBovIK1wIU6SiCQDCMc.css" media="all">
+<link type="text/css" rel="stylesheet" href="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/css_bzfNVaw8ssqGpIOlg3m83tm5Yyn4iwfSHHD1f9qyX90.css" media="all">
+<link type="text/css" rel="stylesheet" href="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/css_Pdw4F6AUugmwzPoL4zn6c_CYtq221022AzVBL_4_kI0.css" media="all">
+<link type="text/css" rel="stylesheet" href="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/css_CGaWCoWcohhXSB8gb72phsnZId_o_ZVETvaQUXcSxsU.css" media="print">
+  <script async="" src="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/analytics.js"></script><script src="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/js_vDrW3Ry_4gtSYaLsh77lWhWjIC6ml2QNkcfvfP5CVFs.js"></script>
+<script src="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/js_NpX2cwCeepkWZZ194B6-ViyVBHleaYLOx5R9EWBOMRU.js"></script>
+<script src="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/js_gPqjYq7fqdMzw8-29XWQIVoDSWTmZCGy9OqaHppNxuQ.js"></script>
+<script>(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create", "UA-1936964-12", {"cookieDomain":"auto"});ga("send", "pageview");</script>
+<script src="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/vqy3isj.js"></script>
+<style type="text/css">.tk-futura-pt{font-family:"futura-pt",sans-serif;}</style><style type="text/css">@font-face{font-family:futura-pt;src:url(https://use.typekit.com/af/e3d63a/00000000000000000001008f/27/l?subset_id=2&fvd=n5&v=3) format("woff2"),url(https://use.typekit.com/af/e3d63a/00000000000000000001008f/27/d?subset_id=2&fvd=n5&v=3) format("woff"),url(https://use.typekit.com/af/e3d63a/00000000000000000001008f/27/a?subset_id=2&fvd=n5&v=3) format("opentype");font-weight:500;font-style:normal;}@font-face{font-family:futura-pt;src:url(https://use.typekit.com/af/058ed0/000000000000000000010091/27/l?subset_id=2&fvd=n7&v=3) format("woff2"),url(https://use.typekit.com/af/058ed0/000000000000000000010091/27/d?subset_id=2&fvd=n7&v=3) format("woff"),url(https://use.typekit.com/af/058ed0/000000000000000000010091/27/a?subset_id=2&fvd=n7&v=3) format("opentype");font-weight:700;font-style:normal;}@font-face{font-family:futura-pt;src:url(https://use.typekit.com/af/713a19/000000000000000000013365/27/l?subset_id=2&fvd=n4&v=3) format("woff2"),url(https://use.typekit.com/af/713a19/000000000000000000013365/27/d?subset_id=2&fvd=n4&v=3) format("woff"),url(https://use.typekit.com/af/713a19/000000000000000000013365/27/a?subset_id=2&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}</style><script>try{Typekit.load();}catch(e){}</script>
+<script src="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/js_DRmOofI_IdBrDHJmpXU6yRLtYwmuRqP5Uyo2MtX4AMg.js"></script>
+<script>jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"epcc","theme_token":"t3bW0Fkxhx81PGqwo-a3KY3hpcL2T5p33qSYytXhp6U","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/contrib\/extlink\/extlink.js":1,"sites\/all\/modules\/contrib\/google_analytics\/googleanalytics.js":1,"0":1,"\/\/use.typekit.com\/vqy3isj.js":1,"1":1,"sites\/all\/themes\/epcc\/js\/script.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/contrib\/date\/date_api\/date.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/contrib\/video_filter\/video_filter.css":1,"sites\/all\/modules\/contrib\/extlink\/extlink.css":1,"sites\/all\/modules\/contrib\/views\/css\/views.css":1,"sites\/all\/modules\/contrib\/ckeditor\/css\/ckeditor.css":1,"sites\/all\/modules\/contrib\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/contrib\/tagclouds\/tagclouds.css":1,"sites\/all\/themes\/epcc\/assets\/theme.css":1,"sites\/all\/themes\/epcc\/assets\/print.css":1}},"video_filter":{"url":{"ckeditor":"\/video_filter\/dashboard\/ckeditor"},"instructions_url":"\/video_filter\/instructions","modulepath":"sites\/all\/modules\/contrib\/video_filter"},"extlink":{"extTarget":"_blank","extClass":"ext","extLabel":"(link is external)","extImgClass":0,"extSubdomains":1,"extExclude":"","extInclude":"","extCssExclude":"","extCssExplicit":"","extAlert":0,"extAlertText":"This link will take you to an external web site. We are not responsible for their content.","mailtoClass":"mailto","mailtoLabel":"(link sends e-mail)"},"googleanalytics":{"trackOutbound":1,"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"urlIsAjaxTrusted":{"\/blog\/2015\/07\/30\/hpcg":true}});</script>
+  <!--[if lt IE 9]>
+  <script src="/sites/all/themes/epcc/js/html5shiv.min.js"></script>
+  <![endif]-->
+</head>
+<body class="html not-front not-logged-in two-sidebars page-node page-node- page-node-1072 node-type-blog">
+    <div id="page">
+
+  <header id="header"><div id="block-epcc-epcc-logo">
+  <a href="https://www.epcc.ed.ac.uk/"><img alt="" src="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/epcc-logo.png" width="178" height="51"></a>
+</div>
+<div id="block-menu-menu-top-menu" class="block block-menu top_menu">
+        <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="https://www.epcc.ed.ac.uk/contact">Contact</a></li>
+<li class="leaf"><a href="https://www.epcc.ed.ac.uk/about">About</a></li>
+<li class="leaf"><a href="https://www.epcc.ed.ac.uk/news" title="">News</a></li>
+<li class="leaf"><a href="https://www.epcc.ed.ac.uk/discover-and-learn" title="">Discover &amp; Learn</a></li>
+<li class="last leaf"><a href="https://www.epcc.ed.ac.uk/blog" title="">Blog</a></li>
+</ul>  </div>
+</div><!-- /.block -->
+<div id="block-search-form" class="block block-search">
+        <div class="content">
+    <form action="/blog/2015/07/30/hpcg" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+  <h2 class="element-invisible">Search form</h2>
+  <input class="custom-search-submit" src="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/custom_search_1.png" alt="Search icon" name="unused" type="image">
+  <div class="form-item form-type-textfield form-item-search-block-form">
+ <input title="Enter the terms you wish to search for." id="edit-search-block-form--2" name="search_block_form" value="Search" size="15" maxlength="128" class="form-text" type="text">
+</div>
+<div class="form-actions form-wrapper" id="edit-actions"><input id="edit-submit" name="op" value="Search" class="form-submit" type="submit"></div><input name="form_build_id" value="form-lWWJxvICtMh6xSNSBVu1Uvq6Mqr6iwzLZb71_XnQNWw" type="hidden">
+<input name="form_id" value="search_block_form" type="hidden">
+</div>
+</div></form>  </div>
+</div><!-- /.block -->
+</header>
+
+  <div id="main" class="clearfix">
+    <nav class="breadcrumb"><h2 class="element-invisible">You are here</h2><ol><li><a href="https://www.epcc.ed.ac.uk/">Home</a></li><li><a href="https://www.epcc.ed.ac.uk/blog">Blog</a></li><li>HPCG: benchmarking supercomputers</li></ol></nav>    <div id="content">
+                    <h1 class="title" id="page-title">HPCG: benchmarking supercomputers</h1>
+            
+      
+      
+      
+        <div class="region region-content">
+    <div id="block-system-main" class="block block-system">
+        <div class="content">
+    <div class="blog-posts">
+
+  
+  Author: <a href="https://www.epcc.ed.ac.uk/blogs/adrian-jackson">Adrian Jackson</a><br>
+
+  Posted: 30 Jul 2015 | 14:40
+  <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><h2><img alt="HPCG" src="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/hpcg.png" style="width: 200px; float: right; margin: 5px; height: 30px;"></h2>
+<p>The <a href="http://www.netlib.org/linpack/" class="ext" target="_blank">LINPACK<span class="ext"><span class="element-invisible"> (link is external)</span></span></a>&nbsp;library (often known as <a href="http://www.netlib.org/benchmark/hpl/" class="ext" target="_blank">HPL<span class="ext"><span class="element-invisible"> (link is external)</span></span></a>) has been used to benchmark large-scale computers for over 20 years, with the results being published in the <a href="http://www.top500.org/" class="ext" target="_blank">Top500<span class="ext"><span class="element-invisible"> (link is external)</span></span></a>&nbsp;list. But does it accurately reflect the performance of real applications?</p>
+<!--break--><p><a href="http://www.archer.ac.uk/" class="ext" target="_blank">ARCHER<span class="ext"><span class="element-invisible"> (link is external)</span></span></a>&nbsp;currently is <a href="http://www.top500.org/system/178188" class="ext" target="_blank">number 35<span class="ext"><span class="element-invisible"> (link is external)</span></span></a>
+ in the list (having debuted at number 19 when first installed), with a 
+performance of 1.6 PFlop/s (RMAX; maximum performance on the HPL 
+benchmark) out of a potential peak performance of 2.55 PFlop/s (RPEAK; 
+maximum theoretical floating point performance of the hardware in the 
+system).</p>
+<h2><img alt="ARCHER" src="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/ARCHER%2520logo%2520200pxls%2520wide.jpg" style="width: 200px; height: 66px; float: right; margin: 5px;"></h2>
+<p>However, there are drawbacks with using HPL as a benchmark for 
+assessing the performance of large-scale computing 
+systems.&nbsp;Primarily HPL stresses floating point performance, running
+ algorithms that perform complex linear algebra, but that for the most 
+part work on data that is stored in local caches and can be computed 
+independently.&nbsp;Whilst floating point performance is key for a lot 
+of computational simulation programs, they are also often limited by the
+ performance of other parts of the machine such as the speed of memory, 
+or the bandwidth and latency of the network.&nbsp;</p>
+<p>HPL is generally able to get a reasonable fraction of peak 
+performance on a large HPC system (on ARCHER, for instance, it achieves 
+around 63% of the theoretical peak performance of the machine), but most
+ programs that use large HPC systems don't achieve anywhere near that 
+performance (getting towards 10-15% of the peak performance of the 
+machine for a simulation code would be considered good 
+performance).&nbsp;Therefore, whilst HPL is good at characterising the 
+raw floating point performance of a system, it often does not give a 
+good reflection of the performance that actual applications may see on 
+that machine.</p>
+<p>High Performance Conjugate Gradients (<a href="http://hpcg-benchmark.org/" class="ext" target="_blank">HPCG<span class="ext"><span class="element-invisible"> (link is external)</span></span></a>)
+ is a benchmark for large-scale parallel systems that aims to address, 
+at least partially, this problem with HPL.&nbsp;The conjugate gradients 
+algorithm used in the benchmark is not just floating point performance 
+limited, it is also heavily reliant on the performance of the memory 
+system, and to a lesser extend on the network used to connect the 
+processors together.&nbsp; This means it should provide a performance 
+assessment that is more like what real applications could achieve for a 
+given system when compared to HPL, although real applications have a 
+wide range of performance characteristics so it cannot capture the 
+important performance features for every application that could use the 
+system.</p>
+<h3>HPCG and ARCHER</h3>
+<p>We recently ran the HPCG benchmark on ARCHER, and in the latest version of the <a href="http://www.hpcg-benchmark.org/custom/index.html?lid=155&amp;slid=279" class="ext" target="_blank">HPCG list<span class="ext"><span class="element-invisible"> (link is external)</span></span></a>
+ (released at the same time as the Top500), ARCHER came out as the 10th 
+fastest machine with a HPCG performance of 0.0808 PFlop/s (around 5% of 
+the HPL performance).&nbsp;It should be noted that the HPCG list is much
+ smaller than the Top500 list, with only one tenth of the entries, but 
+it does have some of the largest machines in the world on 
+it.&nbsp;Furthermore, we actually managed to beat a larger comparible 
+machine (the Edison system, which is a similar type of system to ARCHER 
+but has around 10% more processors and is number 34 in the Top500 list),
+ swapping positions when compared to the Top500 list.&nbsp;This is 
+probably because we spent some time tuning our HPCG run to ensure we had
+ maximum performance; we were using a tuned version of the HPCG 
+benchmark provided by <a href="https://software.intel.com/en-us/articles/intel-optimized-technology-preview-for-high-performance-conjugate-gradient-benchmark" class="ext" target="_blank">Intel<span class="ext"><span class="element-invisible"> (link is external)</span></span></a>.</p>
+<p>Whether HPCG overtakes HPL as the benchmark of choice for large scale
+ systems remains to be seen, but it will be interesting to watch how 
+measuring and evaluating these systems progresses over the next few 
+years.&nbsp;Indeed, HPCG isn't the only alternative measure of 
+performance.&nbsp;For a number of years the <a href="http://www.green500.org/" class="ext" target="_blank">Green500<span class="ext"><span class="element-invisible"> (link is external)</span></span></a>
+ list has used a similar approach to the Top500 benchmark but ranked 
+computers by power efficiency for the benchmark (including things like 
+the power required to cool the supercomputer as well as the power 
+required to run the compute nodes and network) rather than overall 
+performance.&nbsp;There is also the <a href="http://www.graph500.org/" class="ext" target="_blank">Graph500<span class="ext"><span class="element-invisible"> (link is external)</span></span></a>
+ list that uses a different set of benchmarks, primarily aimed at 
+data-intensive work loads (rather than compute intensive operations like
+ HPCG and HPL), to assess the performance of machines on operations that
+ require searching large datasets or graphs.</p>
+<p>Also, we tend to use a suite of application benchmarks, such as the <a href="http://www.prace-ri.eu/ueabs/" class="ext" target="_blank">PRACE benchmarking suite<span class="ext"><span class="element-invisible"> (link is external)</span></span></a>,
+ when procuring HPC systems or running the acceptance tests for systems 
+to ensure that the performance of a machine will match what users 
+require.&nbsp; This enables tuning of benchmarking to the workloads that
+ a specific machine is likely to encounter (we have good information on 
+the codes that are generally run on a system like ARCHER so can tailor 
+our benchmarks to ensure the majority of users get reasonable 
+performance); however the drawback of this approach for a global ranking
+ effort (such as the Top500 list) is that it does not produce a single 
+number by which you can rank systems, hence the popularity of benchmarks
+ like HPCG and HPL.&nbsp; One options for future benchmarking efforts 
+could be to produce a "price comparison" style website which could let 
+you rank machines on how they perform on a range of different benchmarks
+ or applications, enabling people to evaluate which machine would be 
+best for their specific application, although this would increase the 
+number of benchmarks you'd need to run on HPC systems.</p>
+<h3>Author</h3>
+<p><a href="https://www.epcc.ed.ac.uk/about/staff/mr-adrian-jackson">Adrian Jackson</a>, EPCC&nbsp;</p>
+</div></div></div>  <ul class="links inline"><li class="blog_usernames_blog first last"><a href="https://www.epcc.ed.ac.uk/blogs/adrian-jackson" title="Read Adrian Jackson's latest blog entries.">Adrian Jackson's blog</a></li>
+</ul>  
+</div>
+  </div>
+</div><!-- /.block -->
+  </div>
+    </div><!-- /#content -->
+    <nav id="navigation-bar">
+      <div id="block-menu-block-12" class="block block-menu-block">
+        <div class="content">
+    <div class="menu-block-wrapper menu-block-12 menu-name-main-menu parent-mlid-0 menu-level-1">
+  <ul class="menu"><li class="first leaf has-children menu-mlid-422"><a href="https://www.epcc.ed.ac.uk/work-us">Work With Us</a></li>
+<li class="leaf has-children menu-mlid-423"><a href="https://www.epcc.ed.ac.uk/facilities">Facilities</a></li>
+<li class="leaf has-children menu-mlid-464"><a href="https://www.epcc.ed.ac.uk/research">Research</a></li>
+<li class="last leaf has-children menu-mlid-425"><a href="https://www.epcc.ed.ac.uk/education-training">Education &amp; Training</a></li>
+</ul></div>
+  </div>
+</div><!-- /.block -->
+    </nav><!-- /#navigation-bar -->
+
+      <div class="region region-sidebar-first">
+    <div id="block-views-blog-archive-block" class="block block-views">
+        <h2 class="block-title">Blog Archive</h2>
+      <div class="content">
+    <div class="view view-blog-archive view-id-blog_archive view-display-id-block view-dom-id-b978f6decce9f402efb0f15725be84e2">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">
+  <ul class="views-summary">
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201810">October 2018</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201809">September 2018</a>
+              (8)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201808">August 2018</a>
+              (8)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201807">July 2018</a>
+              (10)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201806">June 2018</a>
+              (4)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201805">May 2018</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201804">April 2018</a>
+              (10)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201803">March 2018</a>
+              (8)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201802">February 2018</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201801">January 2018</a>
+              (8)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201712">December 2017</a>
+              (4)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201711">November 2017</a>
+              (10)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201710">October 2017</a>
+              (3)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201709">September 2017</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201708">August 2017</a>
+              (5)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201707">July 2017</a>
+              (6)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201706">June 2017</a>
+              (17)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201705">May 2017</a>
+              (6)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201704">April 2017</a>
+              (8)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201703">March 2017</a>
+              (5)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201702">February 2017</a>
+              (3)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201701">January 2017</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201612">December 2016</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201611">November 2016</a>
+              (11)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201610">October 2016</a>
+              (4)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201609">September 2016</a>
+              (11)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201608">August 2016</a>
+              (9)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201607">July 2016</a>
+              (6)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201606">June 2016</a>
+              (7)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201605">May 2016</a>
+              (8)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201604">April 2016</a>
+              (8)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201603">March 2016</a>
+              (17)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201602">February 2016</a>
+              (5)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201601">January 2016</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201512">December 2015</a>
+              (4)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201511">November 2015</a>
+              (7)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201510">October 2015</a>
+              (3)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201509">September 2015</a>
+              (10)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201508">August 2015</a>
+              (5)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201507">July 2015</a>
+              (4)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201506">June 2015</a>
+              (11)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201505">May 2015</a>
+              (3)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201504">April 2015</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201503">March 2015</a>
+              (3)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201502">February 2015</a>
+              (4)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201501">January 2015</a>
+              (7)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201412">December 2014</a>
+              (4)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201411">November 2014</a>
+              (10)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201410">October 2014</a>
+              (5)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201409">September 2014</a>
+              (5)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201408">August 2014</a>
+              (5)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201407">July 2014</a>
+              (9)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201406">June 2014</a>
+              (7)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201405">May 2014</a>
+              (5)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201404">April 2014</a>
+              (4)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201403">March 2014</a>
+              (3)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201402">February 2014</a>
+              (3)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201401">January 2014</a>
+              (3)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201312">December 2013</a>
+              (4)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201311">November 2013</a>
+              (12)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201310">October 2013</a>
+              (8)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201309">September 2013</a>
+              (10)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201308">August 2013</a>
+              (10)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201307">July 2013</a>
+              (16)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201306">June 2013</a>
+              (17)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201305">May 2013</a>
+              (15)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201304">April 2013</a>
+              (24)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blog/archive/201303">March 2013</a>
+              (4)
+          </li>
+    </ul>
+</div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div><!-- /.block -->
+  </div>
+      <div class="region region-sidebar-second">
+    <div id="block-tagclouds-1" class="block block-tagclouds">
+        <h2 class="block-title">Tag Cloud</h2>
+      <div class="content">
+    <span class="tagclouds-term"><a href="https://www.epcc.ed.ac.uk/blog/tags/archer" class="tagclouds level4" title="">ARCHER</a></span>
+<span class="tagclouds-term"><a href="https://www.epcc.ed.ac.uk/blog/tags/exascale" class="tagclouds level1" title="">Exascale</a></span>
+<span class="tagclouds-term"><a href="https://www.epcc.ed.ac.uk/blog/tags/hpc" class="tagclouds level6" title="">HPC</a></span>
+<span class="tagclouds-term"><a href="https://www.epcc.ed.ac.uk/blog/tags/hpc-industry" class="tagclouds level1" title="">HPC For Industry</a></span>
+<span class="tagclouds-term"><a href="https://www.epcc.ed.ac.uk/blog/tags/industry" class="tagclouds level1" title="">Industry</a></span>
+<span class="tagclouds-term"><a href="https://www.epcc.ed.ac.uk/blog/tags/outreach" class="tagclouds level6" title="">Outreach</a></span>
+<span class="tagclouds-term"><a href="https://www.epcc.ed.ac.uk/blog/tags/simulation" class="tagclouds level1" title="">Simulation</a></span>
+<span class="tagclouds-term"><a href="https://www.epcc.ed.ac.uk/blog/tags/software" class="tagclouds level3" title="">Software</a></span>
+<span class="tagclouds-term"><a href="https://www.epcc.ed.ac.uk/blog/tags/software-sustainability-institute" class="tagclouds level3" title="">Software Sustainability Institute</a></span>
+<span class="tagclouds-term"><a href="https://www.epcc.ed.ac.uk/blog/tags/ssi" class="tagclouds level1" title="">SSI</a></span>
+<span class="tagclouds-term"><a href="https://www.epcc.ed.ac.uk/blog/tags/summer-hpc" class="tagclouds level1" title="">Summer of HPC</a></span>
+<span class="tagclouds-term"><a href="https://www.epcc.ed.ac.uk/blog/tags/training" class="tagclouds level1" title="">Training</a></span>
+<div class="more-link"><a href="https://www.epcc.ed.ac.uk/tagclouds/chunk/1" title="more tags">More</a></div>  </div>
+</div><!-- /.block -->
+<div id="block-views-blog-categories-block" class="block block-views">
+        <h2 class="block-title">Blog Categories</h2>
+      <div class="content">
+    <div class="view view-blog-categories view-id-blog_categories view-display-id-block view-dom-id-28bdfc37684e3b1cdce510aadc839465">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <span class="views-field views-field-name">        <span class="field-content"><a href="https://www.epcc.ed.ac.uk/blog/categories/collaborative-computing-infrastructures-eg-prace">Collaborative computing infrastructures</a></span>  </span>  
+  <span class="views-field views-field-nid">        <span class="field-content">(14)</span>  </span></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <span class="views-field views-field-name">        <span class="field-content"><a href="https://www.epcc.ed.ac.uk/blog/categories/data-research">Data research</a></span>  </span>  
+  <span class="views-field views-field-nid">        <span class="field-content">(38)</span>  </span></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <span class="views-field views-field-name">        <span class="field-content"><a href="https://www.epcc.ed.ac.uk/blog/categories/epcc-events-new-staff">EPCC</a></span>  </span>  
+  <span class="views-field views-field-nid">        <span class="field-content">(87)</span>  </span></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <span class="views-field views-field-name">        <span class="field-content"><a href="https://www.epcc.ed.ac.uk/blog/categories/hardware">Hardware</a></span>  </span>  
+  <span class="views-field views-field-nid">        <span class="field-content">(38)</span>  </span></li>
+          <li class="views-row views-row-5 views-row-odd">  
+  <span class="views-field views-field-name">        <span class="field-content"><a href="https://www.epcc.ed.ac.uk/blog/categories/hpc-facilities">HPC facilities</a></span>  </span>  
+  <span class="views-field views-field-nid">        <span class="field-content">(35)</span>  </span></li>
+          <li class="views-row views-row-6 views-row-even">  
+  <span class="views-field views-field-name">        <span class="field-content"><a href="https://www.epcc.ed.ac.uk/blog/categories/hpc-industry">HPC for industry</a></span>  </span>  
+  <span class="views-field views-field-nid">        <span class="field-content">(39)</span>  </span></li>
+          <li class="views-row views-row-7 views-row-odd">  
+  <span class="views-field views-field-name">        <span class="field-content"><a href="https://www.epcc.ed.ac.uk/blog/categories/hpc-research">HPC research</a></span>  </span>  
+  <span class="views-field views-field-nid">        <span class="field-content">(94)</span>  </span></li>
+          <li class="views-row views-row-8 views-row-even">  
+  <span class="views-field views-field-name">        <span class="field-content"><a href="https://www.epcc.ed.ac.uk/blog/categories/modelling-simulation">Modelling &amp; simulation</a></span>  </span>  
+  <span class="views-field views-field-nid">        <span class="field-content">(66)</span>  </span></li>
+          <li class="views-row views-row-9 views-row-odd">  
+  <span class="views-field views-field-name">        <span class="field-content"><a href="https://www.epcc.ed.ac.uk/blog/categories/msc-industrial-projects">MSc Industrial Projects</a></span>  </span>  
+  <span class="views-field views-field-nid">        <span class="field-content">(4)</span>  </span></li>
+          <li class="views-row views-row-10 views-row-even">  
+  <span class="views-field views-field-name">        <span class="field-content"><a href="https://www.epcc.ed.ac.uk/blog/categories/msc">Postgraduate Study</a></span>  </span>  
+  <span class="views-field views-field-nid">        <span class="field-content">(11)</span>  </span></li>
+          <li class="views-row views-row-11 views-row-odd">  
+  <span class="views-field views-field-name">        <span class="field-content"><a href="https://www.epcc.ed.ac.uk/blog/categories/public-outreach">Public outreach</a></span>  </span>  
+  <span class="views-field views-field-nid">        <span class="field-content">(112)</span>  </span></li>
+          <li class="views-row views-row-12 views-row-even">  
+  <span class="views-field views-field-name">        <span class="field-content"><a href="https://www.epcc.ed.ac.uk/blog/categories/software-development">Software development</a></span>  </span>  
+  <span class="views-field views-field-nid">        <span class="field-content">(99)</span>  </span></li>
+          <li class="views-row views-row-13 views-row-odd">  
+  <span class="views-field views-field-name">        <span class="field-content"><a href="https://www.epcc.ed.ac.uk/blog/categories/support-science">Support for science</a></span>  </span>  
+  <span class="views-field views-field-nid">        <span class="field-content">(100)</span>  </span></li>
+          <li class="views-row views-row-14 views-row-even views-row-last">  
+  <span class="views-field views-field-name">        <span class="field-content"><a href="https://www.epcc.ed.ac.uk/blog/categories/training-and-education">Training and education</a></span>  </span>  
+  <span class="views-field views-field-nid">        <span class="field-content">(109)</span>  </span></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div><!-- /.block -->
+<div id="block-views-blog-users-block" class="block block-views">
+        <h2 class="block-title">Our Bloggers</h2>
+      <div class="content">
+    <div class="view view-blog-users view-id-blog_users view-display-id-block view-dom-id-998648dc51355645d9e40b91d6d34bd6">
+        
+  
+  
+      <div class="view-content">
+      <div class="item-list">
+  <ul class="views-summary">
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/adam-carter">Adam Carter</a>
+              (5)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/adrian-jackson">Adrian Jackson</a>
+              (50)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/alan-simpson">Alan Simpson</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/alistair-grant">Alistair Grant</a>
+              (20)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/ally-hume">Ally Hume</a>
+              (3)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/amy-krause">Amy Krause</a>
+              (3)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/andrew-turner">Andy Turner</a>
+              (4)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/anne-whiting">Anne Whiting</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/arno-proeme">Arno Proeme</a>
+              (3)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/ben-morse">Ben Morse</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/catherine-inglis">Catherine Inglis</a>
+              (5)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/chris-johnson">Chris Johnson</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/clair-barrass">Clair Barrass</a>
+              (11)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/daniel-holmes">Daniel Holmes</a>
+              (8)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/david-henty">David Henty</a>
+              (7)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/donald-scobbie">Donald Scobbie</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/emmanouil-farsarakis">Emmanouil Farsarakis</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/fiona-reid">Fiona Reid</a>
+              (6)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/gavin-pringle">Gavin Pringle</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/george-beckett">George Beckett</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/george-graham">George Graham</a>
+              (6)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/giacomo-peru">Giacomo Peru</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/gordon-gibb">Gordon Gibb</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/guest">Guest blogger</a>
+              (47)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/james-perry">James Perry</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/jane-kennedy">Jane Kennedy</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/jbb">jbb</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/juan-rodriguez-herrera">Juan Rodriguez Herrera</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/kostas-kavoussanakis">Kostas Kavoussanakis</a>
+              (4)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/lorna-smith">Lorna Smith</a>
+              (8)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/luis-cebamanos">Luis Cebamanos</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/marc-sabate">Marc Sabate</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/mario-antonioletti">Mario Antonioletti</a>
+              (44)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/mark-bull">Mark Bull</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/mark-filipiak">Mark Filipiak</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/mark-parsons">Mark Parsons</a>
+              (7)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/mark-sawyer">Mark Sawyer</a>
+              (8)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/michael-bareford">Michael Bareford</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/michele-weiland">Michele Weiland</a>
+              (8)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/mike-jackson">Mike Jackson</a>
+              (21)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/mirren">Mirren White</a>
+              (7)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/neelofer-banglwala">Neelofer Banglawala</a>
+              (3)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/nick-brown">Nick Brown</a>
+              (32)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/nick-johnson">Nick Johnson</a>
+              (7)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/oliver-brown">Oliver Brown</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/paul-clark">Paul Clark</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/paul-graham">Paul Graham</a>
+              (5)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/rob-baxter">Rob Baxter</a>
+              (9)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/rosa">Rosa Filgueira</a>
+              (1)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/selina-aragon-0">Selina Aragon</a>
+              (3)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/stephen-booth">Stephen Booth</a>
+              (5)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/terence-sloan">Terry Sloan</a>
+              (5)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/thomas-blyth">Thomas Blyth</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/tracy-peet">tpeet</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/weronika-filinger">Weronika Filinger</a>
+              (2)
+          </li>
+      <li><a href="https://www.epcc.ed.ac.uk/blogs/xu-guo">Xu Guo</a>
+              (4)
+          </li>
+    </ul>
+</div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+</div><!-- /.block -->
+  </div>
+
+  </div><!-- /#main -->
+
+    <div class="region region-footer">
+    <div id="block-menu-menu-footer-menu" class="block block-menu">
+        <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="https://www.epcc.ed.ac.uk/work-us" title="">Work With Us</a></li>
+<li class="leaf"><a href="https://www.epcc.ed.ac.uk/facilities" title="">Facilities</a></li>
+<li class="leaf"><a href="https://www.epcc.ed.ac.uk/research" title="">Research</a></li>
+<li class="leaf"><a href="https://www.epcc.ed.ac.uk/education-training" title="">Education &amp; Training</a></li>
+<li class="leaf"><a href="https://www.epcc.ed.ac.uk/about" title="">About</a></li>
+<li class="leaf"><a href="https://www.epcc.ed.ac.uk/news" title="">News</a></li>
+<li class="last leaf"><a href="https://www.epcc.ed.ac.uk/blog" title="">Blog</a></li>
+</ul>  </div>
+</div><!-- /.block -->
+<div id="block-block-4" class="block block-block footer-contact">
+        <div class="content">
+    <h2><a href="https://www.epcc.ed.ac.uk/about">EPCC</a></h2>
+<p>Email: <a href="mailto:info@epcc.ed.ac.uk" class="mailto">info@epcc.ed.ac.uk<span class="mailto"><span class="element-invisible"> (link sends e-mail)</span></span></a><br>
+Tel:&nbsp; +44 (0) 131 650 5030<br>
+Fax: +44 (0) 131 650 6555</p>
+  </div>
+</div><!-- /.block -->
+<div id="block-block-5" class="block block-block footer-copyright">
+        <div class="content">
+    <p>Copyright © The University of Edinburgh 2018&nbsp;&nbsp;<a href="http://www.ed.ac.uk/about/website/website-terms-conditions" class="ext" target="_blank">Terms &amp; Conditions<span class="ext"><span class="element-invisible"> (link is external)</span></span></a> &nbsp;<a href="https://www.epcc.ed.ac.uk/sitemap">Site Map</a></p>
+<p><a href="http://www.ed.ac.uk/" class="ext" target="_blank">The University of Edinburgh<span class="ext"><span class="element-invisible"> (link is external)</span></span></a> is a charitable body, registered in Scotland, with registration number SC005336</p>
+<p><a class="twit" href="https://twitter.com/EPCCed" target="_blank"><img alt="" src="HPCG:%20benchmarking%20supercomputers%20|%20EPCC%20at%20The%20University%20of%20Edinburgh_files/Twitter-icon.png" style="width: 38px; height: 38px;"></a></p>
+  </div>
+</div><!-- /.block -->
+  </div>
+
+</div><!-- /#page -->
+  
+
+</body></html>

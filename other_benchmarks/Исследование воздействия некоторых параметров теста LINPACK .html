@@ -1,0 +1,1587 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="desktop landscape popmechanic-loaded"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Журнал «Системный администратор», читать, скачать, купить">
+<meta name="keywords" content="Исследование воздействия некоторых параметров теста LINPACK для гибридного кластера на производительность вычислений в зависимости от размерности задачи::Журнал СА 05.2016">
+<meta name="google-site-verification" content="z35fL65wHZVIsmElkKmEZyhoq7uJArHecswqYwlc7q8">
+<meta name="yandex-verification" content="502415104067d19a">
+<link rel="shortcut icon" href="http://samag.ru/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/style.css">
+<link rel="stylesheet" type="text/css" href="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/content.css">
+<link rel="stylesheet" type="text/css" href="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bb.css">
+<link rel="stylesheet" type="text/css" href="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/fancy.css">
+<link rel="stylesheet" type="text/css" href="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/social-likes_classic.css">
+<script src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/ca-pub-0772945205359099.js"></script><script src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/osd.js"></script><script type="text/javascript" async="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/watch.js"></script><script type="text/javascript" async="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/watch.js"></script><script src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/show_ads_impl.js" id="google_shimpl"></script><script src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/ca-pub-0734664070902025.js"></script><script type="text/javascript" async="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/ga.js"></script><script language="JavaScript" type="text/javascript" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/jquery.js"></script>
+<script language="JavaScript" type="text/javascript" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/jquery_004.js"></script>
+<script language="javascript" type="text/javascript" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/jquery_002.js"></script>
+<script language="JavaScript" type="text/javascript" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/jquery_003.js"></script>
+<script language="JavaScript" type="text/javascript" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/shop.js"></script>
+<script language="JavaScript" type="text/javascript">
+$(document).ready(function(){
+
+if ($.browser.msie){
+	$(".incart").fancybox({
+        overlayShow: false,
+    	overlayOpacity: 0.8,
+    	zoomSpeedIn: 500,
+    	zoomSpeedOut:500,
+        frameWidth: 550,
+        frameHeight: 300,
+		showBuyButton:true
+     });
+	}
+	else{
+	$(".incart").fancybox({
+        overlayShow: false,
+    	overlayOpacity: 0.8,
+    	zoomSpeedIn: 500,
+    	zoomSpeedOut:500,
+        frameWidth: 550,
+        frameHeight: 230,
+		showBuyButton:true
+     });
+	}
+	
+	$("a.donate").fancybox({
+        overlayShow: false,
+    	zoomSpeedIn: 500,
+    	zoomSpeedOut:500,
+        frameWidth: 1000,
+        frameHeight: 630
+     });
+
+$("a.zoom").fancybox({overlayShow: false});
+$('#slideshow').cycle({ 
+    fx:     'scrollHorz', 
+    speedIn:  800, 
+    speedOut: 500, 
+    timeout: 0, 
+    next:   '#next', 
+    prev:   '#prev', 
+	after:   OnAfter 
+});
+
+
+$('#slidegalery').cycle({ 
+    fx:     'scrollLeft',  
+	delay:   -2000
+});
+
+
+
+
+
+$("a.subscribe").fancybox({
+        overlayShow: false,
+        frameWidth: 600,
+        frameHeight: 370,
+		hideOnContentClick: true
+     });
+	 
+$("a.subedit").fancybox({
+        overlayShow: false,
+        frameWidth: 500,
+        frameHeight: 900,
+		hideOnContentClick: true
+     });
+	 
+$("a.subeditdel").fancybox({
+        overlayShow: false,
+        frameWidth: 400,
+        frameHeight: 400,
+		hideOnContentClick: true
+     });
+	 
+$("a.subeditlegal").fancybox({
+        overlayShow: false,
+        frameWidth: 450,
+        frameHeight: 500,
+		hideOnContentClick: true
+     });
+
+$('#srcSamag').click(function(){
+	if($('#srcSamagValue').attr('value') == ''){
+		$('#srcSamag').attr('src', '/img/checked.png');
+		$('#srcSamagValue').attr('value', 'samag.ru');
+		$('#srcWeb').attr('src', '/img/nonecheck.png');
+	}
+});
+
+$('#srcWeb').click(function(){
+	if($('#srcSamagValue').attr('value') == 'samag.ru'){
+		$('#srcWeb').attr('src', '/img/checked.png');
+		$('#srcSamag').attr('src', '/img/nonecheck.png');
+		$('#srcSamagValue').attr('value', '');
+	}
+});
+
+$('#remMe').click(function(){
+	if($('#remValue').attr('value') == 0){
+		$('#remValue').attr('value', 1);
+		$('#remMe').attr('src', '/img/checked.png');
+	}
+	else{
+		$('#remValue').attr('value', 0);
+		$('#remMe').attr('src', '/img/nonecheck.png');
+	}
+});
+
+$('#subscribe').click(function(){
+	if($('#mailflag').attr('value') == 'n'){
+		$('#mailflag').attr('value', 'y');
+		$('#subscribe').attr('src', '/img/checked.png');
+	}
+	else{
+		$('#mailflag').attr('value', 'n');
+		$('#subscribe').attr('src', '/img/nonecheck.png');
+	}
+});
+
+
+$('#smile').click(function(){
+	$('#smcontaner').show();
+});
+
+$('#smcontaner').hover(
+	function(){
+		$('#smcontaner').show();
+	}, 
+	function(){
+		$('#smcontaner').hide();
+	}
+);
+
+$('.sm_image').click(function(){
+	$('#smcontaner').hide();
+});
+
+$('#selmsg').click(function(){
+	if($('#selmsg').attr('checked')){
+		$('.msgcheck').attr('checked', 'checked');
+	}
+	else{
+		$('.msgcheck').attr('checked', false);
+	}
+});
+
+
+});
+</script>
+<script language="JavaScript" type="text/javascript" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/action.js"></script>
+<script language="javascript" type="text/javascript" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/tinymce.js"></script>
+<script language="javascript" type="text/javascript">
+tinymce.init({
+    selector: "textarea#elm_content",
+    theme: "modern",
+    language: "ru",
+    width: 900,
+    height: 400,
+	resize: "both",
+    plugins: [
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+         "save moxiemanager table contextmenu directionality emoticons template paste textcolor importcss"
+   ],
+   	toolbar1: "newdocument fullpage | save | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+        toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview | forecolor backcolor",
+        toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft", 
+		
+	menubar: true,
+    toolbar_items_size: 'small',
+	image_advtab: true,
+	importcss_append: true,
+	//importcss_file_filter: "/css/style.css",
+	//importcss_selector_filter: ".article-",
+	content_css : "/css/content.css",
+	
+	//style_formats: [{title: 'Arthead1', inline: 'span', classes: 'arthead'},{title: 'Arthead2', inline: 'span', classes: 'arthead2'},{title: 'Paragraph1', inline: 'span', classes: 'paragraph'},{title: 'Paragraph2', inline: 'span', classes: 'paragraph2'},{title: 'Paragraph3', inline: 'span', classes: 'paragraph3'},{title: 'Table Head', inline: 'span', classes: 'tab_head'},{title: 'Table', inline: 'span', classes: 'tab'},{title: 'Console', inline: 'span', classes: 'console'},{title: 'Console_inv', inline: 'span', classes: 'console_inv'},{title: 'Literature', inline: 'span', classes: 'literature'}],
+ });
+</script>
+<title>Исследование воздействия некоторых параметров теста LINPACK для 
+гибридного кластера на производительность вычислений в зависимости от 
+размерности задачи::Журнал СА 05.2016</title>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21432215-1']);
+  _gaq.push(['_setDomainName', '.samag.ru']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<script async="" defer="defer" charset="utf-8" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/forms.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="underscore" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/underscore.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/jquery_005.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="raven" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/raven.js"></script><link rel="preload" href="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/integrator_002.js" as="script"><script type="text/javascript" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/integrator_002.js"></script><link rel="preload" href="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/integrator.js" as="script"><script type="text/javascript" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/integrator.js"></script><link rel="preload" href="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/show_ads_impl.js" as="script"><script type="text/javascript" charset="utf-8" async="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/extra.js"></script><script type="text/javascript" async="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/checking.js"></script><script src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/processor.js"></script><script src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/extension_143.js"></script></head>
+<body><div id="popmechanic-snippet" style="height: 0; min-height: 0;" class="popmechanic-desktop"></div>
+
+<!--Start of UniSender PopUp Form script-->
+  <script type="text/javascript" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/loader.js" id="unisender-popup-forms"></script>
+<!--End of UniSender PopUp Form script-->
+
+<table style="height:100%;" width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tbody><tr>
+    	<td style="border-top:solid 5px #E6F6FD;" height="150">
+        	<table style="height:150px;" width="100%" cellspacing="0" cellpadding="0" border="0">
+            	<tbody><tr>
+                	<td width="293"><a href="http://samag.ru/"><img alt="www.samag.ru" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/logo.jpg"><!--img alt="www.samag.ru" src="/img/logo_new2014.jpg" /--></a></td>
+                    <td style="padding:0 8px 0 3px;" width="*" valign="top" align="center">
+                    	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+                        	<tbody><tr>
+                            	<td style="text-align:right;vertical-align:top;padding:5px 0 5px 0;" height="76">
+								<table width="100%" cellspacing="0" cellpadding="0" border="0">
+									<tbody><tr>
+										<td rowspan="2" style="text-align:center;" width="*">
+										</td>
+                                        <td width="130">
+                                        <a target="_blank" href="https://plus.google.com/+SamagRu"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/gp.gif" border="0"></a>&nbsp;
+                                        <a target="_blank" href="https://www.facebook.com/samag.ru"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/fb.gif" border="0"></a>&nbsp;
+                                        <a target="_blank" href="http://vk.com/samag"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/vk.gif" border="0"></a>&nbsp;
+                                        <a target="_blank" href="https://twitter.com/samag_journal"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/tw.gif" border="0"></a>
+                                        </td>
+										<td width="130">
+										<!--<a target="_blank" href="https://play.google.com/store/apps/details?id=com.quazarteam.systAdmin&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-pwidth="120" y-PartBadge-Mar2515-1"><img alt="Get it on Google Play" height="40" border="0" src="https://play.google.com/intl/en_us/badges/images/generic/ru-play-badge.png" /></a>-->
+										
+										<!--<a class="donate" href="http://samag.ru/main/donate"><img border="0" src="/img/Kopilka.gif" /></a>-->
+										</td>
+									</tr>
+									<tr>
+									<td>
+									<a target="_blank" href="http://www.magzter.com/RU/Syndicat-13/%D0%A1%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%BD%D1%8B%D0%B9-%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80/Computer-and-Mobile/"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/Magzter.gif" width="120" height="40" border="0"></a>
+									</td>
+									<td>
+									<a target="_blank" href="http://www.floowie.com/ru/samag"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/floowie_logo.jpg" border="0"></a>
+									<!--<a target="_blank" href="https://itunes.apple.com/us/app/sistemnyj-administrator+-bit/id592342612?ls=1&mt=8"><img border="0" src="/img/Download_on_the_App_Store_Badge_RU_135x40.gif" /></a>-->
+									</td>
+									</tr>
+								</tbody></table>
+                                </td>
+                            </tr>
+                            <tr>
+                            	<td height="55" bgcolor="#E6F6FD">
+								
+                                	
+									<form id="srcform" method="get" action="http://www.google.com/search" target="_blank">
+                                    <input name="domains" value="samag.ru" type="hidden">
+                                    <input id="srcSamagValue" name="sitesearch" value="samag.ru" type="hidden">
+                                    <input name="sa" value="Поиск в Google" type="hidden">
+                                    <input name="forid" value="1" type="hidden">
+                                    <input name="ie" value="utf-8" type="hidden"><input name="oe" value="utf-8" type="hidden">
+                                    <input name="hl" value="ru" type="hidden">
+                                    <table width="100%" height="55" cellspacing="0" cellpadding="0" border="0">
+                                    	<tbody><tr>
+                                        	<td style="text-align:left;vertical-align:middle;padding-left:10px;" width="260"><span class="srcBlockText">Поиск</span>&nbsp;<input class="srcField" name="q" style="vertical-align:middle;width:190px;" type="text">&nbsp;<img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/src_btn.gif" onclick="OnSubmitSrcForm();" style="vertical-align:middle;cursor:pointer;">
+                                            
+                                            </td>
+                                            <td width="*">
+                                            
+											<script type="text/javascript">var us_msg={missing:'Не задано обязательное поле: "%s"',invalid:'Недопустимое значение поля: "%s"',email_or_phone:"Не задан ни email, ни телефон",email_absent:"Не указан электронный адрес",phone_absent:"Не указан телефон",no_list_ids:"Не выбрано ни одного списка рассылки"},us_emailRegexp=/^[a-zA-Z0-9_+=-]+[a-zA-Z0-9\._+=-]*@[a-zA-Z0-9][a-zA-Z0-9-]*(\.[a-zA-Z0-9]([a-zA-Z0-9-]*))*\.([a-zA-Z]{2,6})$/,us_phoneRegexp=/^\s*[\d +()-.]{7,32}\s*$/;if(typeof us_=="undefined")var us_=new function(){function i(a){var b=a.getElementsByTagName("input");for(var c=0;c<b.length;c++){var d=b[c];if(d.getAttribute("name")=="charset"){d.value==""&&(d.value=document.characterSet?document.characterSet:document.charset);return}}}function j(a){var b=document,c=b.createElement("div");c.style.position="absolute",c.style.width="auto",c=b.body.appendChild(c),c.appendChild(a),a.style.display="",d.push(c)}function k(){var a=window,b=document,c=a.innerWidth?a.innerWidth:b.body.clientWidth,e=a.innerHeight?a.innerHeight:b.body.clientHeight;for(var f=0;f<d.length;f++){var g=d[f],h=parseInt(g.offsetWidth+""),i=parseInt(g.offsetHeight+"");g.style.left=(c-h)/2+b.body.scrollLeft+f*10,g.style.top=(e-i)/2+b.body.scrollTop+f*10}}var a=!1,b=window.onload;window.onload=function(){us_.onLoad()};var c=null,d=[],e=!1,f=!1,g={},h=new Event("loadFormJavascript");window.addEventListener("loadFormJavascript",function(){us_.onLoad()},!1),this.onLoad=function(){var d,e=document.getElementsByTagName("form"),f=[];for(d=0;d<e.length;d++)f.push(e[d]);for(d=0;d<f.length;d++){var g=f[d],h=g.getAttribute("us_mode");if(!h)continue;h=="popup"&&j(g),i(g)}k(),c=window.onresize,window.onresize=function(){us_.onResize()},a=!0,b&&b();var l=new Pikaday({field:document.getElementById("formdatepicker"),format:"DD-MM-YYYY"})},this.onResize=function(){k(),c&&c()},trim=function(a){return a==null?"":a.replace(/^\s\s*/,"").replace(/\s\s*$/,"")},this.onSubmit=function(b){return a?(_hideErrorMessages(b),!_validateTextInputs(b)||!_validateCheckboxes(b)||!_validateRadios(b)?!1:!0):(alert("us_.onLoad() has not been called"),!1)},_validateTextInputs=function(a){var b=a.querySelectorAll("input[type=text]");if(b.length==0)return!0;for(var c=0;c<b.length;c++){var d=b[c];g[d.name]&&g[d.name].length>0?d.style["border-color"]=g[d.name]:g[d.name]=d.style["border-color"];var h=d.getAttribute("name");h==="email"&&(e=!0),h==="phone"&&(f=!0);var i=trim(d.value),j=i==="",k=d.getAttribute("_required")==="1";if(k&&j){var l=us_msg.missing.replace("%s",d.getAttribute("_label"));return _showErrorMessage(l,d),d.style["border-color"]="#ff592d",d.focus(),!1}if(j)return!1;var m=d.getAttribute("_validator"),n=null;switch(m){case null:case"":case"date":case"string":case"number":case"text":break;case"email":n=us_emailRegexp;break;case"phone":n=us_phoneRegexp;break;case"float":n=/^[+\-]?\d+(\.\d+)?$/;break;default:return alert('Internal error: unknown validator "'+m+'"'),d.focus(),!1}if(n&&!n.test(i)){var l=us_msg.invalid.replace("%s",d.getAttribute("_label"));return _showErrorMessage(l,d),d.style["border-color"]="#ff592d",d.focus(),!1}}return!0},_validateCheckboxes=function(a){return _validateOptionsList(a,"checkbox")},_validateRadios=function(a){return _validateOptionsList(a,"radio")},_validateOptionsList=function(a,b){function f(a){return!a||a==document?null:a.parentNode.className==="options-list"?a.parentNode:f(a.parentNode)}var c=a.querySelectorAll("input[type="+b+"]");if(c.length==0)return!0;var d=new Array,e="";for(var g=0;g<c.length;g++)c[g].getAttribute("_required")==="1"&&(e=c[g].getAttribute("name").replace(/(:|\.|\[|\])/g,"\\$1"),d.indexOf(e)===-1&&d.push(e));for(var h in d){var e=d[h],i=a.querySelectorAll("input[name="+e+"]:checked").length,j=a.querySelectorAll("input[name="+e+"]");if(i===0){var k=f(j[0]),l=us_msg.missing.replace("%s",j[0].getAttribute("_label"));return _showErrorMessage(l,k),!1}}return!0},_showErrorMessage=function(a,b){if(b){var c=b.parentNode.querySelector(".error-block");c.innerHTML=a,c.style.display="block"}},_hideErrorMessages=function(a){var b=a.querySelectorAll(".error-block");if(b.length==0)return;for(var c=0;c<b.length;c++){var d=b[c];d.innerHtml="",d.style.display="none"}}}</script><script type="text/javascript" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/moment-with-langs.js"></script><script type="text/javascript" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/pikaday.js"></script>
+                                            
+                                            <link rel="stylesheet" media="all" href="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/pikaday.css">
+                                            <form method="POST" action="https://cp.unisender.com/ru/subscribe?hash=5d3rmgxyyr8m9f1oien4ggk1o6xq79y4do97317e" name="subscribtion_form" onsubmit="return us_.onSubmit(this);" us_mode="embed">
+                                            
+                                            <div>
+                                            <div>
+                                            <table cellspacing="0" cellpadding="0" border="0">
+                                          
+                                            <tbody>
+                                            <tr>
+                                            <td>
+                                            <div>
+												<table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td style="vertical-align:middle;width:40px;">
+                                            <label><b>E-mail</b></label></td><td>
+                                           
+                                            <input name="email" _validator="email" _required="1" _label="E-mail" type="text"><div class="error-block">
+                                            </div>
+											</td></tr></tbody></table>
+                                            
+                                          
+                                            </div>
+                                            </td>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody>
+<tr>
+<td style="vertical-align:middle;"><button type="submit">Подписаться</button></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<input name="charset" value="UTF-8" type="hidden">
+<input name="default_list_id" value="3621341" type="hidden">
+<input name="overwrite" value="2" type="hidden"></form>
+											
+											
+											
+											</td>
+                                            <td style="text-align:right;vertical-align:middle;padding-right:20px;" width="150">
+                                            <a href="http://samag.ru/"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/home.gif"></a>&nbsp;&nbsp;<img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/slicer.png" width="4" height="14">&nbsp;&nbsp;
+                                            <a href="mailto:sa@samag.ru"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/letter.gif"></a>&nbsp;&nbsp;<img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/slicer.png" width="4" height="14">&nbsp;&nbsp;
+                                            <a href="http://samag.ru/main/map"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/map.gif"></a>&nbsp;&nbsp;<img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/slicer.png" width="4" height="14">&nbsp;&nbsp;
+                                            <a href="http://samag.ru/rss/headlines.xml" target="_blank"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/rss.gif"></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<td style="text-align:left;vertical-align:middle;padding-left:20px;">
+                                            <img alt="" id="srcSamag" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/checked.png" style="vertical-align:middle;" width="16" height="15">&nbsp;<span class="srcBlockText">www.samag.ru</span>&nbsp;&nbsp;
+                                            <img alt="" id="srcWeb" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/nonecheck.png" style="vertical-align:middle;" width="16" height="15">&nbsp;<span class="srcBlockText">Web</span>
+                                            </td>
+                                            <td width="*">
+                                            
+                                            
+                                            </td>
+                                            <td style="text-align:left;" valign="middle">
+											
+											
+<a href="http://samag.ru/shop"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/cart_16.png" style="vertical-align:middle;"></a>&nbsp;<span id="cart">0 товаров </span>, сумма&nbsp;<span id="cartsumm">0 руб.</span>
+                                          
+										   </td>
+                                        </tr>
+                                    </tbody></table>
+									
+									
+                                </form></td>
+                            </tr>
+                        </tbody></table>
+                    </td>
+                    <td style="vertical-align:top;padding-top:10px;" width="223">
+                        <form action="" method="post" onsubmit="return false">
+                        <input id="remValue" name="remvalue" value="0" type="hidden">
+                    	<table style="background-repeat:no-repeat;background-position:bottom left;" width="223" height="125" cellspacing="0" cellpadding="0" border="0" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_bottom_auth.gif">
+                        	<tbody><tr>
+                            	<td style="text-align:right;vertical-align:middle;padding-left:10px;"><span class="srcBlockText">E-mail</span></td>
+                                <td style="text-align:left;vertical-align:middle;padding:5px;"><input class="srcField" id="email" name="email" onkeypress="Enter(event,this.form);" style="vertical-align:middle;width:130px;" type="text"></td>
+                            </tr>
+                            <tr>
+                            	<td style="text-align:right;vertical-align:middle;padding-left:10px;"><span class="srcBlockText">Пароль</span></td>
+                                <td style="text-align:left;vertical-align:middle;padding:5px;"><input class="srcField" id="pass" name="pass" onkeypress="Enter(event,this.form);" style="vertical-align:middle;width:130px;" type="password">&nbsp;<img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/enter.gif" onclick="LoginUser();" style="vertical-align:middle;cursor:pointer;"></td>
+                            </tr>
+                            <tr>
+                            	<td colspan="2" style="text-align:left;vertical-align:middle;padding:5px 0 5px 10px;"><img alt="" id="remMe" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/nonecheck.png" style="vertical-align:middle;" width="16" height="15">&nbsp;<span class="srcBlockText">Запомнить меня</span></td>
+                            </tr>
+                            <tr>
+                            	<td colspan="2" style="text-align:left;vertical-align:middle;padding:5px 0 10px 10px;"><a class="srcBlockText" href="http://samag.ru/registration">Регистрация</a>&nbsp;<span class="srcBlockText">|</span>&nbsp;<a class="srcBlockText" href="http://samag.ru/confirm">Забыли пароль?</a></td>
+                            </tr>
+                        </tbody></table>
+                        </form>
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+    <tr>
+    	<td style="text-align:center;vertical-align:top;">
+        <table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+        	<tbody><tr>
+            	<td style="text-align:center;vertical-align:top;padding-top:10px;" width="223">
+                	<table style="background-repeat:no-repeat;background-position:right top;" width="223" cellspacing="0" cellpadding="0" border="0" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_block_h.gif">
+                    	<tbody><tr>
+                        	<td style="border-right:solid 2px #16A316;background-repeat:no-repeat;background-position:right bottom;padding:10px 10px 10px 0;" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_block_bottom_h.gif">
+                            	<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#E6F6FD">
+                                	<tbody><tr>
+                                    	<td style="text-align:center;vertical-align:top;padding-left:20px;">
+                                        	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                                <tbody><tr>
+												
+												
+                                                	<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bullet.gif"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+													
+	
+
+                                                    <a class="mainMenuLink" href="http://samag.ru/main/part/53">Сетевой агент</a>
+													
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+												
+												
+                                                	<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bullet.gif"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+													
+	
+
+                                                    <a class="mainMenuLink" href="http://samag.ru/main/part/2">О журнале</a>
+													
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+												
+												
+                                                	<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bullet.gif"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+													
+	
+
+                                                    <a class="mainMenuLink" href="http://bit.samag.ru/" target="_blank">Журнал «БИТ»</a>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+												
+													<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bullet.gif"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;background-color: #99ff66;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+	
+
+                                                    <a class="mainMenuLink" href="http://samag.ru/main/part/49">Информация для ВАК</a>
+													
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+												
+												
+                                                	<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bullet.gif"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+													
+	
+
+                                                    <a class="mainMenuLink" href="http://samag.ru/main/part/29">Звезды «СА»</a>
+													
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+													<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/cart_16.png"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;background-color: #99ff66;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+	
+
+                                                    <a class="mainMenuLink1" href="http://samag.ru/main/part/3">Подписка</a>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+												
+												
+                                                	<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bullet.gif"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+													
+	
+
+                                                    <a class="mainMenuLink" href="http://samag.ru/main/part/4">Где купить</a>
+													
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+												
+												
+                                                	<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bullet.gif"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+													
+	
+
+                                                    <a class="mainMenuLink" href="http://samag.ru/main/part/5">Авторам</a>
+													
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+												
+												
+                                                	<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bullet.gif"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+													
+	
+
+                                                    <a class="mainMenuLink" href="http://samag.ru/main/part/6">Рекламодателям</a>
+													
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+													<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/cart_16.png"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;background-color: #99ff66;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+	
+
+                                                    <a class="mainMenuLink1" href="http://samag.ru/catalogue">Магазин</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+												
+												
+                                                	<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bullet.gif"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+													
+	
+
+                                                    <a class="mainMenuLink" href="http://samag.ru/archive">Архив номеров</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+												
+												
+                                                	<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bullet.gif"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+													
+	
+
+                                                    <a class="mainMenuLink" href="http://samag.ru/forum">Форум</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+												
+												
+                                                	<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bullet.gif"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+													
+	
+
+                                                    <a class="mainMenuLink" href="https://ru.jooble.org/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%BD%D1%8B%D0%B9-%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%BE%D1%80" target="_blank">Вакансии</a>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+												
+												
+                                                	<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bullet.gif"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+													
+	
+
+                                                    <a class="mainMenuLink" href="http://samag.ru/legalinfo">Спроси юриста</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+												
+												
+                                                	<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bullet.gif"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+													
+	
+
+                                                    <a class="mainMenuLink" href="http://games.samag.ru/" target="_blank">Игры</a>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+												
+												
+                                                	<td style="border-bottom:dashed 1px #2F2F2F;text-align:center;vertical-align:bottom;padding:0 0 5px 0;" width="30" height="20"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bullet.gif"></td>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:bottom;padding:0 0 2px 0px;" width="*">
+													
+	
+
+                                                    <a class="mainMenuLink" href="http://samag.ru/main/part/32">Контакты</a>
+													
+
+                                                    </td>
+                                                </tr>
+												
+                                                <tr>
+                                                	<td width="30" height="25">&nbsp;</td>
+                                                    <td width="*">&nbsp;</td>
+                                                </tr>
+                                            </tbody></table>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+
+
+
+
+
+
+
+
+
+                    
+
+					
+                    <table style="background-repeat:no-repeat;background-position:right top;margin-top:10px;" width="223" cellspacing="0" cellpadding="0" border="0" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_block_h.gif">
+                    	<tbody><tr>
+                        	<td style="border-right:solid 2px #16A316;background-repeat:no-repeat;background-position:right bottom;padding:10px 10px 10px 0;" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_block_bottom_h.gif">
+                            	<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#E6F6FD">
+                                	<tbody><tr>
+                                    	<td style="border-top:solid 5px #5D8797;text-align:right; padding-right:10px;" height="47" bgcolor="#ffffff">
+                                        <a class="blockTitle" href="http://samag.ru/galery">Слайд шоу</a>&nbsp;&nbsp;<img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/marker_annons.gif" style="vertical-align:middle;"><br>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td style="text-align:center;vertical-align:top;padding-left:0px;border-bottom:solid 1px #5D8797;">
+
+
+                                            <table style="border-top:solid 1px #5D8797;" width="100%" cellspacing="0" cellpadding="0" border="0">
+
+                                                <tbody><tr>
+                                                    <td style="text-align:left;vertical-align:top;padding:10px 5px 2px 10px;" width="*">
+                                                     
+                                                    <div id="slidegalery" style="margin-bottom: 10px; position: relative; width: 180px; height: 240px; overflow: hidden;">
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400746926Cyber_Currency_Future.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400746926Cyber_Currency_Future.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400747488Error_Accounting_1C_part9.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400747488Error_Accounting_1C_part9.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400747969Five_Alternatives_Bitcoin.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400747969Five_Alternatives_Bitcoin.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400748192HP_NNMi_9.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400748192HP_NNMi_9.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400748452Indexes_MongoDb.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400748452Indexes_MongoDb.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400748520Opinion_Employer.gif" style="position: absolute; top: 0px; left: 0px; display: block; z-index: 21; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400748520Opinion_Employer.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400748574Quality_Code.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400748574Quality_Code.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400748622Siemens_HiPath_3800.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400748622Siemens_HiPath_3800.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400748773Backup_Large_Small.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400748773Backup_Large_Small.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400748930Microsoft_Excel_2013.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400748930Microsoft_Excel_2013.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400749792Quality_Code_part2.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400749792Quality_Code_part2.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400749838SCCM_WSUS.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400749838SCCM_WSUS.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400749878Ten_Formuls.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400749878Ten_Formuls.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400749925ZEN_Load_Balancer.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400749925ZEN_Load_Balancer.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400750129Distribution_System_Secret.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400750129Distribution_System_Secret.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400750136Test_Site_Links_SEO.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400750136Test_Site_Links_SEO.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400750341Isolation_Processes_LXC_Skype.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400750341Isolation_Processes_LXC_Skype.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400750349Queue_Data_Structures.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400750349Queue_Data_Structures.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400750358Software_License.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400750358Software_License.gif"></a>
+ <a class="zoom" href="http://samag.ru/archive/article/img/upload/galery/b_1400750367Tapestry_part3.gif" style="position: absolute; top: 0px; left: -180px; display: none; z-index: 20; opacity: 1; width: 180px; height: 240px;"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/s_1400750367Tapestry_part3.gif"></a>
+                                                     </div>
+                                                     
+                                                    
+                                                     
+                                                    </td>
+                                                </tr>
+
+                                            </tbody></table>
+<div style="text-align:left;padding:5px 5px 0 8px;font-size:11px;font-weight:bold;"> Представляем работы Виктора Чумачева</div>
+<div style="text-align:justify;padding:0 5px 5px 8px;font-size:11px; text-align: left;">Виктор
+ Чумачев – известный московский художник, который сотрудничает с 
+«Системным администратором» уже несколько лет. Именно его забавные и 
+воздушные, как ИТ, иллюстрации украшают многие серьезные статьи в 
+журнале. Работы Виктора Чумачева хорошо знакомы читателям в России 
+(«Комсомольская правда», «Известия», «Московские новости», Коммерсант и 
+др.) и за рубежом (США, Германия). Каждый раз, получая новый рисунок 
+Виктора, мы в редакции улыбаемся. А улыбка, как известно, смягчает душу.
+ Поэтому смотрите на его рисунки – и пусть у вас будет хорошее 
+настроение!</div>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+
+					
+					
+					
+
+					
+
+                    <table style="background-repeat:no-repeat;background-position:right top;margin-top:10px;margin-bottom:10px;" width="223" cellspacing="0" cellpadding="0" border="0" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_block_h.gif">
+                    	<tbody><tr>
+                        	<td style="border-right:solid 2px #16A316;background-repeat:no-repeat;background-position:right bottom;padding:10px 10px 10px 0;" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_block_bottom_h.gif">
+                            	<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#E6F6FD">
+                                	<tbody><tr>
+                                    	<td style="border-top:solid 5px #5D8797;text-align:right; padding-right:10px;" height="47" bgcolor="#ffffff">
+                                        <a class="blockTitle" href="http://samag.ru/uart/review">1001 и 1 книга</a>&nbsp;&nbsp;<img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/marker_annons.gif" style="vertical-align:middle;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td style="text-align:center;vertical-align:top;padding-left:0px;border-bottom:solid 1px #5D8797;">
+
+
+                                            <table style="border-top:solid 1px #5D8797;" width="100%" cellspacing="0" cellpadding="0" border="0">
+
+                                                <tbody><tr>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:top;padding:10px 5px 2px 10px;" width="*">
+                                                     
+                                                     
+                                                     <strong style="font-size:11px;">20.09.2018г.</strong><br>
+                            <div class="catthegory" style="font-size:11px;">Просмотров: 254</div>
+                            <div class="catthegory" style="margin-bottom:6px;font-size:11px;">Комментарии: 0</div>
+                            <div style="margin-bottom:6px;font-size:11px; font-weight:bold;"> Байесовские модели</div>
+                                                     
+                                                     
+
+                                                     <p style="text-align:right;margin-top:0px;padding-right:10px;">
+                                                     <img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/src_btn.gif" style="vertical-align:middle;">&nbsp;<a class="more" href="http://samag.ru/uart/more/305" style="font-size:11px;">Читать далее...</a>
+                                                     </p>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:top;padding:10px 5px 2px 10px;" width="*">
+                                                     
+                                                     
+                                                     <strong style="font-size:11px;">20.09.2018г.</strong><br>
+                            <div class="catthegory" style="font-size:11px;">Просмотров: 192</div>
+                            <div class="catthegory" style="margin-bottom:6px;font-size:11px;">Комментарии: 0</div>
+                            <div style="margin-bottom:6px;font-size:11px; font-weight:bold;">Элегантный SciPy</div>
+                                                     
+                                                     
+
+                                                     <p style="text-align:right;margin-top:0px;padding-right:10px;">
+                                                     <img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/src_btn.gif" style="vertical-align:middle;">&nbsp;<a class="more" href="http://samag.ru/uart/more/308" style="font-size:11px;">Читать далее...</a>
+                                                     </p>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:top;padding:10px 5px 2px 10px;" width="*">
+                                                     
+                                                     
+                                                     <strong style="font-size:11px;">20.09.2018г.</strong><br>
+                            <div class="catthegory" style="font-size:11px;">Просмотров: 218</div>
+                            <div class="catthegory" style="margin-bottom:6px;font-size:11px;">Комментарии: 0</div>
+                            <div style="margin-bottom:6px;font-size:11px; font-weight:bold;">Олимпиадное программирование</div>
+                                                     
+                                                     
+
+                                                     <p style="text-align:right;margin-top:0px;padding-right:10px;">
+                                                     <img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/src_btn.gif" style="vertical-align:middle;">&nbsp;<a class="more" href="http://samag.ru/uart/more/307" style="font-size:11px;">Читать далее...</a>
+                                                     </p>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:top;padding:10px 5px 2px 10px;" width="*">
+                                                     
+                                                     
+                                                     <strong style="font-size:11px;">20.09.2018г.</strong><br>
+                            <div class="catthegory" style="font-size:11px;">Просмотров: 165</div>
+                            <div class="catthegory" style="margin-bottom:6px;font-size:11px;">Комментарии: 0</div>
+                            <div style="margin-bottom:6px;font-size:11px; font-weight:bold;">Akka в действии</div>
+                                                     
+                                                     
+
+                                                     <p style="text-align:right;margin-top:0px;padding-right:10px;">
+                                                     <img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/src_btn.gif" style="vertical-align:middle;">&nbsp;<a class="more" href="http://samag.ru/uart/more/306" style="font-size:11px;">Читать далее...</a>
+                                                     </p>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="text-align:left;vertical-align:top;padding:10px 5px 2px 10px;" width="*">
+                                                     
+                                                     
+                                                     <strong style="font-size:11px;">19.03.2018г.</strong><br>
+                            <div class="catthegory" style="font-size:11px;">Просмотров: 3632</div>
+                            <div class="catthegory" style="margin-bottom:6px;font-size:11px;">Комментарии: 0</div>
+                            <div style="margin-bottom:6px;font-size:11px; font-weight:bold;"> Потоковая обработка данных</div>
+                                                     
+                                                     
+
+                                                     <p style="text-align:right;margin-top:0px;padding-right:10px;">
+                                                     <img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/src_btn.gif" style="vertical-align:middle;">&nbsp;<a class="more" href="http://samag.ru/uart/more/302" style="font-size:11px;">Читать далее...</a>
+                                                     </p>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+					
+					
+					
+					
+					
+					
+
+
+
+
+                    <table style="background-repeat:no-repeat;background-position:right top;margin-top:10px;" width="223" cellspacing="0" cellpadding="0" border="0" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_block_h.gif">
+                    	<tbody><tr>
+                        	<td style="border-right:solid 2px #16A316;background-repeat:no-repeat;background-position:right bottom;padding:10px 10px 10px 0;" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_block_bottom_h.gif">
+                            	<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#E6F6FD">
+                                	<tbody><tr>
+                                    	<td style="border-top:solid 5px #5D8797;text-align:right; padding-right:10px;" height="47" bgcolor="#ffffff">
+                                        <a class="blockTitle" href="http://samag.ru/discuss">Дискуссии</a>&nbsp;&nbsp;<img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/marker_annons.gif" style="vertical-align:middle;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td style="text-align:center;vertical-align:top;padding-left:0px;border-bottom:solid 1px #5D8797;">
+
+
+                                            <table style="border-top:solid 1px #5D8797;" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                                <tbody><tr>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:top;padding:10px 5px 2px 10px;" width="*">
+                                                     <strong style="font-size:11px;">17.09.2014г.</strong><br>
+                            <div class="catthegory" style="font-size:11px;">Просмотров: 18907</div>
+                            <div class="catthegory" style="margin-bottom:6px;font-size:11px;">Комментарии: 3</div>
+                            <div style="margin-bottom:6px;font-size:11px; font-weight:bold;">Красть или не красть? О пиратском ПО как о российском феномене</div>
+                                                     
+                                                     <p style="text-align:left;margin-top:0px;padding-right:10px;">
+                                                     <span class="artText" style="font-size:11px;">
+													 
+
+Тема контрафактного ПО и защиты авторских прав сегодня актуальна как никогда.
+Мы представляем ...
+                                                     </span>
+                                                     </p>
+                                                     <p style="text-align:right;margin-top:0px;padding-right:10px;">
+                                                     <img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/src_btn.gif" style="vertical-align:middle;">&nbsp;<a class="more" href="http://samag.ru/discuss/more/4" style="font-size:11px;">Читать далее...</a>
+                                                     </p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border-bottom:dashed 1px #2F2F2F;text-align:left;vertical-align:top;padding:10px 5px 2px 10px;" width="*">
+                                                     <strong style="font-size:11px;">03.03.2014г.</strong><br>
+                            <div class="catthegory" style="font-size:11px;">Просмотров: 21354</div>
+                            <div class="catthegory" style="margin-bottom:6px;font-size:11px;">Комментарии: 1</div>
+                            <div style="margin-bottom:6px;font-size:11px; font-weight:bold;">Жизнь под дамокловым мечом</div>
+                                                     
+                                                     <p style="text-align:left;margin-top:0px;padding-right:10px;">
+                                                     <span class="artText" style="font-size:11px;">
+													 Политические события как катализатор возникновения уязвимости
+Законодательная инициатива Государственной Думы и силовых структур, ...
+                                                     </span>
+                                                     </p>
+                                                     <p style="text-align:right;margin-top:0px;padding-right:10px;">
+                                                     <img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/src_btn.gif" style="vertical-align:middle;">&nbsp;<a class="more" href="http://samag.ru/discuss/more/3" style="font-size:11px;">Читать далее...</a>
+                                                     </p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:left;vertical-align:top;padding:10px 5px 2px 10px;" width="*">
+                                                     <strong style="font-size:11px;">23.01.2014г.</strong><br>
+                            <div class="catthegory" style="font-size:11px;">Просмотров: 29993</div>
+                            <div class="catthegory" style="margin-bottom:6px;font-size:11px;">Комментарии: 3</div>
+                            <div style="margin-bottom:6px;font-size:11px; font-weight:bold;">ИТ-специалист будущего. Кто он?</div>
+                                                     
+                                                     <p style="text-align:left;margin-top:0px;padding-right:10px;">
+                                                     <span class="artText" style="font-size:11px;">
+													 Так уж устроен человек, что взгляд его обращен чаще всего в Будущее, ...
+                                                     </span>
+                                                     </p>
+                                                     <p style="text-align:right;margin-top:0px;padding-right:10px;">
+                                                     <img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/src_btn.gif" style="vertical-align:middle;">&nbsp;<a class="more" href="http://samag.ru/discuss/more/2" style="font-size:11px;">Читать далее...</a>
+                                                     </p>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody></table>
+
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+
+
+
+<br>
+                    <table style="background-repeat:no-repeat;background-position:right top;" width="223" cellspacing="0" cellpadding="0" border="0" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_block_h.gif">
+                    	<tbody><tr>
+                        	<td style="border-right:solid 2px #16A316;background-repeat:no-repeat;background-position:right bottom;padding:10px 10px 10px 0;" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_block_bottom_h.gif">
+                            	<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#E6F6FD">
+                                	<!-- <tr>
+                                    	<td height="47" bgcolor="#ffffff" style="border-top:solid 5px #5D8797;text-align:right; padding-right:10px;">
+										<div style="position:relative;">
+						
+                                        <span class="blockTitle"></span>&nbsp;&nbsp;<img alt="" src="/img/marker_annons.gif" style="vertical-align:middle;" />
+										</div>
+                                        </td>
+                                    </tr>  -->
+                                    <tbody><tr> 
+                                    	<td style="text-align:center;vertical-align:top;padding-left:0px;border-bottom:solid 1px #5D8797;">
+<!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                            	<tbody><tr>
+                                                	<td style="text-align:left;vertical-align:middle;padding:5px 0 0 10px;border-top:solid 1px #5D8797;"><img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/marker_comment.gif" style="vertical-align:middle;">&nbsp;&nbsp;<span class="blockTitle">Опросы</span></td>
+                                                </tr>
+                                            </tbody></table>
+<!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+
+
+
+<table style="background-repeat:no-repeat;background-position:right top;" width="223" cellspacing="0" cellpadding="0" border="0" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_block_h.gif">
+<tbody><tr><td><p style="text-align:center;">
+<script async="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:inline-block;width:200px;height:200px" data-ad-client="ca-pub-0772945205359099" data-ad-slot="5413496928" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:200px;margin:0;padding:0;position:relative;visibility:visible;width:200px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:200px;margin:0;padding:0;position:relative;visibility:visible;width:200px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:200px;height:200px;" width="200" height="200" frameborder="0"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</p></td></tr></tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+
+
+                     <table style="background-repeat:no-repeat;background-position:right top;" width="223" cellspacing="0" cellpadding="0" border="0" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_block_h.gif">
+                    	<tbody><tr>
+                        	<td style="border-right:solid 2px #16A316;background-repeat:no-repeat;background-position:right bottom;padding:10px 10px 10px 0;" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_block_bottom_h.gif">
+                            	<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#E6F6FD">
+                                	<tbody><tr>
+                                    	<td style="border-top:solid 5px #5D8797;border-bottom:solid 1px #5D8797;text-align:right; padding-right:10px;" height="47" bgcolor="#ffffff">
+                                        <span class="blockTitle">Друзья сайта</span>&nbsp;&nbsp;<img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/marker_annons.gif" style="vertical-align:middle;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td style="text-align:center;vertical-align:top;padding-left:0px;">
+                                        	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                                <tbody><tr>
+                                                    <td style="text-align:right;vertical-align:top;padding:10px 5px 2px 10px;" width="*">
+                                                     <p style="text-align:right;margin-top:0px;">
+                                                     <span class="blockTitle" style="font-weight:normal;font-size:11px;">Форум системных администраторов</span>&nbsp;&nbsp;<img alt="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/marker_rubric.gif" style="vertical-align:middle;">
+                                                     </p>
+                                                     <p></p>
+                                                     <p style="text-align:center;margin-top:0px;padding-right:10px;">
+                                                     <a class="artText" target="_blank" href="http://sysadmins.ru/" style="font-size:11px;"><strong>sysadmins.ru</strong></a>
+                                                     </p>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+		
+                                        </td>
+                                    </tr>
+									<tr>
+										<td style="text-align:center;vertical-align:top;padding-left:0px;">
+										<!-- trade-links --> 
+										</td>
+									</tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+
+
+
+
+                    
+                </td>
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////End Of Header////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->  <!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////Main Content/////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                <td style="text-align:center;vertical-align:top;padding:0 20px 0 20px;" width="*">
+                     <p class="titlePar"></p><h1 class="pTitle"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/partbullet.gif" style="vertical-align:middle; margin-bottom:3px;" width="15" height="20">&nbsp;Исследование
+ воздействия некоторых параметров теста LINPACK для гибридного кластера 
+на производительность вычислений в зависимости от размерности задачи</h1><p></p>
+
+<p><a class="catthegory" href="http://samag.ru/archive">Архив номеров</a> <span class="catthegory">/</span> <a class="catthegory" href="http://samag.ru/archive/content/12/2016">2016</a> <span class="catthegory">/</span> <a class="catthegory" href="http://samag.ru/archive/more/162">Выпуск №5 (162)</a> <span class="catthegory">/</span> <span class="catthegory">Исследование
+ воздействия некоторых параметров теста LINPACK для гибридного кластера 
+на производительность вычислений в зависимости от размерности задачи</span></p>
+
+
+                    <table style="border-top:solid 5px #5D8797;background-repeat:repeat-y;background-position:right;margin-bottom:10px;" width="100%" cellspacing="0" cellpadding="0" border="0" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/v_border_dotted.gif">
+                    	<tbody><tr>
+                        	<td style="border-bottom:solid 1px #5D8797;background-repeat:repeat-y;background-position:left;padding:20px;" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/v_border_dotted.gif">
+                            
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                            	<tbody><tr>
+                                	<td style="text-align:left;">
+                                    <span class="catthegory">Рубрика: </span>
+                                    <span class="catthegory">
+									Наука и технологии</span>
+                                    </td>
+									<td style="text-align: right;">
+									<div class="social-likes">
+	<div class="facebook" title="Поделиться ссылкой на Фейсбуке">Facebook</div>
+	<div class="twitter" title="Поделиться ссылкой в Твиттере">Twitter</div>
+	<div class="mailru" title="Поделиться ссылкой в Моём мире">Мой мир</div>
+	<div class="vkontakte" title="Поделиться ссылкой во Вконтакте">Вконтакте</div>
+	<div class="odnoklassniki" title="Поделиться ссылкой в Одноклассниках">Одноклассники</div>
+	<div class="plusone" title="Поделиться ссылкой в Гугл-плюсе">Google+</div>
+</div>
+									</td>
+                                </tr>
+                            </tbody></table>
+							
+							
+							<p><img title="Без фото" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/No_foto_man.gif" alt="Без фото" width="50" height="54">&nbsp;<strong>КУЛИКОВ В.А.</strong>,
+ аспирант кафедры прикладной математики, информатики и вычислительной 
+техники факультета электроники и системотехники Московского 
+государственного университета леса, <a href="mailto:Vladimir.Kulikov@rsce.ru" target="_blank">Vladimir.Kulikov@rsce.ru</a></p>
+<p><img title="Без фото" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/No_foto_man.gif" alt="Без фото" width="50" height="54">&nbsp;<strong>ЧЕРНЫШОВ А.В.</strong>,
+ к.т.н., доцент кафедры прикладной математики, информатики и 
+вычислительной техники факультета электроники и системотехники 
+Московского государственного университета леса, <a href="mailto:sch@mgul.ac.ru" target="_blank">sch@mgul.ac.ru</a></p>
+<p><span class="arthead">Исследование воздействия некоторых параметров теста LINPACK</span><br><span class="arthead2" style="color: #4d5498;">для гибридного кластера на производительность вычислений в зависимости от размерности задачи</span></p>
+<p><strong>При решении систем линейных алгебраических уравнений на 
+современных гибридных (CPU + GPU) кластерах перед пользователем 
+возникает задача выбора значений ряда параметров, оказывающих 
+существенное, но неочевидное влияние на производительность вычислений и,
+ как следствие, на временные, а следовательно, и технические затраты на 
+решение задачи. Существующие рекомендации по выбору значений этих 
+параметров носят оценочный характер и не гарантируют достижения 
+максимальной производительности вычислений при заданной размерности 
+системы линейных алгебраических уравнений. Целью работы является 
+экспериментальное исследование влияния значений параметров <em>Nb</em> и <em>CUDA_DGEMM_SPLIT</em>
+ теста LINPACK, представляющего собой решение модельной системы линейных
+ алгебраических уравнений методом LU-разложения, на производительность 
+вычислений на гибридных узлах кластера «Ломоносов» (МГУ, Москва). 
+Получены рекомендательные данные значений параметров <em>Nb</em> и <em>CUDA_DGEMM_SPLIT</em>
+ в зависимости от размерности системы линейных алгебраических уравнений 
+для достижения максимальной производительности при решении системы 
+линейных алгебраических уравнений методом LU-разложения на гибридных 
+вычислительных узлах кластера «Ломоносов». Построенная в работе 
+рекомендательная таблица для кластера «Ломоносов» позволяет однозначно 
+выбирать значения параметров <em>Nb</em> и <em>CUDA_DGEMM_SPLIT</em> в 
+зависимости от размерности системы линейных алгебраических уравнений для
+ достижения максимальной производительности вычислений</strong></p>
+<p><span class="paragraph" style="color: #4d5498;">Введение</span></p>
+<p>Параллельные вычисления – современная, бурно развивающаяся область 
+вычислительной науки. Актуальность данной области складывается из 
+множества факторов, и в первую очередь из потребности в больших 
+вычислительных ресурсах для решения расчетных задач в различных областях
+ науки и техники.</p>
+<p>Например, при создании перспективных образцов авиационной и 
+космической техники возникает необходимость в моделировании сложных 
+процессов внешнего обтекания твердых тел различной формы и течения в 
+сложных каналах, вычисления поля давлений и температур потока, расчета 
+коэффициентов сопротивления и потерь полного давления в широком 
+диапазоне скоростей – «дозвук», «трансзвук», «сверхзвук» и «гиперзвук». 
+Для достижения наилучших возможностей по параллельному режиму счета и по
+ количеству внедренных вкод математических моделей физических явлений 
+при обработке наиболее ресурсоемких задач требуется использовать 
+программное обеспечение OpenFOAM.</p>
+<p>Практический опыт показывает, что нестационарная задача движения 
+вязкой жидкости в рамках двухпараметрической модели турбулентности на 
+промежутке времени в 10 секунд сиспользованием сеточной модели в 60 млн 
+ячеек на 8 расчетных узлах (2хCPU – Intel Sandy Bridge-EP E5-2665 – 16 
+расчетных ядер) решается с использованием стандартного решателя OpenFOAM
+ примерно 6 месяцев.</p>
+<p>Одно из направлений в повышении эффективности параллельных вычислений
+ – использование параллельных вычислительных кластеров на основе 
+графических процессоров (GPU), что на порядок повышает вычислительные 
+возможности и минимизирует архитектуру и энергопотребление.</p>
+<p>Например, компания «Т-Платформы» (производитель кластера «Ломоносов»)
+ показала, что более 80% расчетного времени при решении указанной выше 
+задачи занимает решение СЛАУ, и в случае применения гибридного 
+вычислителя (CPU + GPU) удается достигнуть сокращения сроков вычисления 
+до 3 недель.</p>
+<p>Одной из важных проблем при решении СЛАУ на гибридном вычислительном 
+кластере является подбор параметров распараллеливания алгоритма 
+вычисления, в частности, распределение количества вычислительной работы 
+между CPU и GPU. В качестве модельной задачи, позволяющей исследовать 
+эту проблему, хорошо подходит стандартный тест LINPACK, широко 
+применяемый для оценки производительности вычислительных кластеров.</p>
+<p>В статье [1] были описаны исследования производительности теста 
+LINPACK в версии для гибридных узлов (CPU + GPU) на кластере «Ломоносов»
+ МГУ им. М.В. Ломоносова дляразных размерностей задачи N (от 20 000 до 
+60 000) и стандартных (рекомендованных) остальных значений параметров 
+теста.</p>
+<p>В настоящей статье приведены результаты дальнейших исследований, 
+касающиеся эффективности вычислений теста LINPACK при изменении 
+параметров <em>Nb</em> (величина размерности логических блоков <em>Nb</em> × <em>Nb</em>, на которые разбивается исходная матрица) и <em>CUDA_DGEMM_SPLIT</em>
+ (процент работы, загружаемой в GPU для умножения матриц сдвойной 
+точностью), тесно связанных с аппаратной структурой вычислительных узлов
+ кластера. Причем, как и в статье [1], под эффективностью понимается 
+достижение максимальной производительности вычислений, выражаемое в 
+общепринятых единицах <em>GFlops</em>.</p>
+<p>Полученные экспериментальные зависимости могут быть полезны для 
+выбора значений этих параметров при решении реальных систем линейных 
+уравнений конкретных размерностей <em>N</em> с максимальной производительностью.</p>
+<p>В статье сознательно не рассматриваются вопросы обусловленности самой
+ математической системы, точности решения, выбора разрядности 
+вычислений, поскольку они должны быть математически обоснованы и решены 
+постановщиком задачи до выхода на вычислитель.</p>
+<p><span class="paragraph" style="color: #4d5498;">Описание теста</span></p>
+<p>Тест LINPACK представляет собой задачу решения системы линейных 
+алгебраических уравнений (СЛАУ) методом LU-разложения и считается на 
+сегодня классическим способом определения производительности кластера, 
+поскольку к решению СЛАУ сводятся очень многие реальные расчетные 
+задачи.</p>
+<p>Тест и его основные параметры, а также характеристики кластерного вычислителя «Ломоносов» подробно рассмотрены в статье [1].</p>
+<p>В работе [2] полностью описываются теоретические основы теста 
+LINPACK, а также его возможные варианты для оценки производительности 
+различных компьютерных систем.</p>
+<p>Публикация [3] раскрывает имплементацию алгоритма LINPACK для систем высокопроизводительных вычислений.</p>
+<p>Основным автором исходного кода LINPACK для GPU (CUDA-enabled version
+ of HPL 2.0 optimized for Tesla 20-series GPU Fermi version 1.5) 
+является доктор Массимилиано Фатика (doctor M. Fatica, NVIDIA).</p>
+<p>Основное отличие LINPACK для GPU заключается в том, что в исходном 
+коде HPL 2.0 ядра и CPU, и GPU с небольшими модификациями или без 
+модификаций используются совокупно (эффективность совокупности CPU и GPU
+ превышает сумму их индивидуальных эффективностей):</p>
+<ul>
+<li>Библиотека узла прерывает вызовы кDGEMM иDTRSM ивыполняет иходновременно наядрах CPU иGPU, где:
+<ul>
+<li><strong>DGEMM – Double-precision General Matrix Multiply</strong> – умножение матриц с двойной точностью;</li>
+<li><strong>DTRSM – Double-precision TRiangular Solve Multiple (solution of the triangular systems of linear equations)</strong> – решение треугольных систем линейных уравнений с двойной точностью.</li>
+</ul>
+</li>
+<li>Использование pinned memory для быстрых передач данных по 
+компьютерной шине PCI Express со скоростью до 5.7 GB/s на слотах x16 
+gen2.</li>
+</ul>
+<p>Схема вычислений в LINPACK для GPU показана на рис. 1. Из него видно,
+ что после факторизации текущего блока (красный цвет) обновляются части 
+зеленого и желтого цвета. Чем больше значение размерности <em>N</em>, тем больше времени расходуется на обновление (DGEMM).</p>
+<ul>
+<li><strong>DGEMM</strong> – область умножения матриц с двойной точностью;</li>
+<li><strong>DTRSM</strong> – область решения треугольных систем линейных уравнений с двойной точностью.</li>
+</ul>
+<p><a class="zoom" title="Рисунок 1. Факторизация текущего блока" href="http://samag.ru/uploads/articles/2016/05/81_85_Linpack_Benchmark_Parameters/Risunok1.gif" target="_blank"><img title="Рисунок 1. Факторизация текущего блока" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/Risunok1.gif" alt="Рисунок 1. Факторизация текущего блока" width="480" height="273"></a></p>
+<p><span class="console">Рисунок 1. Факторизация текущего блока</span></p>
+<p>В версии теста LINPACK для GPU мы опираемся на два преобразования с 
+матрицами – DGEMM и DTRSM. Для их ускорения мы используем все 
+вычислительные возможности CPU и GPU. Эффективное распределение 
+расчетной нагрузки и минимизация времени обмена данными позволят 
+получить наибольшую производительность.</p>
+<p>Один из разработанных методов оптимизации для получения наибольшей 
+производительности – оптимальное разделение рабочей нагрузки, которое 
+состоит в следующем.</p>
+<p>Если мы имеем матрицы с размерностями <em>A</em> (<em>M</em> , <em>K</em>), <em>B</em> (<em>K</em> , <em>N</em>) и <em>C</em> (<em>M</em> , <em>N</em>) (см. рис. 2), то при выполнении DGEMM-преобразования выполняется <em>2</em> × <em>M</em> × <em>K</em> × <em>N</em> операций.</p>
+<p><a class="zoom" title="Рисунок 2. Оптимальное разделение рабочей нагрузки" href="http://samag.ru/uploads/articles/2016/05/81_85_Linpack_Benchmark_Parameters/Risunok2.gif" target="_blank"><img title="Рисунок 2. Оптимальное разделение рабочей нагрузки" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/Risunok2.gif" alt="Рисунок 2. Оптимальное разделение рабочей нагрузки" width="480" height="365"></a></p>
+<p><span class="console">Рисунок 2. Оптимальное разделение рабочей нагрузки</span></p>
+<p>Временно́е равенство вычислений для CPU и GPU:</p>
+<p><strong><em>T<sub>cpu</sub></em>&nbsp;(<em>M</em>, <em>K</em>, <em>N<sub>2</sub></em>) = <em>T<sub>gpu</sub></em> (<em>M</em>, <em>K</em>, <em>N<sub>1</sub></em>)</strong></p>
+<p><strong><em>N</em> = <em>N<sub>1</sub></em> + <em>N<sub>2</sub></em></strong></p>
+<p>где:</p>
+<ul>
+<li><em><strong>T<sub>cpu</sub></strong></em> – время вычислений на CPU;</li>
+<li><em><strong>T<sub>gpu</sub></strong></em> – время вычислений на GPU.</li>
+</ul>
+<p>Если для DGEMM-преобразования <em>G<sub>CPU</sub></em> – значение производительности CPU, а <em>G<sub>GPU</sub></em> – значение производительности одного из GPU в размерности <em>GFlops</em>, то оптимальным разделением будет:</p>
+<p><img title="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/Formula01.png" alt="" width="132" height="54"></p>
+<p>Схема метода показана на рис. 2, где:</p>
+<ul>
+<li>зеленым отмечена область <strong>GPU</strong>, а розовым цветом – <strong>CPU</strong>;</li>
+<li><strong><em>A</em>, <em>B</em>, <em>C</em></strong> – матрицы;</li>
+<li><em><strong>M</strong></em> – величина, определяющая число строк матрицы <em>op</em>(<em>A</em>) и матрицы <em>C</em>;</li>
+<li><em><strong>N<sub>1</sub></strong></em> – величина, определяющая число столбцов матрицы <em>op</em>(<em>B<sub>1</sub></em>) и число столбцов матрицы <em>C<sub>1</sub></em> в области GPU;</li>
+<li><em><strong>N<sub>2</sub></strong></em> – величина, определяющая число столбцов матрицы <em>op</em>(<em>B<sub>2</sub></em>) и число столбцов матрицы <em>C<sub>2</sub></em> в области CPU;</li>
+<li><em><strong>K</strong></em> – величина, определяющая число столбцов матрицы <em>op</em>(<em>A</em>) и число строк матрицы <em>op</em>(<em>B</em>).</li>
+</ul>
+<p>Остановимся на преобразовании DGEMM [4], которое представляет собой следующую процедуру мультипликации матриц:</p>
+<p><strong><em>C</em> := <em>α</em>×<em>op</em>(<em>A</em>)×<em>op</em>(<em>B</em>) + <em>β</em>×<em>C</em></strong></p>
+<p>где <em>op</em>(<em>X</em>) принимает одно из следующих значений:</p>
+<p><strong><em>op</em>(<em>X</em>) = <em>X</em></strong> или<strong><em> op</em>(<em>X</em>) = <em>X<sup>T</sup></em></strong></p>
+<p>Здесь:</p>
+<ul>
+<li><strong><em>α</em>, <em>β</em></strong> – скалярные величины;</li>
+<li><strong><em>A</em>, <em>B</em>, <em>C</em></strong> – матрицы;</li>
+<li><strong><em>op</em>(<em>A</em>)</strong> – матрица с числом строк <em>m</em> и столбцов <em>k</em>;</li>
+<li><strong><em>op</em>(<em>B</em>)</strong> – матрица с числом строк <em>k</em> и столбцов <em>n</em>;</li>
+<li><strong><em>C</em></strong> – матрица с числом строк <em>m</em> и стобцов <em>n</em>;</li>
+<li><strong><em>X<sup>T</sup></em></strong> – транспонированная матрица <em>X</em>.</li>
+</ul>
+<p>Преобразование DGEMM оформлено в виде функции:</p>
+<p><strong><em>DGEMM</em> = (<em>TRANSA</em>, <em>TRANSA</em>, <em>M</em>, <em>N</em>, <em>K</em>, <em>ALPHA</em>, <em>A</em>, <em>LDA</em>, <em>B</em>, <em>LDB</em>, <em>BETA</em>, <em>C</em>, <em>LDC</em>)</strong></p>
+<p>Здесь:</p>
+<ul>
+<li><em><strong>TRANSA</strong></em> – переменная символьного типа, на входе ее значение определяет формат матрицы <em>op</em>(<em>A</em>), который будет использоваться в мультипликации матриц:</li>
+</ul>
+<p><strong><em>TRANSA</em> = '<em>N</em>'||'<em>n</em>' , <em>op</em>(<em>A</em>) = <em>A</em></strong></p>
+<p><strong><em>TRANSA</em> = '<em>T</em>'||'<em>t</em>' , <em>op</em>(<em>A</em>) = <em>A<sup>T</sup></em></strong></p>
+<p><strong><em>TRANSA</em> = '<em>C</em>'||'<em>c</em>' , <em>op</em>(<em>A</em>) = <em>A<sup>T</sup></em></strong></p>
+<p>Не изменяется на выходе;</p>
+<ul>
+<li><em><strong>TRANSB</strong></em> – переменная символьного типа, на входе ее значение определяет формат матрицы <em>op</em>(<em>B</em>), который будет использоваться в мультипликации матриц:</li>
+</ul>
+<p><strong><em>TRANSB</em> = '<em>N</em>'||'<em>n</em>' , <em>op</em>(<em>B</em>) = <em>B</em></strong></p>
+<p><strong><em>TRANSB</em> = '<em>T</em>'||'<em>t</em>' , <em>op</em>(<em>B</em>) = <em>B<sup>T</sup></em></strong></p>
+<p><strong><em>TRANSB</em> = '<em>C</em>'||'<em>c</em>' , <em>op</em>(<em>B</em>) = <em>B<sup>T</sup></em></strong></p>
+<p>Не изменяется на выходе;</p>
+<ul>
+<li><strong>M</strong> – переменная целого типа, на входе ее значение определяет число строк матрицы <em>op</em>(<em>A</em>) и число строк матрицы <em>C</em>, не изменяется на выходе;</li>
+<li><strong>N</strong> – переменная целого типа, на входе ее значение определяет число столбцов матрицы <em>op</em>(<em>B</em>) и число столбцов матрицы <em>C</em>, не изменяется на выходе;</li>
+<li><strong>K</strong> – переменная целого типа, на входе ее значение определяет число столбцов матрицы <em>op</em>(<em>A</em>) и число строк матрицы <em>op</em>(<em>B</em>), не изменяется на выходе;</li>
+<li><strong>ALPHA</strong> – переменная двойной точности, на входе ее значение определяет скалярную величину <em>α</em>, не изменяется на выходе;</li>
+<li><strong>A</strong> – массив двойной точности с размерностью (<em>LDA</em>, <em>ka</em>), где <em>ka</em> – это <em>k</em>, когда <em>TRANSA</em> = '<em>N</em>'||'<em>n</em>' или, во всех других случаях, <em>m</em>. Перед вхождением с <em>TRANSA</em> = '<em>N</em>'||'<em>n</em>', ведущая часть массива <em>A</em> размером <em>m</em> на <em>k</em> должна содержать матрицу <em>A</em>, иначе ведущая часть массива <em>A</em> размером <em>k</em> на <em>m</em> должна содержать матрицу <em>A</em>. Не изменяется на выходе;</li>
+<li><strong>LDA</strong> – переменная целого типа, на входе определяет первичную размерность матрицы <em>A</em>, когда <em>TRANSA</em> = '<em>N</em>'||'<em>n</em>', то <em>LDA</em> должно быть не меньше <em>max</em>(1,<em>m</em>), иначе <em>LDA</em> должно быть не меньше <em>max</em>(1,<em>k</em>). Не изменяется на выходе;</li>
+<li><strong>B</strong> – массив двойной точности с размерностью (<em>LDB</em>, <em>kb</em>), где <em>kb</em> – это <em>n</em>, когда <em>TRANSB</em> = '<em>N</em>'||'<em>n</em>' или, во всех других случаях, <em>k</em>. Перед вхождением с <em>TRANSB</em> = '<em>N</em>'||'<em>n</em>', ведущая часть массива <em>B</em> размером <em>k</em> на <em>n</em> должна содержать матрицу <em>B</em>, иначе ведущая часть массива <em>B</em> размером <em>n</em> на <em>k</em> должна содержать матрицу <em>B</em>. Не изменяется на выходе;</li>
+<li><strong>LDB</strong> – переменная целого типа, определяет первичную размерность матрицы <em>B</em>, когда <em>TRANSB</em> = '<em>N</em>'||'<em>n</em>', то <em>LDB</em> должно быть не меньше <em>max</em>(1,<em>k</em>), иначе <em>LDB</em> должно быть неменьше <em>max</em>(1,<em>n</em>). Не изменяется на выходе;</li>
+<li><strong>BETA</strong> – переменная двойной точности, на входе ее значение определяет скалярную величину <em>β</em>, когда значение <em>BETA</em> ноль, то для <em>C</em> не определяются входные данные. Неизменяется на выходе;</li>
+<li><strong>C</strong> – массив двойной точности с размерностью (<em>LDC</em>, <em>n</em>). До входа ведущая часть массива <em>С</em> размером <em>m</em> на <em>n</em> должна содержать матрицу <em>C</em>, кроме случая, когда значение <em>β</em> ноль и для этого случая для <em>C</em> не определяются входные данные. На выходе массив <em>C</em> перезаписывается <em>m</em> на <em>n</em> матрицей (<em>α</em>×<em>op</em>(<em>A</em>)×<em>op</em>(<em>B</em>) + <em>β</em>×<em>C</em>);</li>
+<li><strong>LDC</strong> – переменная целого типа, на входе определяет первичную размерность матрицы <em>C</em>; <em>LDC</em> – должна быть не меньше <em>max</em>(1,<em>m</em>). Не изменяется на выходе.</li>
+</ul>
+<p>В отличие от классического теста LINPACK в его «кластерном» варианте требуется подбор параметра <em>Nb</em>
+ и ряда других параметров в целях достижения максимальной 
+производительности [5]. В частности, представляет интерес подбор 
+значения параметра <em>CUDA_DGEMM_SPLIT</em> (процент работы, загружаемой в GPU для умножения матриц сдвойной точностью).</p>
+<p>Описываемый эксперимент сводился к выполнению теста LINPACK на 
+выделенных узлах кластера «Ломоносов» для сетки исходных значений, 
+задаваемой параметрами <em>N</em>, <em>Nb</em>, ипри рекомендованных значениях остальных параметров теста.</p>
+<p>В частности, значение параметра Nb зависит от характеристик 
+параллельной вычислительной системы в целом и должно подбираться 
+индивидуально для каждой системы. Дляполучения результатов, близких к 
+пиковым, М. Фатика [6] рекомендует использовать значение <em>Nb</em> = 768 для гибридных кластеров CPU + GPU. Также он указывает, что иногда большую производительность можно достигнуть при <em>Nb</em>
+ = 1024: «…768 typically gives best results, larger values may give 
+better results (1024) if several GPUs share the same PCIe connection…» 
+[7].</p>
+<p>Максимально допустимое значение параметра <em>N</em> – размерность задачи, рассчитывается по формуле:</p>
+<p><img title="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/Formula03.png" alt="" width="464" height="44"></p>
+<p><strong><em>Общая память узлов</em> = <em>Число узлов</em> × <em>Память узла</em> <em>Гб</em> × 1024 ×× 1024 × 1024</strong></p>
+<p>В нашем случае:</p>
+<ul>
+<li><strong>Память узла</strong> – равняется 24 Гб;</li>
+<li><strong>Коэффициент размера</strong> – сколько памяти от Общей 
+памяти узлов необходимо для расчетов теста, чтобы операционная система 
+могла выполнять необходимые операции. Дляконфигурации используемой 
+экспериментальной установки этот коэффициент 0,75;</li>
+<li><strong>Объём памяти для каждого элемента с двойной точностью</strong> – равняется 8 байт;</li>
+<li><strong>Вычисленное значение <em>N</em> = 69511,425</strong>. Для «укладки» размерности задачи <em>N</em> c использованием <em>Nb</em>
+ = 1024 в начальные условия запуска LINPACK для GPU, с учетом аппаратной
+ конфигурации узлов, чтобы не происходило переполнение памяти при работе
+ программы, принимается значение <em>N</em> = 60000.</li>
+</ul>
+<p>Коэффициент <em>CUDA_DGEMM_SPLIT</em> может определяться по различным
+ методикам для запуска теста LINPACK на гибридных узлах кластера CPU + 
+GPU. С ним также тесно связан параметр <em>CUDA_DTRSM_SPLIT</em> 
+(процент работы, загружаемой в GPU для решения треугольных систем 
+линейных уравнений с двойной точностью. Получается вычитанием из <em>CUDA_DGEMM_SPLIT</em> значения 0,1):</p>
+<p>1) По эмпирическим значениям, предложенным М. Фатика [6]:</p>
+<p><strong><em>CUDA_DGEMM_SPLIT</em> = 0,836</strong></p>
+<p><strong><em>CUDA_DTRSM_SPLIT</em> = 0,736</strong></p>
+<p>2) По методике М. Фатика [7]:</p>
+<p><strong><em>CUDA_DGEMM_SPLIT</em> =&nbsp;<img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/Formula02.png" alt="" width="383" height="50"></strong></p>
+<p>где:</p>
+<ul>
+<li><em><strong>MKL_NUM_THREADS</strong></em> – число используемых ядер CPU на одно GPU;</li>
+<li><em><strong>CPU_FREQ</strong></em> – частота CPU в ГГц.</li>
+</ul>
+<p>В нашем случае:</p>
+<p><img title="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/Formula04.png" alt="" width="508" height="73"></p>
+<p>3) По методике расчета Ш. Тарлетон [8]:</p>
+<p><img title="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/Formula05.png" alt="" width="508" height="59"></p>
+<p>где:</p>
+<ul>
+<li><em><strong>GPU_PEAK_FLOPS</strong></em> – теоретическое пиковое значение производительности GFlops для GPU;</li>
+<li><strong><em>CPUFLOPS_PER_CLOCK</em></strong> – число операций за 1 
+такт процессора, позволяющее теоретически достичь пиковой 
+производительности. Для данного типа процессора Intel Xeon L5630 
+значение CPUFLOPS_PER_CLOCK = 4;</li>
+<li><em><strong>MKL_NUM_THREADS</strong></em> – число используемых ядер CPU на одно GPU;</li>
+<li><em><strong>CPU_FREQ</strong></em> – частота CPU в ГГц.</li>
+</ul>
+<p>Тогда:</p>
+<p><img title="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/Formula06.png" alt="" width="508" height="103"></p>
+<p><span class="paragraph" style="color: #4d5498;">Результаты теста и выводы</span></p>
+<p>Построим графики зависимости производительности кластера <em>GFlops</em> от размерности задачи <em>N</em> для вычисленных C<em>UDA_DGEMM_SPLIT</em> и <em>CUDA_DRSM_SPLIT</em> при <em>Nb</em> = 768 и <em>Nb</em>= 1024 в соответствии с полученными результатами (см. рис. 3).</p>
+<p><a class="zoom" title="Рисунок 3. Зависимость производительности вычислений GFlops от размерности задачи N" href="http://samag.ru/uploads/articles/2016/05/81_85_Linpack_Benchmark_Parameters/Risunok3.gif" target="_blank"><img title="Рисунок 3. Зависимость производительности вычислений GFlops от размерности задачи N" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/Risunok3.gif" alt="Рисунок 3. Зависимость производительности вычислений GFlops от размерности задачи N" width="480" height="628"></a></p>
+<p><span class="console">Рисунок 3. Зависимость производительности вычислений <em>GFlops</em> от размерности задачи <em>N</em></span></p>
+<p>По графикам на рис.3 можно видеть, что:</p>
+<ul>
+<li>наблюдается картина увеличения производительности для <em>CUDA_DGEMM_SPLIT</em> = 0,8413 при малом значении <em>N</em> с <em>Nb</em> = 1024 в сравнении с другими результатами, получаемыми с <em>CUDA_DGEMM_SPLIT</em>, равными 0,81214 и 0,836;</li>
+<li>для значения <em>CUDA_DGEMM_SPLIT</em> = 0,8413 скорость роста производительности с увеличением <em>N</em> по сравнению с другими значениями <em>CUDA_DGEMM_SPLIT</em> является максимальной.</li>
+</ul>
+<p>По верхней огибающей группы построенных графиков была построена рекомендательная таблица (см. таблицу 1) для выбора параметров <em>Nb</em> и <em>CUDA_DGEMM_SPLIT</em> взависимости от размера задачи <em>N</em> для получения максимальной производительности <em>GFlops</em> при решении СЛАУ методом LU-разложения на гибридных узлах кластера «Ломоносов»:</p>
+<p><span class="console">Таблица 1. Рекомендательная таблица</span></p>
+<table id="table001" cellpadding="5" border="1">
+<tbody>
+<tr style="background-color: #dbdaeb;">
+<td><span class="tab_head">N</span></td>
+<td><span class="tab_head">CUDA_DGEMM_SPLIT</span></td>
+<td><span class="tab_head">Nb</span></td>
+<td><span class="tab_head">GFlops</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="tab">9600</span></td>
+<td style="text-align: left;"><span class="tab">0,8413</span></td>
+<td style="text-align: left;"><span class="tab">1024</span></td>
+<td style="text-align: left;"><span class="tab">128,7</span></td>
+</tr>
+<tr style="background-color: #dbdaeb;">
+<td style="text-align: left;"><span class="tab">16128</span></td>
+<td style="text-align: left;"><span class="tab">0,8413</span></td>
+<td style="text-align: left;"><span class="tab">768</span></td>
+<td style="text-align: left;"><span class="tab">322,5</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="tab">16129</span></td>
+<td style="text-align: left;"><span class="tab">0,8413</span></td>
+<td style="text-align: left;"><span class="tab">768</span></td>
+<td style="text-align: left;"><span class="tab">323,7</span></td>
+</tr>
+<tr style="background-color: #dbdaeb;">
+<td style="text-align: left;"><span class="tab">20737</span></td>
+<td style="text-align: left;"><span class="tab">0,8413</span></td>
+<td style="text-align: left;"><span class="tab">768</span></td>
+<td style="text-align: left;"><span class="tab">420,2</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="tab">20960</span></td>
+<td style="text-align: left;"><span class="tab">0,8413</span></td>
+<td style="text-align: left;"><span class="tab">768</span></td>
+<td style="text-align: left;"><span class="tab">416,4</span></td>
+</tr>
+<tr style="background-color: #dbdaeb;">
+<td style="text-align: left;"><span class="tab">23040</span></td>
+<td style="text-align: left;"><span class="tab">0,8413</span></td>
+<td style="text-align: left;"><span class="tab">768</span></td>
+<td style="text-align: left;"><span class="tab">454,3</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="tab">25000</span></td>
+<td style="text-align: left;"><span class="tab">0,8413</span></td>
+<td style="text-align: left;"><span class="tab">768</span></td>
+<td style="text-align: left;"><span class="tab">480,6</span></td>
+</tr>
+<tr style="background-color: #dbdaeb;">
+<td style="text-align: left;"><span class="tab">30000</span></td>
+<td style="text-align: left;"><span class="tab">0,8413</span></td>
+<td style="text-align: left;"><span class="tab">1024</span></td>
+<td style="text-align: left;"><span class="tab">555,4</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="tab">39000</span></td>
+<td style="text-align: left;"><span class="tab">0,8413</span></td>
+<td style="text-align: left;"><span class="tab">1024</span></td>
+<td style="text-align: left;"><span class="tab">686,5</span></td>
+</tr>
+<tr style="background-color: #dbdaeb;">
+<td style="text-align: left;"><span class="tab">39007</span></td>
+<td style="text-align: left;"><span class="tab">0,8413</span></td>
+<td style="text-align: left;"><span class="tab">1024</span></td>
+<td style="text-align: left;"><span class="tab">685,8</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="tab">40000</span></td>
+<td style="text-align: left;"><span class="tab">0,8413</span></td>
+<td style="text-align: left;"><span class="tab">1024</span></td>
+<td style="text-align: left;"><span class="tab">698,5</span></td>
+</tr>
+<tr style="background-color: #dbdaeb;">
+<td style="text-align: left;"><span class="tab">50000</span></td>
+<td style="text-align: left;"><span class="tab">0,8413</span></td>
+<td style="text-align: left;"><span class="tab">1024</span></td>
+<td style="text-align: left;"><span class="tab">799</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="tab">60000</span></td>
+<td style="text-align: left;"><span class="tab">0,8413</span></td>
+<td style="text-align: left;"><span class="tab">1024</span></td>
+<td style="text-align: left;"><span class="tab">873,3</span></td>
+</tr>
+</tbody>
+</table>
+<p>Проведение экспериментов с различными рекомендованными разработчиком значениями размера блока <em>Nb</em> равным 768 и 1024 и вычисленными по разным методикам значениями <em>CUDA_DGEMM_SPLIT</em>, равными 0,81214, 0,8413, 0,836, показало, что максимальной производительности <em>GFlops</em> на гибридных узлах кластера «Ломоносов» удается достичь привыборе значения <em>CUDA_DGEMM_SPLIT</em> = 0,8413, полученного с использованием методики Ш. Тарлетон [8]. При этом значения параметра <em>Nb</em> изменяются в зависимости отразмерности поставленной задачи.</p>
+<ol>
+<li><span class="literature">Куликов В. А. Исследование возможностей GPU
+ в высокопроизводительных вычислениях. // «В мире научных открытий», 
+№12.2(60), 2014 г. – C. 639-650.</span></li>
+<li><span class="literature">J. Dongarra, P. Luszczek, A. Petiet. The 
+LINPACK Benchmark: past, present and future. // Concurrency and 
+Computation: Practice and Experience. 2003. Vol. 15(9). P. 803-820. 
+doi:10.1002/cpe.728.</span></li>
+<li><span class="literature">Petitet, R. C. Whaley, J. Dongarra, A. 
+Cleary. HPL Algorithm. Innovate Computer Laboratory (University of 
+Tennessee, Computer Science Department), 2008. – URL:<a href="http://www.netlib.org/benchmark/hpl/algorithm.html" target="_blank">http://www.netlib.org/benchmark/hpl/algorithm.html</a> (дата обращения 20.05.2015).</span></li>
+<li><span class="literature">J. Dongarra, I. Duff, J. D. Croz, S. Hammarling. Subroutine DGEMM, 1989. – URL:<a href="http://www.netlib.org/lapack/explore-3.2-html/dgemm.f.html" target="_blank">http://www.netlib.org/lapack/explore-3.2-html/dgemm.f.html</a>&nbsp;(дата обращения 20.05.2015).</span></li>
+<li><span class="literature">Petitet, R. C. Whaley, J. Dongarra, A. 
+Cleary. HPL 2.0.Innovate Computer Laboratory (University of Tennessee, 
+Computer Science Department), 2008. – URL:<a href="http://www.netlib.org/benchmark/hpl/tuning.html" target="_blank">http://www.netlib.org/benchmark/hpl/tuning.html</a> (дата обращения 20.05.2015).</span></li>
+<li><span class="literature">E. Phillips, M. Fatica. CUDA-enabled 
+version of HPL 2.0 optimized for Tesla 20 series GPU Fermi version 1.5. 
+Nvidia Corp., 2012. – URL:<a href="https://devtalk.nvidia.com/default/topic/500340/cuda-accelerated-LINPACK-code-available" target="_blank">https://devtalk.nvidia.com/default/topic/500340/cuda-accelerated-LINPACK-code-available</a> (дата обращения 23.05.2015).</span></li>
+<li><span class="literature">M. Fatica. Accelerating LINPACK with CUDA on heterogenous clusters. // ACM International Conference Proceeding Series. Vol. 383.</span></li>
+<li><span class="literature">S. Tarleton. Power Efficient LINPACK on GPUs, 2012. – URL:<a href="http://www.shanetarleton.com/power-efficient-LINPACK-on-gpus" target="_blank">http://www.shanetarleton.com/power-efficient-LINPACK-on-gpus</a> (дата обращения 17.06.2015).</span></li>
+</ol>
+<p><strong>Ключевые слова:</strong> графический процессор, кластер, 
+высокопроизводительные вычисления, размерность задачи, гибридный 
+вычислительный узел, LINPACK, решение СЛАУ, GFlops.</p>
+<hr>
+<p><span class="paragraph">The research values of certain parameters of 
+the LINPACK benchmark for hybrid cluster effects on the compute 
+performance as a function of the problem sizes</span></p>
+<p><strong>Kulikov V. A.</strong>, Post-Graduate Student, Department of 
+Applied Mathematics, Computer Science and Computer Engineering Faculty 
+of Electronics and Systems Engineering of the Moscow State Forest 
+University (MSFU), <a href="mailto:Vladimir.Kulikov@rsce.ru" target="_blank">Vladimir.Kulikov@rsce.ru</a></p>
+<p><strong>Chernyshov A. V.</strong>, PhD, Tech., Associate Professor, 
+Department of Applied Mathematics, Computer Science and Computer 
+Engineering Faculty of Electronics and Systems Engineering of the Moscow
+ State Forest University (MSFU), <a href="mailto:sch@mgul.ac.ru" target="_blank">sch@mgul.ac.ru</a></p>
+<p><strong>Summary:</strong> When solving systems of linear algebraic 
+equations with modern, hybrid (CPU GPU) clusters to the user, there 
+arises the problem of selecting values of a number of parameters that 
+have a significant, but unobvious subjection on computing performance 
+and, as a consequence, on time, and, therefore, and technical resources 
+for the solution of the problem. The existing recommendations on the 
+selection of values for these parameters are evaluatives and do not 
+guarantee the best performance computing for a given dimension of the 
+system of linear algebraic equations. The purpose of this work is 
+experimental research of the subjection of the values of the parameters 
+Nb and CUDA_DGEMM_SPLIT LINPACK benchmark, representing a solution of 
+model system of linear algebraic equations by the method of LU 
+decomposition, for the performance computing of hybrid nodes of the 
+cluster «Lomonosov» (Moscow State University, Moscow, Russia 
+Federation). Recommendatory data of the values of the parameters Nb and 
+CUDA_DGEMM_SPLIT LINPACK depending on the dimension of system of linear 
+algebraic equations for achievement of the maximum performance for 
+solving system of linear algebraic equations are obtained by LU 
+decomposition method on hybrid computing nodes of a cluster «Lomonosov».
+ The recommendatory data table constructed in this research work for a 
+cluster «Lomonosov» allows to select unambiguously values of the Nb and 
+CUDA_DGEMM_SPLIT parameters depending on dimension of system of linear 
+algebraic equations for achievement of the maximum computing 
+performance.</p>
+<p><strong>Keywords:</strong> GPU, cluster, high-performance computing, problem size, hybrid computing node, solving linear systems of equations, GFlops.</p><br>
+
+<div class="social-likes">
+	<div class="facebook" title="Поделиться ссылкой на Фейсбуке">Facebook</div>
+	<div class="twitter" title="Поделиться ссылкой в Твиттере">Twitter</div>
+	<div class="mailru" title="Поделиться ссылкой в Моём мире">Мой мир</div>
+	<div class="vkontakte" title="Поделиться ссылкой во Вконтакте">Вконтакте</div>
+	<div class="odnoklassniki" title="Поделиться ссылкой в Одноклассниках">Одноклассники</div>
+	<div class="plusone" title="Поделиться ссылкой в Гугл-плюсе">Google+</div>
+</div>
+
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-0734664070902025";
+/* commercial-0001 */
+google_ad_slot = "5328286772";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/show_ads.js">
+</script><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:728px;height:90px;" width="728" height="90" frameborder="0"></iframe></ins></ins>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                   <p>Комментарии отсутствуют</p>
+ 
+
+                     <table style="border-top:solid 5px #5D8797;background-repeat:repeat-y;background-position:right;margin-bottom:10px;" width="100%" cellspacing="0" cellpadding="0" border="0" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/v_border_dotted.gif">
+                    	<tbody><tr>
+                        	<td style="border-bottom:solid 1px #5D8797;background-repeat:repeat-y;background-position:left;padding:5px 20px 5px 20px;" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/v_border_dotted.gif">
+                            <span class="blockTitle">Добавить комментарий</span>
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td style="border-bottom:solid 1px #5D8797;background-repeat:repeat-y;background-position:left;padding:20px;" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/v_border_dotted.gif">
+
+							
+							
+		
+								<p>Комментарии могут оставлять только зарегистрированные пользователи</p>
+					
+								
+
+                            </td>
+                        </tr>
+                    </tbody></table>
+
+
+
+
+                </td>
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////End Of Main Content//////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--><!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////Footer///////////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+            </tr>
+        </tbody></table>
+        </td>
+    </tr>
+    <tr>
+    	<td style="padding:0 20px 0 20px;" height="93">
+        	<table style="background-repeat:no-repeat;background-position:left;" width="100%" height="93" cellspacing="0" cellpadding="0" border="0" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/bg_left_footer.gif">
+            	<tbody><tr>
+                	<td style="text-align:center;vertical-align:top;padding:10px 15px 0 15px;">
+                    	<table style="border-top:solid 10px #E6F6FD;" width="100%" height="81" cellspacing="0" cellpadding="0" border="0">
+                        	<tbody><tr>
+                            	<td style="text-align:center;vertical-align:top;padding-top:15px;background-repeat:repeat-y;background-position:right;" width="192" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/v_border_dotted.gif">
+                                <a href="http://samag.ru/"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/home.gif"></a>&nbsp;&nbsp;<img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/slicer.png" width="4" height="14">&nbsp;&nbsp;
+                                <a href="mailto:sa@samag.ru"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/letter.gif"></a>&nbsp;&nbsp;<img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/slicer.png" width="4" height="14">&nbsp;&nbsp;
+                                <a href="http://samag.ru/main/map"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/map.gif"></a>&nbsp;&nbsp;<img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/slicer.png" width="4" height="14">&nbsp;&nbsp;
+                                <a href="http://samag.ru/rss/headlines.xml" target="_blank"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/rss.gif"></a>
+                                </td>
+                                <td style="text-align:center;vertical-align:justify;padding-top:10px;" width="*">
+                                <span class="Copyright"><!--TplElement-->Copyright © Системный администратор</span><br><br>
+                                
+<!--Rating@Mail.ru COUNTER--><script language="JavaScript"><!--
+d=document;a='';a+=';r='+escape(d.referrer)
+js=10//--></script><script language="JavaScript1.1"><!--
+a+=';j='+navigator.javaEnabled()
+js=11//--></script><script language="JavaScript1.2"><!--
+s=screen;a+=';s='+s.width+'*'+s.height
+a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth)
+js=12//--></script><script language="JavaScript1.3"><!--
+js=13//--></script><script language="JavaScript"><!--
+d.write('<a href="http://top.mail.ru/jump?from=422936"'+' target=_top><img src="http://top.list.ru/counter'+'?id=422936;t=170;js='+js+a+';rand='+Math.random()+'" alt="Рейтинг@Mail.ru"'+' border=0 height=15 width=88></a>')
+//--></script><a href="http://top.mail.ru/jump?from=422936" target="_top"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/counter.gif" alt="Рейтинг@Mail.ru" width="88" height="15" border="0"></a><noscript><a
+target=_top href="http://top.mail.ru/jump?from=422936"><FONT size=1>[AD]</FONT> <AD- /counter?js=na;id=422936;t=170" border=0 height=15 width=88 alt="Рейтинг@Mail.ru"></a></noscript><!--/COUNTER-->
+
+<!-- Yandex.Metrika informer -->
+<a href="https://metrika.yandex.ru/stat/?id=4119916&amp;from=informer" target="_blank" rel="nofollow"><img src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/3_1_FFFFFFFF_EFEFEFFF_0_pageviews.png" style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:4119916,lang:'ru'});return false}catch(e){}"></a>
+<!-- /Yandex.Metrika informer -->
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter4119916 = new Ya.Metrika({id:4119916,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/4119916" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+                                
+                                
+                                </td>
+<td><script async="async" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/zp.js" type="text/javascript"></script></td>					
+                                <td style="text-align:left;vertical-align:top;background-repeat:repeat-y;background-position:left; padding:10px 0 0 10px;" width="182" background="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/v_border_dotted.gif">
+<!--TplElement--><span class="Copyright">
+Tel.: (499) 277-12-41<br>
+Fax: (499) 277-12-45<br>
+E-mail: sa@samag.ru
+</span>                                </td>
+                            </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody></table>
+
+
+
+
+<div id="fancy_wrap"><div id="fancy_loading"><div></div></div><div id="fancy_outer"><div id="fancy_inner"><div id="fancy_bg"><div class="fancy_bg fancy_bg_n"></div><div class="fancy_bg fancy_bg_ne"></div><div class="fancy_bg fancy_bg_e"></div><div class="fancy_bg fancy_bg_se"></div><div class="fancy_bg fancy_bg_s"></div><div class="fancy_bg fancy_bg_sw"></div><div class="fancy_bg fancy_bg_w"></div><div id="fancy_repeat">Продолжить покупки</div><div id="fancy_order">Начать оформление</div><div class="fancy_bg fancy_bg_nw"></div></div><div id="fancy_nav"></div><div id="fancy_close"></div><div id="fancy_content"></div><div id="fancy_title"><table cellspacing="0" cellpadding="0" border="1"><tbody><tr><td id="fancy_title_left"></td><td id="fancy_title_main"><div></div></td><td id="fancy_title_right"></td></tr></tbody></table></div></div></div></div><iframe id="google_osd_static_frame_1480782712708" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;"></iframe><iframe style="width: 1px; height: 1px; position: absolute; left: -100px; top: 0px; border: medium none;" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/impression.html"></iframe><script src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/adcm.js" async=""></script><script type="text/javascript" charset="UTF-8" async="" src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/utl.js"></script><iframe src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/a_002.html" style="width: 1px; height: 1px; display: none;"></iframe><iframe src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/i.html" style="width: 1px; height: 1px; display: none;"></iframe><iframe src="%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B2%D0%BE%D0%B7%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BD%D0%B5%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D1%85%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2%20%D1%82%D0%B5%D1%81%D1%82%D0%B0%20LINPACK%20_files/support.html" style="width: 1px; height: 1px; left: -100px; top: -100px; position: absolute; margin: 0px; border: 0px none;"></iframe></body></html>
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////End Of Footer////////////////////////////////////////////////////////////////////////-->
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
