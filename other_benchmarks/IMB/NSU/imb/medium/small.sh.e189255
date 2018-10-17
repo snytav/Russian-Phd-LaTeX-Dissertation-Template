@@ -1,0 +1,8 @@
+icc: error #10236: File not found:  'hello_mpi_world.c'
+icc: warning #10315: specifying -lm before files may supersede the Intel(R) math library and affect performance
+icc: warning #10315: specifying -lm before files may supersede the Intel(R) math library and affect performance
+=>> PBS: job killed: walltime 77 exceeded limit 60
+[mpiexec@cn235] handle_exit_status (../../pm/pmiserv/pmiserv_cb.c:570): assert (!closed) failed
+[mpiexec@cn235] HYDT_dmxu_poll_wait_for_event (../../tools/demux/demux_poll.c:76): callback returned error status
+[mpiexec@cn235] HYD_pmci_wait_for_completion (../../pm/pmiserv/pmiserv_pmci.c:480): error waiting for event
+[mpiexec@cn235] main (../../ui/mpich/mpiexec.c:945): process manager error waiting for completion
