@@ -315,13 +315,14 @@
 
 @InBook{MohographyTarkov,
   Title                    = {Parallel Programming: Practical Aspects, Models and Current Limitations},
-  Author                   = {Snytnikov A.V.},
+  Author                   = {Snytnikov, A. V.},
   Chapter                  = {Large-Scale and Fine-Grain Parallelism in Plasma Simulation},
-  Editor                   = { Tarkov M.S.},
-  Pages                    = {59-70},
+  Editor                   = { Tarkov,  M. S.},
+  Pages                    = {59 -- 70},
   Publisher                = {Nova publishers},
   Year                     = {2014},
 }
+
 
 @ARTICLE{SuperFrI,
   author = {Glinskiy, B. M. and Kulikov, I.M. and Snytnikov, A. V. and Romanenko, A. A. and Chernykh, I. G. and Vhivkov, V. A.},
@@ -333,6 +334,40 @@
   pages = {88--98},
   language = {english},
 }
+
+@article{VestnikNNSU,
+  author = {Снытников, А. В.},
+  title = {Сравнительный анализ производительности кластерных суперЭВМ на примере задачи о релаксации электронного пучка в высокотемпературной плазме},
+  journal = {Вестник Нижегородского Университета им. Н.И. Лобачевского},
+  year = {2011},
+  volume = {1},
+  number = {3},
+  pages = {285 -- 292},
+  language = {russian},
+}
+
+@article{VestnikNSUadapt,
+  author = {Романенко,  А. А. and Снытников, А. В. and  Черных,  И. Г.},
+  title = {Адаптация параллельного вычислительного алгоритма к архитектуре суперЭВМ на примере моделирования динамики плазмы методом частиц в ячейках},
+  journal = {Вестник НГУ Серия: Информационные технологии},
+  year = {2017},
+  volume = {15},
+  number = {4},
+  pages = {74 -- 86},
+  language = {russian},
+}
+
+@article{VestnikNSU3D,
+  author = {Романенко, А. А. and Снытников, А. В. and Тимофеев,  И. В.},
+  title = {Трехмерный гибридный код для моделирования генерации высокочастотного электромагнитного излучения турбулентной плазмы},
+  journal = {Вестник НГУ Серия: Информационные технологии},
+  year = {2016},
+  volume = {14},
+  number = {3},
+  pages = {81--90},
+  language = {russian},
+}
+
 
 @ARTICLE{adaptCPC,
   author = {Goedheer, W. J.  and Snytnikov, A.V. and Vshivkov, V.A.},
@@ -2189,3 +2224,83 @@ keywords = "Glass ceramic",
   language                 = {english}
 }
 
+@Electronic{CUDAweb,
+  Title                    = {NVIDIA CUDA Home Page},
+  Url                      = {http://www.nvidia.com/object/cuda_home_new.html},
+}
+
+@Book{Boreskov,
+  Title                    = {Основы работы с технологией CUDA},
+  Author                   = {Боресков, А. В. and Харламов, А. А.},
+  Publisher                = {ДМК Пресс},
+  Year                     = {2010},
+}
+
+@Book{Sanders,
+  Title                    = {Технология CUDA в примерах},
+  Author                   = {Сандерс, Дж and Кэндрот Э.},
+  Publisher                = {ДМК Пресс},
+  Year                     = {2011},
+}
+
+@inproceedings{FangPhi2014,
+ author = {Fang, Jianbin and Sips, Henk and Zhang, LiLun and Xu, Chuanfu and Che, Yonggang and Varbanescu, Ana Lucia},
+ title = {Test-driving Intel Xeon Phi},
+ booktitle = {Proceedings of the 5th ACM/SPEC International Conference on Performance Engineering},
+ series = {ICPE '14},
+ year = {2014},
+ isbn = {978-1-4503-2733-6},
+ location = {Dublin, Ireland},
+ pages = {137--148},
+}
+
+@Electronic{MorganPhi,
+  Title                    = {Intel slaps Xeon Phi brand on MIC coprocessors},
+  Author                   = { Morgan, Timothy Prickett},
+  Url                      = {http://www.theregister.co.uk/2012/06/18/intel_mic_xeon_phi_cray/},
+}
+
+@Electronic{Rosales2Phi,
+  Title                    = {Porting to the Intel Xeon Phi: Opportunities and Challenges (Abstract)},
+  Author                   = {Rosales, C.},
+  Organization             = {IEEE Computer Society, Extreme Scaling Workshop},
+  Url                      = {https://www.computer.org/csdl/proceedings/xsw/2013/3691/00/3691a001.pdf},
+  Year                     = {2013},
+}
+
+@Article{Bernaschi20142495,
+  Title                    = {Multi-Kepler GPU vs. multi-Intel MIC for spin systems simulations },
+  Author                   = {Bernaschi, M. and Bisson, M. and Salvadore, F.},
+  Journal                  = {Computer Physics Communications },
+  Year                     = {2014},
+  Number                   = {10},
+  Pages                    = {2495 -- 2503},
+  Volume                   = {185},
+}
+
+@Article{Lyakh201584,
+  Title                    = {An efficient tensor transpose algorithm for multicore CPU, Intel Xeon Phi, and NVidia Tesla GPU },
+  Author                   = { Lyakh, Dmitry I.},
+  Journal                  = {Computer Physics Communications },
+  Year                     = {2015},
+  Pages                    = {84 -- 91},
+  Volume                   = {189},
+}
+
+@Article{Liu2015230,
+  Title                    = {Comparison of two accelerators for Monte Carlo radiation transport calculations, Nvidia Tesla M2090 GPU and Intel Xeon Phi 5110p coprocessor: A case study for X-ray CT imaging dose calculation },
+  Journal                  = {Annals of Nuclear Energy },
+  Year                     = {2015},
+  Note                     = {Joint International Conference on Supercomputing in Nuclear Applications and Monte Carlo 2013. Pluri- and Trans-disciplinarity, Towards New Modeling and Numerical Simulation Paradigms },
+  Pages                    = {230 -- 239},
+  Volume                   = {82},
+}
+
+@InProceedings{Lacis2014,
+  Title                    = {Ну и что же нам теперь делать с этим многообразием суперкомпьютерных миров? Попытка конструктивного систематического подхода к сопоставлению суперкомпьютерных архитектур},
+  Booktitle                = {Научный сервис в сети Интернет: многообразие суперкомпьютерных миров: Труды Международной суперкомпьютерной конференции},
+  Author                   = {Лацис, А. О.},
+  Year                     = {2014},
+  Pages                    = {188-190},
+  Publisher                = {Изд-во МГУ}
+}
