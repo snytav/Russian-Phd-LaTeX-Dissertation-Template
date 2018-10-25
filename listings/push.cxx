@@ -7,29 +7,37 @@ void Move(Field fd,double tau)
     double3 sx3;
 
     //вычисление изменения импульса частицы
-    //1-я стадия
+    //1-я стадия: 21 операция
     ElectricMove(fd.E,tau,q_m,&tau1,&pu,&pv,&pw,&ps);
 
     // вычисление поворота вектора импульса 
-    // под действием магнитного поля
+    // под действием магнитного поля: 51 операция
     MagneticMove(fd.H,ps,&pu1,&pv1,&pw1);
 
 
-    //уножение электрического поля на временной шаг 
+    //умножение электрического поля на временной шаг 
+    //3 операции
     sx3 = mult(tau1,fd.E);
 
     //вычисление изменения импульса частицы
-    //2-я стадия
+    //2-я стадия: 3 операции
     add(sx3,&pu,&pv,&pw,pu1,pv1,pw1);
+    
+    //вычисление модуля 4-вектора импульса частицы
+    //10 операций
     ps = impulse(pu,pv,pw);
 
-    //вычисление скорости частицы       
+    //вычисление скорости частицы  
+    //3 операции     
     mult(&u,&v,&w,ps,pu,pv,pw);
 
     //вычисление изменения координаты частицы
+    //6 операций
     x1 = x + tau * u;
     y1 = y + tau * v;
     z1 = z + tau * w;
+    
+    //всего 97 операций
 }
 
 void ElectricMove(double3 E,double tau, double q_m,double *tau1,double *pu,double *pv,double *pw,double *ps)
@@ -87,6 +95,7 @@ void MagneticMove(double3 H,double ps,double *pu1,double *pv1,double *pw1)
 
 void add(double3 sx3,double *pu,double *pv,double *pw,double pu1,double pv1,double pw1)
 {
+        //сложение веторов: 3 операции
 	*pu = pu1 + sx3.x;
 	*pv = pv1 + sx3.y;
 	*pw = pw1 + sx3.z;
@@ -94,9 +103,17 @@ void add(double3 sx3,double *pu,double *pv,double *pw,double pu1,double pv1,doub
 
 double3 mult(double t,double3 t3)
 {
+        //умножение вектора на число: 3 операции
 	t3.x *= t;
 	t3.y *= t;
 	t3.z *= t;
 
 	return t3;
+}
+
+//вычисление модуля 4-вектора импульса
+//10 операций
+double impulse(double pu,double pv,double pw)
+{
+	return pow(((pu * pu + pv * pv + pw * pw) + 1.0),-0.5);
 }
