@@ -650,6 +650,22 @@
   Url                      = {http://www.sciencedirect.com/science/article/pii/S0167819115001441}
 }
 
+@Article{Sitaraman2016,
+  Title                    = {Balancing conflicting requirements for grid and particle decomposition in continuum-Lagrangian solvers },
+  Author                   = {Hariswaran Sitaraman and Ray Grout},
+  Journal                  = {Parallel Computing },
+  Year                     = {2016},
+  Pages                    = {1 - 21},
+  Volume                   = {52},
+
+  Abstract                 = {Abstract Load balancing strategies for hybrid solvers that involve grid based partial differential equation solution coupled with particle tracking are presented in this paper. A typical Message Passing Interface (MPI) based parallelization of grid based solves are done using a spatial domain decomposition while particle tracking is primarily done using either of the two techniques. One of the techniques is to distribute the particles to \{MPI\} ranks to whose grid they belong to while the other is to share the particles equally among all ranks, irrespective of their spatial location. The former technique provides spatial locality for field interpolation but cannot assure load balance in terms of number of particles, which is achieved by the latter. The two techniques are compared for a case of particle tracking in a homogeneous isotropic turbulence box as well as a turbulent jet case. A strong scaling study is performed to more than 32,000 cores, which results in particle densities representative of anticipated exascale machines. The use of alternative implementations of \{MPI\} collectives and efficient load equalization strategies are studied to reduce data communication overheads. },
+  Doi                      = {http://dx.doi.org/10.1016/j.parco.2015.10.010},
+  ISSN                     = {0167-8191},
+  Keywords                 = {Load balancing},
+  Url                      = {http://www.sciencedirect.com/science/article/pii/S0167819115001428}
+}
+
+
 @InCollection{Bamiedakis2013377,
   Title                    = {Chapter 11 - Integrated and Hybrid Photonics for High-Performance Interconnects },
   Author                   = {Nikos Bamiedakis and Kevin A. Williams and Richard V. Penty and Ian H. White},
@@ -5205,20 +5221,7 @@
   Url                      = {http://www.sciencedirect.com/science/article/pii/B978159749725100010X}
 }
 
-@Article{Sitaraman2016,
-  Title                    = {Balancing conflicting requirements for grid and particle decomposition in continuum-Lagrangian solvers },
-  Author                   = {Hariswaran Sitaraman and Ray Grout},
-  Journal                  = {Parallel Computing },
-  Year                     = {2016},
-  Pages                    = {1 - 21},
-  Volume                   = {52},
 
-  Abstract                 = {Abstract Load balancing strategies for hybrid solvers that involve grid based partial differential equation solution coupled with particle tracking are presented in this paper. A typical Message Passing Interface (MPI) based parallelization of grid based solves are done using a spatial domain decomposition while particle tracking is primarily done using either of the two techniques. One of the techniques is to distribute the particles to \{MPI\} ranks to whose grid they belong to while the other is to share the particles equally among all ranks, irrespective of their spatial location. The former technique provides spatial locality for field interpolation but cannot assure load balance in terms of number of particles, which is achieved by the latter. The two techniques are compared for a case of particle tracking in a homogeneous isotropic turbulence box as well as a turbulent jet case. A strong scaling study is performed to more than 32,000 cores, which results in particle densities representative of anticipated exascale machines. The use of alternative implementations of \{MPI\} collectives and efficient load equalization strategies are studied to reduce data communication overheads. },
-  Doi                      = {http://dx.doi.org/10.1016/j.parco.2015.10.010},
-  ISSN                     = {0167-8191},
-  Keywords                 = {Load balancing},
-  Url                      = {http://www.sciencedirect.com/science/article/pii/S0167819115001428}
-}
 
 @Article{Sitaraman20161,
   Title                    = {Balancing conflicting requirements for grid and particle decomposition in continuum-Lagrangian solvers },
