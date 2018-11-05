@@ -178,7 +178,7 @@ W_A = \frac{1}{P_{SUB}}\frac{N_X\times N_Y \times N_Z \times 24}{T_A}
 $$
 для расчета раздела ВВС <<Ломоносов>>, оснащенного GPU, $N_X = 102, N_Y = 6, N_Z = 6, P_{SUB}  = 1$
 
-Значения $T_A$ приведены в таблице \ref{Lomonosov_GPU_W_A} и на рисунке \ref{Lomonosov_GPU_W_A}. Эффективный коммуникационный размер в данном случае равен 239 (рисунок \ref{scale_W_A_Lomonosov_GPU}).
+Значения $T_A$ приведены в таблице \ref{Lomonosov_GPU_W_A} и на рисунке \ref{Lomonosov_GPU_W_A}. Эффективный коммуникационный размер в данном случае равен 239 (рисунок \ref{scale_W_A_Lomonosov_GPU_exp_fit}).
 
 \begin{table}[ht]
 \caption{Время выполнения операции MPI\_Allreduce для раздела ВВС <<Ломоносов>>, оснащенного GPU.}
@@ -201,11 +201,11 @@ $$
 	
 	
 	\begin{center}
-		\includegraphics[height=10cm,keepaspectratio]{images/W_A_Lomonosov_on_weak_eff.png}
+		\includegraphics[height=7cm,keepaspectratio]{images/W_A_Lomonosov_on_weak_eff.png}
 		\caption{
-			Производительность коммуникационной сети для коллективных пересылок (величина $W_S$, формула \ref{Net_performance_peer}). Расчет на сетке $100 \times 6 \times 6$ узла на <<Ломоносов>>, раздел с GPU. 
+			Пропускная способность коммуникационной сети для коллективных пересылок (величина $W_S$, формула \ref{Net_performance_peer}). Расчет на сетке $102 \times 6 \times 6$ узла на <<Ломоносов>>, раздел с GPU. 
 		}
-		\label{scale_W_A_Lomonosov_GPU}
+		\label{scale_W_A_Lomonosov_GPU_exp_fit}
 	\end{center} 
 \end{figure}
 
@@ -213,9 +213,9 @@ $$
 	
 	
 	\begin{center}
-		\includegraphics[height=10cm,keepaspectratio]{images/W_A_Lomonosov_Gauss.png}
+		\includegraphics[height=7cm,keepaspectratio]{images/W_A_Lomonosov_Gauss.png}
 		\caption{
-				Производительность коммуникационной сети для коллективных пересылок (величина $W_A$, формула \ref{Net_performance_collective}) - синие точки, и ее аппроксимация гауссовой кривой. Расчет на сетке $100 \times 6 \times 6$ узла на <<Ломоносов>>, раздел с GPU. 
+				Производительность коммуникационной сети для коллективных пересылок (величина $W_A$, формула \ref{Net_performance_collective}). Расчет на сетке $100 \times 6 \times 6$ узла на <<Ломоносов>>, раздел с GPU. 
 		}
 		\label{scale_W_A_Lomonosov}
 	\end{center} 
@@ -256,7 +256,8 @@ $$
 Эффективность $\eta^{weak}$, количество процессорных ядер, соответствующее каждому значению эффективности, и результирующее значение $W_S$ показаны в таблице \ref{MVS100K_W_S} 
 
 \begin{table}[ht]
-	\caption{Эффективность в слабом смысле и производительность коммуникационной сети для МВС-100К.}
+\caption{Эффективность в слабом смысле и производительность коммуникационной сети для МВС-100К.}
+\begin{center}
 	\begin{tabular}{|c|c|c|c|}
 		\hline
 		количество  & Эффективность & Время пересылки & Производительность  \\
@@ -270,15 +271,14 @@ $$
 		\hline
 	\end{tabular}
 	\label{MVS100K_W_S}
-\end{table} 
+\end{center}
+\end{table}
 
 \begin{figure}[h]
-	
-	
 	\begin{center}
-		\includegraphics[height=10cm,keepaspectratio]{images/W_S_MVS_100K_on_weak_eff.png}
+		\includegraphics[height=7cm,keepaspectratio]{images/W_S_MVS_100K_on_weak_eff.png}
 		\caption{
-			Производительность коммуникационной сети для парных пересылок (величина $W_S$, формула \ref{Net_performance_peer}). Расчет на сетке $N_X \times 128 \times 128$ узла на МВС-100К. 
+			Производительность коммуникационной сети для парных пересылок (величина $W_S$, формула \ref{Net_performance_peer}). Расчет на сетке $N_X \times 128 \times 128$ узла на МВС-100К, здесь $N_X$ совпадает с количеством процессорных ядер. 
 		}
 		\label{scale_W_S_MVS_100K}
 	\end{center} 
@@ -289,9 +289,9 @@ $$
  
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[height=10cm,keepaspectratio]{images/W_S_MVS_100K_Gaussf.png}
+		\includegraphics[height=7cm,keepaspectratio]{images/W_S_MVS_100K_Gaussf.png}
 		\caption{
-			Производительность коммуникационной сети для парных пересылок (величина $W_S$, формула \ref{Net_performance_peer}) - синие точки, и ее аппроксимация гауссовой кривой. Расчет на сетке $N_X \times 128 \times 128$ узла на МВС-100К. 
+			Производительность коммуникационной сети для парных пересылок (величина $W_S$, формула \ref{Net_performance_peer}) - синие точки, и ее аппроксимация гауссовой кривой. Расчет на сетке $N_X \times 128 \times 128$ узла на МВС-100К, здесь $N_X$ совпадает с количеством процессорных ядер.
 		}
 		\label{scale_W_S_MVS_100K_Gauss}
 	\end{center} 
