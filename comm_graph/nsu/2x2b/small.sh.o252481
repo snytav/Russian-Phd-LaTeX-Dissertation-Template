@@ -1,0 +1,92 @@
+ rank,nproc            2           4
+ rank,nproc            3           4
+ rank,nproc            0           4
+ rank,nproc            1           4
+ snd,rank,i            0           0           0
+ snd,rank,i            0           0           1
+ snd,rank,i            0           1           0
+ snd,rank,i            0           1           1
+ send            0  ->            1   1.4069080352783203E-002   1.4055967330932617E-002
+ recv            0  ->            1   1.8906593322753906E-004   1.8095970153808594E-004
+ snd,rank,i            0           1           2
+ snd,rank,i            0           1           3
+ snd,rank,i            0           0           2
+ snd,rank,i            0           2           0
+ snd,rank,i            0           2           1
+ snd,rank,i            0           2           2
+ send            0  ->            2   1.4101982116699219E-002   1.4101982116699219E-002
+ snd,rank,i            0           0           3
+ recv            0  ->            2   2.4580955505371094E-004   2.3388862609863281E-004
+ snd,rank,i            0           2           3
+ snd,rank,i            0           3           0
+ snd,rank,i            0           3           1
+ snd,rank,i            0           3           2
+ snd,rank,i            0           3           3
+ send            0  ->            3   9.5839500427246094E-003   9.5839500427246094E-003
+ recv            0  ->            3   1.9907951354980469E-004   1.8906593322753906E-004
+ snd,rank,i            1           0           0
+ snd,rank,i            1           1           0
+ snd,rank,i            1           2           0
+ snd,rank,i            1           2           1
+ snd,rank,i            1           2           2
+ snd,rank,i            1           3           0
+ snd,rank,i            1           3           1
+ snd,rank,i            1           3           2
+ snd,rank,i            1           3           3
+ send            1  ->            0   8.3923339843750000E-005   8.2969665527343750E-005
+ recv            1  ->            0   7.1048736572265625E-005   7.0095062255859375E-005
+ snd,rank,i            1           0           1
+ snd,rank,i            1           0           2
+ snd,rank,i            1           0           3
+ snd,rank,i            1           1           1
+ snd,rank,i            1           1           2
+ send            1  ->            2   2.6798248291015625E-004   2.6702880859375000E-004
+ recv            1  ->            2   4.2700767517089844E-004   4.2700767517089844E-004
+ snd,rank,i            1           2           3
+ snd,rank,i            1           1           3
+ send            1  ->            3   1.1706352233886719E-004   1.1801719665527344E-004
+ recv            1  ->            3   5.9390068054199219E-004   5.9294700622558594E-004
+ snd,rank,i            2           0           0
+ snd,rank,i            2           1           0
+ snd,rank,i            2           1           1
+ snd,rank,i            2           2           0
+ snd,rank,i            2           3           0
+ snd,rank,i            2           3           1
+ snd,rank,i            2           3           2
+ snd,rank,i            2           3           3
+ recv            2  ->            0   1.0704994201660156E-004   1.0704994201660156E-004
+ send            2  ->            0   7.4863433837890625E-005   7.5101852416992188E-005
+ snd,rank,i            2           2           1
+ snd,rank,i            2           0           1
+ snd,rank,i            2           0           2
+ send            2  ->            1   2.1934509277343750E-005   2.1934509277343750E-005
+ snd,rank,i            2           2           2
+ snd,rank,i            2           2           3
+ recv            2  ->            1   1.5997886657714844E-004   1.6093254089355469E-004
+ snd,rank,i            2           1           2
+ snd,rank,i            2           1           3
+ snd,rank,i            2           0           3
+ send            2  ->            3   1.7189979553222656E-004   1.7189979553222656E-004
+ recv            2  ->            3   3.3998489379882812E-004   3.4093856811523438E-004
+ snd,rank,i            3           0           0
+ snd,rank,i            3           2           0
+ snd,rank,i            3           2           1
+ snd,rank,i            3           2           2
+ snd,rank,i            3           1           0
+ snd,rank,i            3           1           1
+ snd,rank,i            3           3           0
+ recv            3  ->            0   1.3899803161621094E-004   1.3804435729980469E-004
+ snd,rank,i            3           0           1
+ snd,rank,i            3           0           2
+ snd,rank,i            3           0           3
+ send            3  ->            0   1.7118453979492188E-004   1.6999244689941406E-004
+ snd,rank,i            3           3           1
+ recv            3  ->            1   3.5500526428222656E-004   3.5595893859863281E-004
+ snd,rank,i            3           1           2
+ snd,rank,i            3           1           3
+ send            3  ->            1   2.5033950805664062E-005   2.3841857910156250E-005
+ snd,rank,i            3           3           2
+ recv            3  ->            2   4.8303604125976562E-004   4.8208236694335938E-004
+ snd,rank,i            3           2           3
+ send            3  ->            2   2.6226043701171875E-005   2.5033950805664062E-005
+ snd,rank,i            3           3           3

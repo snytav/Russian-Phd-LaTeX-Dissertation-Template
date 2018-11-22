@@ -1,0 +1,174 @@
+# LOGFILE-NAME was not set explicitly.
+LOGFILE-NAME "comm.stf"
+# PROGNAME was not set explicitly.
+PROGNAME "./comm"
+# LOGFILE-FORMAT was not set explicitly.
+LOGFILE-FORMAT "STF"
+# ITFLOGFILE was not set explicitly.
+ITFLOGFILE OFF
+# EXTENDED-VTF was not set explicitly.
+EXTENDED-VTF OFF
+# PROTOFILE-NAME was not set explicitly.
+PROTOFILE-NAME "comm.prot"
+# LOGFILE-PREFIX was not set explicitly.
+LOGFILE-PREFIX "/mnt/storage/home/snytav/graph/2x8"
+# CURRENT-DIR was not set explicitly.
+CURRENT-DIR "/mnt/storage/home/snytav/graph/2x8"
+# VERBOSE was not set explicitly.
+VERBOSE 1
+# LOGFILE-RANK was not set explicitly.
+LOGFILE-RANK 0
+# STOPFILE-NAME was not set explicitly.
+# PLUGIN was not set explicitly.
+# STATE was not set explicitly.
+
+STATE "*:*" ON
+
+# SYMBOL was not set explicitly.
+# ACTIVITY was not set explicitly.
+# KEEP-RAW-EVENTS was not set explicitly.
+KEEP-RAW-EVENTS OFF
+# COMPRESS-RAW-DATA was not set explicitly.
+COMPRESS-RAW-DATA ON
+# DETAILED-STATES was not set explicitly.
+DETAILED-STATES 0
+# DEMANGLE was not set explicitly.
+DEMANGLE OFF
+# ENTER-USERCODE was not set explicitly.
+ENTER-USERCODE ON
+# COUNTER was not set explicitly.
+# INTERNAL-MPI was not set explicitly.
+INTERNAL-MPI ON
+# PCTRACE was not set explicitly.
+PCTRACE 1:0
+# PCTRACE-FAST was not set explicitly.
+PCTRACE-FAST ON
+# PCTRACE-CACHE was not set explicitly.
+PCTRACE-CACHE ON
+# IGNORE-CODE was not set explicitly.
+# PROCESS was not set explicitly.
+# CLUSTER was not set explicitly.
+# MEM-BLOCKSIZE was not set explicitly.
+MEM-BLOCKSIZE 65536
+# MEM-MAXBLOCKS was not set explicitly.
+MEM-MAXBLOCKS 4096
+# MEM-MINBLOCKS was not set explicitly.
+MEM-MINBLOCKS 0
+# MEM-INFO was not set explicitly.
+MEM-INFO 524288000
+# AUTOFLUSH was not set explicitly.
+AUTOFLUSH ON
+# MEM-FLUSHBLOCKS was not set explicitly.
+MEM-FLUSHBLOCKS 1024
+# MEM-OVERWRITE was not set explicitly.
+MEM-OVERWRITE OFF
+# FLUSH-PREFIX was not set explicitly.
+FLUSH-PREFIX "/var/tmp/pbs.252482.vm-pbs"
+# FLUSH-PID was not set explicitly.
+FLUSH-PID ON
+# ENVIRONMENT was not set explicitly.
+ENVIRONMENT ON
+# STATISTICS was not set explicitly.
+STATISTICS 0
+# STF-USE-HW-STRUCTURE was not set explicitly.
+STF-USE-HW-STRUCTURE ON
+# STF-PROCS-PER-FILE was not set explicitly.
+STF-PROCS-PER-FILE 16
+# STF-CHUNKSIZE was not set explicitly.
+STF-CHUNKSIZE 65536
+# GROUP was not set explicitly.
+# OS-COUNTER-DELAY was not set explicitly.
+OS-COUNTER-DELAY 1.000000
+# TIMER was not set explicitly.
+TIMER "gettimeofday"
+# EVENT-BITS was not set explicitly.
+EVENT-BITS 13
+# TIMER-SHIFT was not set explicitly.
+TIMER-SHIFT 0
+# TIMER-DUMP was not set explicitly.
+TIMER-DUMP OFF
+# TIMER-SKIP was not set explicitly.
+TIMER-SKIP 0
+# SYNC-MAX-DURATION was not set explicitly.
+SYNC-MAX-DURATION 60.000000
+# SYNC-MAX-MESSAGES was not set explicitly.
+SYNC-MAX-MESSAGES 100
+# SYNC-SKEW was not set explicitly.
+SYNC-SKEW 0
+# SYNCED-CLUSTER was not set explicitly.
+SYNCED-CLUSTER OFF
+# SYNCED-HOST was not set explicitly.
+SYNCED-HOST ON
+# SYNCED-RUNTIME was not set explicitly.
+SYNCED-RUNTIME OFF
+# NMCMD was not set explicitly.
+NMCMD "nm -P"
+# UNIFY-SYMBOLS was not set explicitly.
+UNIFY-SYMBOLS ON
+# UNIFY-SCLS was not set explicitly.
+UNIFY-SCLS ON
+# UNIFY-GROUPS was not set explicitly.
+UNIFY-GROUPS ON
+# UNIFY-COUNTERS was not set explicitly.
+UNIFY-COUNTERS ON
+# INFO NUMPROCS was not set explicitly.
+INFO NUMPROCS 16
+# INFO CLUSTERDEF was not set explicitly.
+INFO CLUSTERDEF "cn127" 0:6491 1:6492 2:6493 3:6494 4:6495 5:6496 6:6497 7:6498
+INFO CLUSTERDEF "cn114" 8:4894 9:4895 10:4896 11:4897 12:4898 13:4899 14:4900 15:4901
+INFO PROCESS 0 "cn127" "10.10.1.127" 6491
+INFO PROCESS 1 "cn127" "10.10.1.127" 6492
+INFO PROCESS 2 "cn127" "10.10.1.127" 6493
+INFO PROCESS 3 "cn127" "10.10.1.127" 6494
+INFO PROCESS 4 "cn127" "10.10.1.127" 6495
+INFO PROCESS 5 "cn127" "10.10.1.127" 6496
+INFO PROCESS 6 "cn127" "10.10.1.127" 6497
+INFO PROCESS 7 "cn127" "10.10.1.127" 6498
+INFO PROCESS 8 "cn114" "10.10.1.114" 4894
+INFO PROCESS 9 "cn114" "10.10.1.114" 4895
+INFO PROCESS 10 "cn114" "10.10.1.114" 4896
+INFO PROCESS 11 "cn114" "10.10.1.114" 4897
+INFO PROCESS 12 "cn114" "10.10.1.114" 4898
+INFO PROCESS 13 "cn114" "10.10.1.114" 4899
+INFO PROCESS 14 "cn114" "10.10.1.114" 4900
+INFO PROCESS 15 "cn114" "10.10.1.114" 4901
+# STF-ACT-TIMELINE was not set explicitly.
+STF-ACT-TIMELINE 640
+# SYMBOL-HASHSIZE was not set explicitly.
+SYMBOL-HASHSIZE 1031
+# ACTIVITY-HASHSIZE was not set explicitly.
+ACTIVITY-HASHSIZE 13
+# CLASS-HASHSIZE was not set explicitly.
+CLASS-HASHSIZE 13
+# SCL-HASHSIZE was not set explicitly.
+SCL-HASHSIZE 509
+# FILEHANDLE-HASHSIZE was not set explicitly.
+FILEHANDLE-HASHSIZE 13
+# COUNTER-HASHSIZE was not set explicitly.
+COUNTER-HASHSIZE 13
+# GROUP-HASHSIZE was not set explicitly.
+GROUP-HASHSIZE 13
+# HASHBUFFER-SIZE was not set explicitly.
+HASHBUFFER-SIZE 1024
+# MATCH-HASHSIZE was not set explicitly.
+MATCH-HASHSIZE 251
+# FUNCTRACE-HASHSIZE was not set explicitly.
+FUNCTRACE-HASHSIZE 509
+INFO BINMODE ""
+INFO TIMING "4":4.382000e-03
+INFO TIMING "0":7.598000e-03
+INFO TIMING "1":4.455000e-03
+INFO TIMING "2":4.189000e-03
+INFO TIMING "3":4.068000e-03
+INFO TIMING "7":4.005000e-03
+INFO TIMING "5":4.250000e-03
+INFO TIMING "6":4.129000e-03
+INFO TIMING "8":4.233000e-03
+INFO TIMING "12":4.049000e-03
+INFO TIMING "9":3.987000e-03
+INFO TIMING "10":4.110000e-03
+INFO TIMING "13":3.859000e-03
+INFO TIMING "11":4.796000e-03
+INFO TIMING "15":3.924000e-03
+INFO TIMING "14":4.171000e-03
+# TIMING <process ()>:<runtime (seconds)>

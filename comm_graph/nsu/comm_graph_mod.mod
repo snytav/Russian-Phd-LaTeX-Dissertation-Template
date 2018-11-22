@@ -1,0 +1,59 @@
+GFORTRAN module version '10' created from comm_graph.f
+MD5:7c2f49929078165a3636ace0d6a6586e -- If you edit this, you'll get what you deserve.
+
+(() () () () () () () () () () () () () () () () () () () () () () () ()
+() () ())
+
+()
+
+()
+
+()
+
+()
+
+()
+
+(2 'comm_graph_mod' 'comm_graph_mod' '' 1 ((MODULE UNKNOWN-INTENT
+UNKNOWN-PROC UNKNOWN UNKNOWN 0 0) (UNKNOWN 0 0 0 0 UNKNOWN ()) 0 0 () ()
+0 () () () 0 0)
+3 'send_msg_all_to_all' 'comm_graph_mod' '' 1 ((PROCEDURE UNKNOWN-INTENT
+MODULE-PROC DECL UNKNOWN 0 0 SUBROUTINE IMPLICIT_PURE) (UNKNOWN 0 0 0 0
+UNKNOWN ()) 0 0 () () 0 () () () 0 0)
+4 'send_msg_one_to_all' 'comm_graph_mod' '' 1 ((PROCEDURE UNKNOWN-INTENT
+MODULE-PROC DECL UNKNOWN 0 0 SUBROUTINE) (UNKNOWN 0 0 0 0 UNKNOWN ()) 5
+0 (6 7 8 9 10 11 12 13 14) () 0 () () () 0 0)
+6 'snd' '' '' 5 ((VARIABLE IN UNKNOWN-PROC UNKNOWN UNKNOWN 0 0 DUMMY) (
+INTEGER 4 0 0 0 INTEGER ()) 0 0 () () 0 () () () 0 0)
+7 'rank' '' '' 5 ((VARIABLE IN UNKNOWN-PROC UNKNOWN UNKNOWN 0 0 DUMMY) (
+INTEGER 4 0 0 0 INTEGER ()) 0 0 () () 0 () () () 0 0)
+8 'nproc' '' '' 5 ((VARIABLE IN UNKNOWN-PROC UNKNOWN UNKNOWN 0 0 DUMMY)
+(INTEGER 4 0 0 0 INTEGER ()) 0 0 () () 0 () () () 0 0)
+9 'comm' '' '' 5 ((VARIABLE IN UNKNOWN-PROC UNKNOWN UNKNOWN 0 0 DUMMY) (
+INTEGER 4 0 0 0 INTEGER ()) 0 0 () () 0 () () () 0 0)
+10 'size' '' '' 5 ((VARIABLE IN UNKNOWN-PROC UNKNOWN UNKNOWN 0 0 DUMMY)
+(INTEGER 4 0 0 0 INTEGER ()) 0 0 () () 0 () () () 0 0)
+11 'stm' '' '' 5 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN UNKNOWN
+0 0 DIMENSION DUMMY) (REAL 8 0 0 0 REAL ()) 0 0 () (1 0 EXPLICIT (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '0') (OP (INTEGER 4 0 0 0
+INTEGER ()) 0 MINUS (VARIABLE (INTEGER 4 0 0 0 INTEGER ()) 0 8 ()) (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '1'))) 0 () () () 0 0)
+12 'stw' '' '' 5 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN UNKNOWN
+0 0 DIMENSION DUMMY) (REAL 8 0 0 0 REAL ()) 0 0 () (1 0 EXPLICIT (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '0') (OP (INTEGER 4 0 0 0
+INTEGER ()) 0 MINUS (VARIABLE (INTEGER 4 0 0 0 INTEGER ()) 0 8 ()) (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '1'))) 0 () () () 0 0)
+13 'rtm' '' '' 5 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN UNKNOWN
+0 0 DIMENSION DUMMY) (REAL 8 0 0 0 REAL ()) 0 0 () (1 0 EXPLICIT (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '0') (OP (INTEGER 4 0 0 0
+INTEGER ()) 0 MINUS (VARIABLE (INTEGER 4 0 0 0 INTEGER ()) 0 8 ()) (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '1'))) 0 () () () 0 0)
+14 'rtw' '' '' 5 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN UNKNOWN
+0 0 DIMENSION DUMMY) (REAL 8 0 0 0 REAL ()) 0 0 () (1 0 EXPLICIT (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '0') (OP (INTEGER 4 0 0 0
+INTEGER ()) 0 MINUS (VARIABLE (INTEGER 4 0 0 0 INTEGER ()) 0 8 ()) (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '1'))) 0 () () () 0 0)
+)
+
+('comm_graph_mod' 0 2 'send_msg_all_to_all' 0 3 'send_msg_one_to_all' 0
+4)
