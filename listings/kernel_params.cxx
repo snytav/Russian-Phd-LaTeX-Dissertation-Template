@@ -1,36 +1,63 @@
 typedef struct {
-	double d_ee; //electric energy
-	double *d_Ex,*d_Ey,*d_Ez; // electric field
-	double *d_Hx,*d_Hy,*d_Hz; // magnetic field
-	double *d_Jx,*d_Jy,*d_Jz; // currents
+        //энергия электрического поля  
+	double d_ee; 
+        // электрическое поле
+	double *d_Ex,*d_Ey,*d_Ez; 
+        // магнитное поле
+	double *d_Hx,*d_Hy,*d_Hz; 
+        // токи
+	double *d_Jx,*d_Jy,*d_Jz; 
+        // плотность заряда
 	double *d_Rho;
-	int nt;                                 // timestep
-	int *d_stage;                           // checking system (e.g. for flow-out particles)
-	int *numbers;                            // number of particles in each cell
+        //номер временного шага
+	int nt;                
+        //вспомогательные данные для отладки 
+	int *d_stage;                           
+        //номера частиц в ячейке
+	int *numbers;           
+        //масса частицы и отношение заряда к массе
 	double mass,q_mass;
+        //вспомогательные данные для отладки 
 	double *d_ctrlParticles;
+        //общее количество частиц
 	int jmp;
-	//	                                        for periodical FIELDS
-	int i_s,k_s;                        //
-	double *E;                              //the field
-	int dir;                                // the direction being processed
-	int to,from;                            // the range along the direction
 	
-	//	                                        for periodical CURRENTS
-	int dirE;                           // directions
-	int N;                           // variables
+	//для расчета периодических граничных условий для полей
+	int i_s,k_s;                        
+        //собственно поле
+	double *E;                              
+        //координата
+	int dir;                                
+        //интервал узлов сетки вдоль данной координаты
+	int to,from;                            
 	
-	//                                          electric field solver
-	int l_s;                        // variables
-	double *H1,*H2;                          // magnetic fields (orthogonal)
-	double *J;                              // current
-	double c1,c2,tau;                       //grid steps squared
-	int dx1,dy1,dz1,dx2,dy2,dz2;            //shifts
+	////для расчета периодических граничных условий для полей
+        //координата
+	int dirE;                           
+        //верхняя граница интервала узлов сетки вдоль данной координаты
+	int N;                           
 	
-	//	                                        magnetic field solver
-	double *Q;                              // magnetic field at half-step
-	double *H;                              // magnetic field
-	double *E1,*E2;                         // electric fields (orthogonal)
+	//для расчета электрического поля
+        //координата
+	int l_s;                        
+        //две ортогональных компоненты магнитного поля 
+	double *H1,*H2;                          
+        //соответствующая координате компонента тока
+	double *J;                              
+	//квадраты шагов сетки и временной шаг 
+	double c1,c2,tau;                       
+        //смещения по координатам относительно центрального узла (сеточный шаблон)
+	int dx1,dy1,dz1,dx2,dy2,dz2;            
+	
+	//для расчета магнитного поля	
+        //магнитное поле на полуцелом временном шаге
+	double *Q;                              
+        //ипгнитное поле
+	double *H;                              
+	//две ортогональных компоненты электрического поля
+	double *E1,*E2;                         
+        //количество частиц, обрабатываемых отдельной нитью (CUDA thread или POSIX thread)
 	int particles_processed_by_a_single_thread;
-	unsigned int blockDim_x,blockDim_y,blockDim_z; // block for field solver
+        //размерность блока нитей (организация параллельной обработки массива частиц)
+	unsigned int blockDim_x,blockDim_y,blockDim_z; 
 	} KernelParams;

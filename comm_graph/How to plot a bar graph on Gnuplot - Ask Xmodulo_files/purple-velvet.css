@@ -1,0 +1,461 @@
+/* 
+This file is part of HeatMap Theme AdAptive
+See license.txt (distributed with this file) for details of
+license, contributors, copyright notices, credits and trademarks.
+*/
+
+
+/* BACKGROUND
+-------------------------- */
+body {
+	background: #3D3E67;					/* Page Background */		
+}
+
+
+/* MAIN TEXT COLOUR
+-------------------------- */
+
+body,
+button,
+input,
+select,
+textarea {
+	color: #444444;							/* Default text for whole theme */
+}
+
+
+/* GLOBAL LINKS
+-------------------------- */
+
+a {
+	color: #5658A9;							/* Default link */
+}
+
+a:visited {
+	color: #5658A9;							/* Visited links */
+}
+
+a:hover,
+a:focus,
+a:active {
+	color: #6D00D9;							/* Hover, focus and active */
+}
+
+h1.entry-title,
+h1.entry-title a,
+h1.entry-title a:visited,
+h1.entry-title a:link,
+h2.entry-title a,
+h2.entry-title a:visited,
+h2.entry-title a:link,
+.heatmapthemead-post-details a:link,
+.heatmapthemead-post-details a:visited {
+	color: #444444;							/* Link and visited */
+}
+
+h1.entry-title a:hover,
+h1.entry-title a:focus,
+h1.entry-title a:active,
+h2.entry-title a:hover,
+h2.entry-title a:focus,
+h2.entry-title a:active,
+.heatmapthemead-post-details a:hover,
+.heatmapthemead-post-details a:focus,
+.heatmapthemead-post-details a:active {
+	color: #6D00D9;							/* Hover, focus and active */
+}
+
+/* HEADER
+-------------------------- */
+
+#heatmapthemead-header-branding {
+	background: #4A365B; 					/* Header background */						
+	border-bottom: 1px solid #D9D3E4;		/* Header bottom border */
+}
+
+#heatmapthemead-header-text h1 a,
+#heatmapthemead-header-text p#site-title a {
+	color: #FFFFFF;							/* Site title text */
+	text-shadow: 0 1px 1px #000000;			/* Light shadow */
+}
+
+#heatmapthemead-header-text h2,
+#heatmapthemead-header-text p#site-description {
+	color: #FFFFFF;							/* Site description text */
+	text-shadow: 0 1px 1px #000000;			/* Light shadow */
+}
+
+
+
+/* LEADERBOARD
+-------------------------- */
+
+#heatmapthemead-leaderboard {
+	background-color:#FFFFFF;				/* Leaderboard content background */
+}
+
+
+/* PRIMARY MENU
+-------------------------- */
+
+#heatmapthemead-primary-menu   {
+	background: #26103A;					/* Primary menu top level background */ 																					
+	border-bottom: solid 1px #333333;		/* Primary menu top level border */
+}
+
+#heatmapthemead-primary-menu .main-navigation a {
+	color: #FFFFFF;							/* Primary menu top level text */
+}
+
+#heatmapthemead-primary-menu .main-navigation ul ul {
+	-moz-box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+	box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+}
+
+#heatmapthemead-primary-menu .main-navigation ul ul a {
+	background: #665476;					/* Primary drop down menu background */
+	border-bottom: 1px solid #DDDDDD;		/* Primary drop down menu border */
+	color: #FFFFFF;							/* Primary drop down menu text */
+}
+
+#heatmapthemead-primary-menu .main-navigation li:hover > a,		
+#heatmapthemead-primary-menu .main-navigation ul ul :hover > a,
+#heatmapthemead-primary-menu .main-navigation a:focus {
+	background: #4B3E57;					/* Primary drop down hover background */
+	color: #FFFFFF;							/* Primary drop down hover text */
+}
+
+/* SMALL PRIMARY MENU
+-------------------------- */
+
+#heatmapthemead-primary-menu .main-small-navigation p {
+	color: #FFFFFF;							/* Primary small top level text */
+	background-color:#26103A;
+}
+
+#heatmapthemead-primary-menu .main-small-navigation ul a {
+	background: #FFFFFF;					/* Primary small dropdown background */
+	border-bottom: 1px solid #DDDDDD;		/* Primary small dropdown border */
+	color: #444444;
+}
+
+#heatmapthemead-primary-menu .main-small-navigation ul a:hover {
+	background: #4B3E57; 					/* Primary small drop down hover background */
+	color: #FFFFFF;	
+}
+
+
+/* SECONDARY MENU 
+-------------------------- */
+
+#heatmapthemead-secondary-menu {
+	background: #FFFFFF; 					/* Secondary top level background */										
+	border-bottom: solid 1px #D9D3E4;		/* Secondary top level border */
+}
+
+#heatmapthemead-secondary-menu .secondary-navigation a {
+	color: #445263;							/* Secondary top level text */
+	text-shadow: 0 1px 1px #FFFFFF;			/* Secondary top level light text shadow */					
+}
+
+#heatmapthemead-secondary-menu .secondary-navigation ul ul {
+	-moz-box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+	box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+}
+
+#heatmapthemead-secondary-menu .secondary-navigation ul ul a {
+	background: #F8F3FC;					/* Secondary dropdown background */
+	border-bottom: 1px solid #DDDDDD;		/* Secondary dropdown border */
+	color: #444444;							/* Secondary dropdown text */
+}
+
+#heatmapthemead-secondary-menu .secondary-navigation li:hover > a,
+#heatmapthemead-secondary-menu .secondary-navigation ul ul :hover > a,
+#heatmapthemead-secondary-menu .secondary-navigation a:focus {
+	background: #EDE0F8;					/* Secondary dropdown hover background */
+	color: #373737; 						/* Secondary dropdown hover text */
+}
+
+/* SMALL SECONDARY MENU 
+-------------------------- */
+
+#heatmapthemead-secondary-menu .secondary-small-navigation p {
+	color: #333333;							/* Secondary small top level text */ 
+}
+
+#heatmapthemead-secondary-menu .secondary-small-navigation ul a {
+	background: #F8F3FC;						/* Secondary small dropdown background */
+	border-bottom: 1px solid #DDDDDD;		/* Secondary small dropdown border */
+	color: #444444;							/* Secondary small dropdown text */
+}
+
+#heatmapthemead-secondary-menu .secondary-small-navigation ul a:hover {
+	background: #EDE0F8; 					/* Secondary small dropdown hover background */
+}
+
+
+
+/* FOOTER MENU 
+-------------------------- */
+
+#heatmapthemead-footer-menu .footer-navigation {
+	color: #FFFFFF;							/* Footer text */
+	background: #4A365B; 					/* Footer background */
+	border-top: solid 1px #D9D3E4;			/* Footer border */	
+}
+
+#heatmapthemead-footer-menu .footer-navigation a {
+	color: #FFFFFF;							/* Footer link text */
+}
+
+#heatmapthemead-footer-menu .footer-navigation li:hover > a {
+	color: #DDDDDD;							/* Footer hover text */
+}
+
+
+/* CREDITS
+-------------------------- */
+
+#heatmapthemead-credits {
+	background: #FFFFFF; 					/* Credits background */
+	color: #444444;							/* Credits text */
+	text-shadow: 0 1px 1px #FFFFFF;			/* Light shadow */
+}
+
+#heatmapthemead-credits p a {
+	color: #444444;							/* Credits text link */
+}
+
+
+/* MAIN
+-------------------------- */
+
+#heatmapthemead-main {						
+	background-color:#FFFFFF;				/* Main content background */
+}
+
+/* FEATURED PAGE
+-------------------------- */
+
+#heatmapthemead-featured-page {
+	background-color: #ECE6F2;
+}
+
+#heatmapthemead-featured-page h1 {
+	color: #444444;
+}
+
+/* STICKY
+-------------------------- */
+
+.sticky {
+	background-color: #ECE6F2;
+}
+
+/* PAGE HEADER
+-------------------------- */
+
+.page-header { 
+	background-color: #ECE6F2;
+}
+
+
+
+/* PAGE / POST
+-------------------------- */
+
+.heatmapthemead-article { 
+	border-bottom: 1px solid #DDDDDD;		/* Page post border */
+}
+
+
+/* MORE LINKS / EDIT LINKS
+-------------------------- */
+
+a.more-link,
+.heatmapthemead-edit-link a {				
+	color: #FFFFFF; 						/* Read more text link */
+	background: #4A365B;					/* Read more text link background */
+}
+
+a.more-link:hover,
+.heatmapthemead-edit-link a:hover {
+	background: #5658A9;					/* Read more link hover background */
+}
+
+a.more-link:active,
+.heatmapthemead-edit-link a:active {
+	background: #B973FF;					/* Read more link active background */
+}
+
+
+/* INTRA POST NAV 
+-------------------------- */
+
+.page-links a {
+	color: #FFFFFF;							/* Page link text */
+	background: #4A365B;					/* Page links background */
+
+}
+
+.page-links a:hover {					
+	color: #FFFFFF;							/* Page links hover text */
+	background: #5658A9;					/* Page links hover background */
+}
+
+.page-links a:active {						
+	background: #B973FF;					/* Page links active background */
+}
+
+
+/* BLOG POSTS NAVIGATION
+-------------------------- */
+
+.nav-previous a,							
+.nav-next a {
+	color: #FFFFFF; 						/* Next previous text */
+	background: #4A365B;					/* Next previous background */
+}
+
+
+.nav-next a:hover,
+.nav-previous a:hover {
+	background: #5658A9;					/* Next previous text hover background */
+}
+
+.nav-next a:active,
+.nav-previous a:active {
+	background: #B973FF;					/* Next previous text active background */
+}
+
+
+/* SEARCH
+-------------------------- */
+
+input#s {
+	background: url(../images/search.png) no-repeat 5px 6px #FFFFFF;	/* Search icon */
+}
+
+
+/* GALLERY 
+-------------------------- */
+
+.gallery img {
+	box-shadow: 1px 1px 2px #DDDDDD;		/* Gallery dark shadow */
+	border: 1px solid #DDDDDD;				/* Gallery border */
+	background: #FFFFFF;					/* Gallery background */
+}
+
+.gallery .gallery-caption {
+	color: #888888;							/* Gallery caption */
+}
+
+/* COMMENTS
+-------------------------- */
+
+h2#comments-title {
+	border-top: 1px solid #DDDDDD;			/* Comments title border */
+}
+
+.heatmapthemead-comment-article, .heatmapthemead-comment-pingback {
+	border-bottom: solid 1px #DDDDDD;		/* Comment border */
+}
+
+.heatmapthemead-comment-article img { 		/* Comment image border */
+	border: 1px solid #DDDDDD;
+}
+
+a.comment-reply-link, a#cancel-comment-reply-link  {
+	border: 1px solid #D9D3E4;				/* Reply link border */
+	background: #F8F3FC;					/* Reply background */
+}
+
+a.comment-reply-link:hover, a#cancel-comment-reply-link:hover,
+a.comment-reply-link:active, a#cancel-comment-reply-link:active {
+	background: #EDE0F8;					/* Reply hover active background */
+	border-color: #BBBBBB; 					/* Reply hover active border*/
+}
+
+a.comment-reply-link:focus,  a#cancel-comment-reply-link:active:focus {
+	border-color: #AAAAAA;					/* Reply link focus */
+}
+
+a.comment-reply-link {
+	color: #444444;							/* Reply text link */
+}
+
+a#cancel-comment-reply-link { 
+	color: #444444;							/* Cancel comment reply link */		
+}
+
+#respond .form-allowed-tags {
+	color: #888888;							/* Reply allowed tags */	
+}
+
+
+/* BUTTONS
+-------------------------- */
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	border: 1px solid #D9D3E4;				/* Button border */
+	background: #F8F3FC; 					/* Button background */
+}
+
+button:hover,
+html input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover {
+	background: #EDE0F8;					/* Button hover background */
+	border-color: #BBBBBB;					/* Button border hover */
+}
+
+button:focus,
+html input[type="button"]:focus,
+input[type="reset"]:focus,
+input[type="submit"]:focus,
+button:active,
+html input[type="button"]:active,
+input[type="reset"]:active,
+input[type="submit"]:active {
+	border-color: #AAAAAA;					/* Button active border */
+}
+
+
+/* TEXT AREAS
+-------------------------- */
+
+input[type=text],
+textarea {
+	color: #666666;							/* Text area text */
+	border: 1px solid #D9D3E4;				/* Text area border */
+}
+
+input[type=text]:focus,
+textarea:focus {
+	color: #111111;							/* Text area focus */									
+}
+
+
+/* MISC
+-------------------------- */
+
+hr {
+	background-color: #D9D3E4;				/* HR colour */
+}
+
+pre {
+	background: #EEEEEE;					/* Preformatted text background */
+}
+
+abbr, acronym {
+	border-bottom: 1px solid #DDDDDD;		/* Abbreviation and acronym underlinine */
+}
+
+mark, ins {
+	background: #FFFFFF;					/* Inserted text background */
+}
