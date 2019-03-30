@@ -41,7 +41,7 @@
 \end{table}
 \end{center}
 
-
+\clearpage
 
 
 
@@ -97,7 +97,8 @@ LU-разложение          &  2.38   \\ \hline
 \end{table} 	
 
 
-
+\subsubsection{Процессор Intel Xeon  5150}
+\label{app_5150}
 
 
 \begin{table}[ht]
@@ -143,6 +144,7 @@ LU-разложение          &  2.38   \\ \hline
 	\end{center} 	
 \end{table} 	
 
+\clearpage
 
 \subsubsection{Процессор Intel Xeon E5472}
 \begin{table}[ht]
@@ -190,7 +192,7 @@ LU-разложение          &  2.38   \\ \hline
 	\end{center} 	
 \end{table} 	
 
-
+\clearpage
 
 \subsubsection{Процессор Intel Xeon 5355}
 
@@ -239,7 +241,7 @@ LU-разложение          &  2.38   \\ \hline
 	\end{center} 	
 \end{table} 	
 
-
+\clearpage
 \subsubsection{Intel Xeon 5570}
 
 \begin{table}[ht]
@@ -287,6 +289,7 @@ LU-разложение          &  2.38   \\ \hline
 	\end{center} 	
 \end{table} 	
 
+\clearpage
 
 \subsection{Современные процессоры семейства Intel Xeon}
 Раздел в основном сформирован на базе открытых интернет-источников, в частности, Wikipedia 
@@ -318,7 +321,9 @@ LU-разложение          &  2.38   \\ \hline
 			Теоретическая пиковая &  700   \\ \hline
 		\end{tabular}
 	\end{center} 	
-\end{table} 	
+\end{table} 
+
+\clearpage	
 
 \subsubsection{Intel XeonE5-2697Av4}
 
@@ -340,19 +345,21 @@ LU-разложение          &  2.38   \\ \hline
 
 
 
-
+\clearpage
 \section{Процессор Phenom II X6 1055T}
 \label{app_phenom}
 \begin{table}[ht]
 	\begin{center}
-		\caption{Основные характеристики процессора Intel Xeon  5570}
+		\caption{Основные характеристики процессора Phenom II X6 1055T}
+Раздел в основном сформирован на базе открытых интернет-источников\footnote{http://browser.geekbench.com/geekbench2/318251}.		
+		
 		\begin{tabular}{|c|c|}
 			\hline	
 			Тактовая частота & 2.80GHz   \\ \hline
 			Количество ядер & 6 	     \\ \hline
-			кэш команд, L1 &  64 KB      \\ \hline
-			кэш данных, L1 &  64 KB       \\ \hline
-			кэш L2         &  512 KB      \\ \hline
+			кэш, L1 &  6\times 128      \\ \hline
+			кэш, L2 &  512\times 6 KB       \\ \hline
+			кэш, L3         &  6144 KB      \\ \hline
 			кэш L3         &  6144 KB        \\ \hline
 		\end{tabular}
 	\end{center} 	
@@ -360,36 +367,20 @@ LU-разложение          &  2.38   \\ \hline
 
 \begin{table}[ht]
 	\begin{center}
-		\caption{Производительность процессора Intel Xeon  5570 на операциях с плавающей точкой}
+		\caption{Производительность процессора Phenom II X6 1055T}
 		\begin{tabular}{|c|c|}
 			\hline	
 			Вычислительный алгоритм &  Производительность, GFLOPS \\ 
 			& в режиме многоядерных скалярных вычислений \\ \hline
-			Алгоритм Мандельброта  &  12.9 	\\ \hline
-			Скалярное произведение &  18.1   \\ \hline
-			LU-разложение          &  12.2  \\ \hline
-			Проверка простоты      &  14.5  \\ \hline 
-			
+			Алгоритм Мандельброта  &  9.31 	\\ \hline
+			Скалярное произведение &  8.29   \\ \hline
+			LU-разложение          &  10.8  \\ \hline
+			Проверка простоты      &  2.7  \\ \hline 
+						
 			
 		\end{tabular}
 	\end{center} 	
 \end{table} 	
-
-\begin{table}[ht]
-	\begin{center}
-		\caption{Производительность памяти процессора Intel Xeon 5570}
-		\begin{tabular}{|c|c|}
-			\hline	
-			Операция  &  Производительность, GB/sec \\ \hline
-			Последовательное чтение &  3.4 	\\  \hline
-			Последовательная запись &  3.8   \\  \hline
-			Выделение памяти средствами stdlib &  -  \\  \hline
-			Запись средствами stdlib  & 2.8  \\ \hline
-			Чтение средствами stdlib  & 3.3  \\ \hline 
-		\end{tabular}
-	\end{center} 	
-\end{table} 	
-
 
 \clearpage
 \section{Графические ускорители (GPU)}
