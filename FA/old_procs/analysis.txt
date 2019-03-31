@@ -1,0 +1,44 @@
+> summary(op.pca)
+Importance of components:
+                             Comp.1       Comp.2       Comp.3       Comp.4
+Standard deviation     3357.4086131 9.271195e-01 2.553307e-01 4.553578e-05
+Proportion of Variance    0.9999999 7.625407e-08 5.783592e-09 1.839489e-16
+Cumulative Proportion     0.9999999 1.000000e+00 1.000000e+00 1.000000e+00
+> plot(op.pca)
+> op.fa <- - factanal(op,factors=1,rotation='varimax')
+Error in solve.default(cv) : 
+  system is computationally singular: reciprocal condition number = 4.73569e-17
+> op.pca
+Call:
+princomp(x = op)
+
+Standard deviations:
+      Comp.1       Comp.2       Comp.3       Comp.4 
+3.357409e+03 9.271195e-01 2.553307e-01 4.553578e-05 
+
+ 4  variables and  4 observations.
+> op.fa <- factanal(op,factors=1,rotation='varimax')
+Error in solve.default(cv) : 
+  system is computationally singular: reciprocal condition number = 4.73569e-17
+> щзюзсф
+Error: object 'щзюзсф' not found
+> op.pca
+Call:
+princomp(x = op)
+
+Standard deviations:
+      Comp.1       Comp.2       Comp.3       Comp.4 
+3.357409e+03 9.271195e-01 2.553307e-01 4.553578e-05 
+
+ 4  variables and  4 observations.
+> op.pca
+Call:
+princomp(x = op)
+
+Standard deviations:
+      Comp.1       Comp.2       Comp.3       Comp.4 
+3.357409e+03 9.271195e-01 2.553307e-01 4.553578e-05 
+
+ 4  variables and  4 observations.
+> 
+
