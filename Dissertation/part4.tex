@@ -38,7 +38,7 @@
 			\end{equation}
 			при выполнении вычислений одновременно на однотипных процессорах
 			можно считать, что $T^1(1) = T^N_{P}(N)$, таким образом формула
-			\ref{weak_eff_detailed} приводится к виду:
+			(\ref{weak_eff_detailed}) приводится к виду:
 			\begin{equation}
 			\label{weak_eff_detailed-time}
 			\eta^{weak}_N = \frac{1}{1+ \frac{T^N_{C}(N)}{T^1(1)}}.
@@ -152,7 +152,7 @@
 	\begin{center}
 		\includegraphics[height=7cm,keepaspectratio]{images/scaleNSU_exp_fit.png}
 		\caption{
-			Производительность коммуникационной сети для коллективных пересылок (величина $W_A$, формула \ref{Net_performance_collective}). 
+			Производительность коммуникационной сети для коллективных пересылок (величина $W_A$, формула (\ref{Net_performance_collective}) ). 
 		}
 		\label{scale_W_A_exp}
 	\end{center} 
@@ -160,7 +160,7 @@
 
 Далее вычислим эту же величину для двух наиболее характерных примеров зависимости эффективности в слабом смысле от числа процессорных ядер, представленных в диссертационной работе: для МВС-100К - сравнительно небольшая эффективность для большой разнородной ВС и для раздела ВВС <<Ломоносов>>, оснащенного GPU - очень высокая эффективность для однородной и компактной ВС. 
 
-Напомним формулу для производительности коммуникационной сети ($W_A$, формула \ref{Net_performance_collective}):
+Напомним формулу для производительности коммуникационной сети ($W_A$, формула (\ref{Net_performance_collective})):
 $$
 W_A = \frac{1}{P_{SUB}}\frac{N_X\times N_Y \times N_Z \times 24}{T_A}
 $$
@@ -191,7 +191,7 @@ $$
 	\begin{center}
 		\includegraphics[height=7cm,keepaspectratio]{images/W_A_Lomonosov_on_weak_eff.png}
 		\caption{
-			Пропускная способность коммуникационной сети для коллективных пересылок (величина $W_S$, формула \ref{Net_performance_peer}). Расчет на сетке $102 \times 6 \times 6$ узла на <<Ломоносов>>, раздел с GPU. 
+			Пропускная способность коммуникационной сети для коллективных пересылок (величина $W_S$, формула (\ref{Net_performance_peer}) ). Расчет на сетке $102 \times 6 \times 6$ узла на <<Ломоносов>>, раздел с GPU. 
 		}
 		\label{scale_W_A_Lomonosov_GPU_exp_fit}
 	\end{center} 
@@ -203,14 +203,14 @@ $$
 	\begin{center}
 		\includegraphics[height=7cm,keepaspectratio]{images/W_A_Lomonosov_Gauss.png}
 		\caption{
-				Производительность коммуникационной сети для коллективных пересылок (величина $W_A$, формула \ref{Net_performance_collective}). Расчет на сетке $100 \times 6 \times 6$ узла на <<Ломоносов>>, раздел с GPU. 
+				Производительность коммуникационной сети для коллективных пересылок (величина $W_A$, формула (\ref{Net_performance_collective}) ). Расчет на сетке $100 \times 6 \times 6$ узла на <<Ломоносов>>, раздел с GPU. 
 		}
 		\label{scale_W_A_Lomonosov}
 	\end{center} 
 \end{figure}
 
 
-Далее рассмотрим аналогичные показатели для расчетов на МВС-100К, с той разницей, что в них использовалась эйлерова декомпозиция, поэтому вычисляется не $W_A$, а $W_S$ (формула \ref{Net_performance_peer})
+Далее рассмотрим аналогичные показатели для расчетов на МВС-100К, с той разницей, что в них использовалась эйлерова декомпозиция, поэтому вычисляется не $W_A$, а $W_S$ (формула (\ref{Net_performance_peer}) )
 $$
 W_S = \nu \frac{U_P\times  N_P \times P_{core}}{T_{S,PIC}}
 $$
