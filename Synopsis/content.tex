@@ -304,9 +304,11 @@ N_{PIC,FLOPS} = \frac{F_P\times N_P \times P_{core}}{\Delta t}
 	\label{PIC_vs_PROC_RAM}
 	\begin{tabular}{|c|c|c|c|c|c|}
 		\hline
-		&            &            &             &       \multicolumn{2}{|c|}{Производительность, GFLOPS} \\ \cline{5-6}  	
-		Название ВС  & Процессор  &  $\Delta t$ &$P_{core}$ & Данные теста  &  \\
-		&            &             &           & PIC-MANAS     & LU-разложение \\ \hline
+		&            &            &             &       \multicolumn{2}{|c|}{Производительность,} \\   	
+		&            &            &             &       \multicolumn{2}{|c|}{GFLOPS} \\ \cline{5-6}  	
+		Название ВС  & Процессор  &  $\Delta t$ &$P_{core}$ &   &  \\
+		&            &             &           & Данные теста     & LU- \\ 
+		&            &             &           & PIC-MANAS   & -разложение \\ \hline
 		СКИФ-Cyberia & Xeon 5150  &  1.882      & 2     &  1.33          & 4.65    \\ \hline
 		МВС-100К     & Xeon E5450 &  0.878      & 4     & 5.69           & 4.6     \\ \hline 
 		СКИФ-МГУ     & Xeon E5472 &  0.423      & 4     & 11.83          & 2.37       \\ \hline     
